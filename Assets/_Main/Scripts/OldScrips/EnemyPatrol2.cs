@@ -49,7 +49,7 @@ public class EnemyPatrol2 : MonoBehaviour
     private bool canMove;
     private bool facingRight;
     private float moveTimer = 0f;
-    private GameManager gameManager;
+    private GameManager1 gameManager;
 
     void Start()
     {
@@ -180,7 +180,7 @@ public class EnemyPatrol2 : MonoBehaviour
         Collider2D collider = Physics2D.OverlapCircle((Vector2)attackPoint.position, attackRadius, playerDetectionList);
         if (collider != null)
         {
-            LifeController life = collider.gameObject.GetComponent<LifeController>();
+            LifeController1 life = collider.gameObject.GetComponent<LifeController1>();
             if (life != null)
             {
                 life.TakeDamage(damage);
@@ -212,7 +212,7 @@ public class EnemyPatrol2 : MonoBehaviour
         Destroy(barrierLeft);
         Destroy(barrierRight);
     }
-    public void SetGameManager(GameManager _gameManager)
+    public void SetGameManager(GameManager1 _gameManager)
     {
         gameManager = _gameManager;
     }

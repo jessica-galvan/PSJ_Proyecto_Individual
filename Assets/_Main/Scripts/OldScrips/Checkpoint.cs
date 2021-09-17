@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager = null;
+    [SerializeField] private GameManager1 gameManager = null;
     [SerializeField] private Sprite[] flowerImages = new Sprite[2];
     [SerializeField] private AudioSource checkSound;
     private SpriteRenderer currentSprite = null;

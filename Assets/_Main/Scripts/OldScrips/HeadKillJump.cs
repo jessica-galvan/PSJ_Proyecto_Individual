@@ -5,11 +5,11 @@ using UnityEngine;
 public class HeadKillJump : MonoBehaviour
 {
     [SerializeField] private bool canBeKilled = true;
-    private LifeController life = null;
+    private LifeController1 life = null;
     
     void Start()
     {
-       life = transform.parent.GetComponent<LifeController>();
+       life = transform.parent.GetComponent<LifeController1>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

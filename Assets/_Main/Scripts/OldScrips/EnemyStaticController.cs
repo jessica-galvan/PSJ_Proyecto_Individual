@@ -13,7 +13,7 @@ public class EnemyStaticController : MonoBehaviour
     [Header("Prefabs Settings")]
     [SerializeField] private GameObject bullet = null;
     private EnemyController enemyController = null;
-    private GameManager gameManager = null;
+    private GameManager1 gameManager = null;
     private Animator animatorController = null;
     private GameObject player = null;
 
@@ -70,7 +70,7 @@ public class EnemyStaticController : MonoBehaviour
         player = _player;
     }
 
-    public void SetGameManager(GameManager _gameManager)
+    public void SetGameManager(GameManager1 _gameManager)
     {
         gameManager = _gameManager;
     }

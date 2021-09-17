@@ -18,7 +18,7 @@ public class EnemyPatrolController : MonoBehaviour
 
     [Header("Prefab Settings")]
     [SerializeField] private GameObject player;
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameManager1 gameManager;
     [SerializeField] private Transform groundDetectionPoint;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform detectionPoint;
@@ -128,7 +128,7 @@ public class EnemyPatrolController : MonoBehaviour
         Debug.Log(collider);
         if (collider != null)
         {
-            LifeController life = collider.gameObject.GetComponent<LifeController>();
+            LifeController1 life = collider.gameObject.GetComponent<LifeController1>();
             if (life != null)
             {
                 life.TakeDamage(damage);
@@ -163,7 +163,7 @@ public class EnemyPatrolController : MonoBehaviour
     {
         player = _player;
     }
-    public void SetGameManager(GameManager _gameManager)
+    public void SetGameManager(GameManager1 _gameManager)
     {
         gameManager = _gameManager;
     }

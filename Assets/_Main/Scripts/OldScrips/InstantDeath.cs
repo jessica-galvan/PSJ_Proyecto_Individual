@@ -5,17 +5,17 @@ using UnityEngine;
 public class InstantDeath : MonoBehaviour
 {
     [SerializeField] int damage = 1;
-    private GameManager gameManager;
+    private GameManager1 gameManager;
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager1>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerController1 player = collision.GetComponent<PlayerController1>();
-        LifeController life = collision.GetComponent<LifeController>();
+        LifeController1 life = collision.GetComponent<LifeController1>();
         if(life != null)
         {
             life.TakeDamage(damage);

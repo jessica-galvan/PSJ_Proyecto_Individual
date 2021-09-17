@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameManager1 gameManager;
     [SerializeField] private GameObject player;
 
     void Awake()
@@ -20,7 +20,7 @@ public class EnemyManager : MonoBehaviour
                 enemyController.SetPlayer(player);
                 enemyController.SetGameManager(gameManager);
 
-                LifeController life = transform.GetChild(i).gameObject.GetComponent<LifeController>();
+                LifeController1 life = transform.GetChild(i).gameObject.GetComponent<LifeController1>();
                 life.SetGameManager(gameManager);
 
 

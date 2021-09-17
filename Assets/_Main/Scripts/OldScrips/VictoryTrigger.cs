@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VictoryTrigger : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager = null;
+    [SerializeField] private GameManager1 gameManager = null;
     private bool canCheckpoint = true;
 
     private void OnTriggerEnter2D(Collider2D collision)

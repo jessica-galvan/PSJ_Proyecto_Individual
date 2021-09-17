@@ -6,7 +6,7 @@ public class CollectableItem : MonoBehaviour
 {
     [SerializeField] private GameObject plumaLuz;
     [SerializeField] private float destroyTime = 1f;
-    private GameManager gameManager;
+    private GameManager1 gameManager;
     private AudioSource sound;
     private bool canPickup;
     private bool canDestroy;
@@ -15,7 +15,7 @@ public class CollectableItem : MonoBehaviour
     void Start()
     {
         sound = GetComponent<AudioSource>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager1>();
         canPickup = true;
     }
 

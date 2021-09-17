@@ -36,7 +36,7 @@ public class EnemyFly : MonoBehaviour
     private bool facingRight;
     private float moveTimer = 0f;
 
-    private GameManager gameManager;
+    private GameManager1 gameManager;
 
     void Start()
     {
@@ -107,7 +107,7 @@ public class EnemyFly : MonoBehaviour
         Destroy(barrierLeft);
         Destroy(barrierRight);
     }
-    public void SetGameManager(GameManager _gameManager)
+    public void SetGameManager(GameManager1 _gameManager)
     {
         gameManager = _gameManager;
     }

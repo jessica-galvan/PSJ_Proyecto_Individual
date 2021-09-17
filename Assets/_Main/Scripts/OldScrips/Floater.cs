@@ -7,12 +7,12 @@ public class Floater : MonoBehaviour
     [SerializeField] private float amplitud = 0.1f;
     [SerializeField] private float speed = 1f;
     private Vector3 spawnPosition;
-    private GameManager gameManager = null;
+    private GameManager1 gameManager = null;
 
     void Start()
     {
         spawnPosition = transform.position;
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager1>();
     }
 
     void Update()
