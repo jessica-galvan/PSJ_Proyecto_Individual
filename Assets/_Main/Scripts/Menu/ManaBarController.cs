@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ManaBarController : MonoBehaviour
 {
-    [SerializeField] private PlayerController player;
+    [SerializeField] private PlayerController1 player;
     [SerializeField] private Image manaBar;
     void Start()
     {

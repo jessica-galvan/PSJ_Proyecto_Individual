@@ -7,7 +7,7 @@ public class BulletFlyEnemy : MonoBehaviour
     [SerializeField] private float speed = 0f;
     [SerializeField] private int damage = 1;
     private Rigidbody2D rb2;
-    private PlayerController player;
+    private PlayerController1 player;
     private Vector2 movement;
     private Vector2 direction;
     private Vector2 spawnPosition;
@@ -16,7 +16,7 @@ public class BulletFlyEnemy : MonoBehaviour
     {
         rb2 = GetComponent<Rigidbody2D>();
         spawnPosition = transform.position;
-        player = GameObject.FindObjectOfType<PlayerController>();
+        player = GameObject.FindObjectOfType<PlayerController1>();
         direction = player.transform.position - (Vector3)spawnPosition;
         direction.Normalize();
     }
@@ -38,7 +38,7 @@ public class BulletFlyEnemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void SetBullet(PlayerController _player)
+    public void SetBullet(PlayerController1 _player)
     {
         player = _player;
         movement = (player.transform.position - transform.position).normalized * speed;

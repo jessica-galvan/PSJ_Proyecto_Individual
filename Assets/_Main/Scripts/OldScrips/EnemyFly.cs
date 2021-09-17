@@ -56,7 +56,7 @@ public class EnemyFly : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.isFreeze)
+        if (!gameManager.IsGameFreeze)
         {
             if (enemy.canAttack) //Si el enemigo puede atacar es porque el player esta dentro de al trigger zone
             {
@@ -77,7 +77,7 @@ public class EnemyFly : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove && !gameManager.isFreeze)
+        if (canMove && !gameManager.IsGameFreeze)
         {
             rb2d.velocity = transform.right * speed;
         }

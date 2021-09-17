@@ -17,7 +17,7 @@ public class Floater : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.isFreeze)
+        if (!gameManager.IsGameFreeze)
         {
             Vector2 currentPosition;
             currentPosition.x = spawnPosition.x;

@@ -14,7 +14,7 @@ public class InstantDeath : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerController player = collision.GetComponent<PlayerController>();
+        PlayerController1 player = collision.GetComponent<PlayerController1>();
         LifeController life = collision.GetComponent<LifeController>();
         if(life != null)
         {

@@ -20,7 +20,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerController player = collision.GetComponent<PlayerController>();
+            PlayerController1 player = collision.GetComponent<PlayerController1>();
             if (player != null && canCheckpoint)
             {
                 checkSound.Play();

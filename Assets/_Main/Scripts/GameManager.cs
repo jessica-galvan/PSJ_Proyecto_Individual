@@ -6,13 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private PlayerController player = null;
+    [SerializeField] private PlayerController1 player = null;
     [SerializeField] private GameObject victoryScreen = null;
     [SerializeField] private GameObject gameOverScreen = null;
     [SerializeField] private float restartTimer = 2f;
     [SerializeField] private int lifesRespawn = 2;
-    [SerializeField] private int collectable; 
-    public bool isFreeze;
+    [SerializeField] private int collectable;
+
+    public static GameManager instance;
+
+    public bool IsGameFreeze { get; set; }
+    public PlayerController1 Player { get; private set; }
 
     //Extras
     private bool gameOver = false;
@@ -27,6 +31,19 @@ public class GameManager : MonoBehaviour
     public UnityEvent OnChangeCollectable = new UnityEvent();
     public UnityEvent OnPlayerRespawn = new UnityEvent();
 
+    public void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     void Start()
     {
         player.lifeController.OnDie.AddListener(OnPlayerDieListener);
@@ -36,7 +53,7 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(false);
         gameOverAnimator = gameOverScreen.GetComponent<Animator>();
         enemyCounter = enemyCounterLevel;
-        isFreeze = false;
+        IsGameFreeze = false;
         victory = false;
     }
 
@@ -47,10 +64,25 @@ public class GameManager : MonoBehaviour
             Victory();
         }
 
-        if(isFreeze && gameOver && restartCooldown < Time.time)
+        if(IsGameFreeze && gameOver && restartCooldown < Time.time)
         {
             RestartLastCheckpoint();
         }
+    }
+
+    //public void AssingCharacter(PlayerController newCharacter)
+    //{
+    //    this.Player = newCharacter;
+    //    Player.LifeController.OnDie += GameOver;
+    //}
+
+    public void Pause(bool value)
+    {
+        IsGameFreeze = value;
+        if (value)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
     }
 
     public bool CheckIfTheyAreEnemies()
@@ -68,15 +100,17 @@ public class GameManager : MonoBehaviour
         if (!victory)
         {
             victory = true;
-            isFreeze = true;
+            IsGameFreeze = true;
             victoryScreen.SetActive(true);
         }
     }
 
     public void GameOver()
     {
+        //character.LifeController.OnDie -= GameOver;
+        //TODO: Change Scene, respawn, whatever.
         gameOver = true;
-        isFreeze = true;
+        IsGameFreeze = true;
         gameOverScreen.SetActive(true);
         gameOverAnimator.SetBool("isDead", true);
         restartCooldown = Time.time + restartTimer;
@@ -95,7 +129,7 @@ public class GameManager : MonoBehaviour
     public void RestartLastCheckpoint()
     {
         gameOver = false;
-        isFreeze = false;
+        IsGameFreeze = false;
         OnPlayerRespawn.Invoke();
         //playerCurrentCheckpoint.y += 1; //para que tenga un offset de cuando vuelve, pero 1 en int es muuy grande la caida
         player.SetCurrentPosition(playerCurrentCheckpoint);

@@ -21,10 +21,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button buttonQuit;
 
     [Header("Help Settings")]
-    [SerializeField] private Button buttonGoBack;
+    [SerializeField] private Button goBackButton;
 
     [Header("Victory & GameOver")]
-    [SerializeField] private Button buttonReturnMenu;
+    [SerializeField] private Button returnMenuButton;
 
     //Extras
     private bool isActive;
@@ -34,12 +34,7 @@ public class PauseMenu : MonoBehaviour
     {
         GoBack();
         ExitMenu();
-        buttonResume.onClick.AddListener(OnClickResumeHandler);
-        buttonHelp.onClick.AddListener(OnClickHelpHandler);
-        buttonQuit.onClick.AddListener(OnClickQuitHandler);
-        buttonGoBack.onClick.AddListener(OnClickGoBackHandler);
-        buttonMainMenu.onClick.AddListener(OnClickMenuHandler);
-        buttonReturnMenu.onClick.AddListener(OnClickMenuHandler);
+        ButtonsListeners();
     }
 
     void Update()
@@ -63,10 +58,20 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    private void ButtonsListeners()
+    {
+        buttonResume.onClick.AddListener(OnClickResumeHandler);
+        buttonHelp.onClick.AddListener(OnClickHelpHandler);
+        buttonQuit.onClick.AddListener(OnClickQuitHandler);
+        goBackButton.onClick.AddListener(OnClickGoBackHandler);
+        buttonMainMenu.onClick.AddListener(OnClickMenuHandler);
+        returnMenuButton.onClick.AddListener(OnClickMenuHandler);
+    }
+
     private void Pause()
     {
         Time.timeScale = 0;
-        gameManager.isFreeze = true;
+        gameManager.IsGameFreeze = true;
         isActive = true;
         mainMenuActive = true;
         pauseMenu.SetActive(true);
@@ -83,7 +88,7 @@ public class PauseMenu : MonoBehaviour
     private void ExitMenu()
     {
         Time.timeScale = 1;
-        gameManager.isFreeze = false;
+        gameManager.IsGameFreeze = false;
         isActive = false;
         mainMenuActive = false;
         helpMenu.SetActive(false);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoDestroy : MonoBehaviour
+public class AutoDestroy1 : MonoBehaviour
 {
     //El autodestroy se puede reutilizar, por eso se creo aparte. Cualquier game object que se lo agregue, se le pone un tiempo de vida y cuando el objeto se crea empieza a correr el timer. 
     [SerializeField] private float timer;

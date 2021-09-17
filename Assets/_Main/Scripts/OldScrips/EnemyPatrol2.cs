@@ -70,12 +70,12 @@ public class EnemyPatrol2 : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.isFreeze)
+        if (!gameManager.IsGameFreeze)
         {
             RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, transform.right, playerDetectionDistance, playerDetectionList);
             if (hitPlayer) //CUANDO VEAS AL PLAYER
             {
-                var playerController = hitPlayer.collider.GetComponent<PlayerController>();
+                var playerController = hitPlayer.collider.GetComponent<PlayerController1>();
                 if (!followingPlayer && playerController)  //Desactiva las barreras de patruyar para perseguirlo
                 {
                     statusBarriers(false);
@@ -155,7 +155,7 @@ public class EnemyPatrol2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove && !gameManager.isFreeze)
+        if (canMove && !gameManager.IsGameFreeze)
         {
             rb2d.velocity = transform.right * currentSpeed;
         }

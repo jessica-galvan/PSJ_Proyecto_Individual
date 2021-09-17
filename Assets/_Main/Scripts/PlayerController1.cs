@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController1 : MonoBehaviour
 {
     [Header("Health Settings")]
     public LifeController lifeController = null;
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.isFreeze)
+        if (!gameManager.IsGameFreeze)
         {
             //CHECK GROUND
             RaycastHit2D checkGround = Physics2D.Raycast(groundDetectionPoint.position, Vector2.down, groundDetectionDistance, groundDetectionList);

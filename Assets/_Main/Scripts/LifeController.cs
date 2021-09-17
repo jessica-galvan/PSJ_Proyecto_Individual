@@ -29,7 +29,7 @@ public class LifeController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if(currentLife > 0 && !gameManager.isFreeze)
+        if(currentLife > 0 && !gameManager.IsGameFreeze)
         {
             currentLife -= damage;
             OnTakeDamage.Invoke(currentLife, damage);
@@ -45,7 +45,7 @@ public class LifeController : MonoBehaviour
 
     public void TakeHeal(int heal)
     {
-        if(currentLife < maxLife && !gameManager.isFreeze)
+        if(currentLife < maxLife && !gameManager.IsGameFreeze)
         {
             currentLife += heal;
             if (currentLife > maxLife)
@@ -67,7 +67,7 @@ public class LifeController : MonoBehaviour
     {
         OnDie.Invoke();
         Instantiate(death, transform.position, transform.rotation);
-        var player = GetComponent<PlayerController>();
+        var player = GetComponent<PlayerController1>();
         if(player != null)
         {
             player.PlayerActive(false);

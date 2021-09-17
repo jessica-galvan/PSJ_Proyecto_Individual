@@ -32,7 +32,7 @@ public class EnemyStaticController : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.isFreeze)
+        if (!gameManager.IsGameFreeze)
         {
             if (enemyController.canAttack) //Si el enemigo puede atacar es porque el player esta dentro de al trigger zone
             {

@@ -33,7 +33,7 @@ public class ManaUp : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            PlayerController player = collision.GetComponent<PlayerController>();
+            PlayerController1 player = collision.GetComponent<PlayerController1>();
             if (player != null & canRecharge)  //Si tiene un Player Controller (deberia tenerlo)
             {
                 if (player.CanRechargeMana()) //Si el mana del player es menor al mana maximo
