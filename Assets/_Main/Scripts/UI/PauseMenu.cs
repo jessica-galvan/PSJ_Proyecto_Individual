@@ -10,9 +10,6 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject helpMenu;
-    [SerializeField] private GameManager1 gameManager;
-    [SerializeField] private AudioSource musicLevel = null;
-    [SerializeField] private float lowerVolume = 1f;
 
     [Header("PauseMenu Settings")]
     [SerializeField] private Button buttonResume;
@@ -24,6 +21,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button goBackButton;
 
     [Header("Victory & GameOver")]
+    [SerializeField] private GameObject victoryScreen;
     [SerializeField] private Button returnMenuButton;
 
     //Extras
@@ -32,29 +30,29 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
+        InputController.instance.OnPause += CheckIfPause;
+        victoryScreen.SetActive(false);
         GoBack();
         ExitMenu();
         ButtonsListeners();
     }
 
-    void Update()
+    private void CheckIfPause()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!isActive)
         {
-            if (!isActive)
+            Pause();
+        }
+        else
+        {
+            if (!mainMenuActive)
             {
-                Pause();
+                GoBack();
             }
             else
             {
-                if (!mainMenuActive)
-                {
-                    GoBack();
-                } else
-                {
-                    ExitMenu();
-                }  
-            } 
+                ExitMenu();
+            }
         }
     }
 
@@ -70,12 +68,10 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause()
     {
-        Time.timeScale = 0;
-        gameManager.IsGameFreeze = true;
+        GameManager.instance.Pause(true);
         isActive = true;
         mainMenuActive = true;
         pauseMenu.SetActive(true);
-        musicLevel.volume -= lowerVolume;
     }
 
     private void GoBack()
@@ -87,14 +83,12 @@ public class PauseMenu : MonoBehaviour
 
     private void ExitMenu()
     {
-        Time.timeScale = 1;
-        gameManager.IsGameFreeze = false;
+        GameManager.instance.Pause(false);
         isActive = false;
         mainMenuActive = false;
         helpMenu.SetActive(false);
         mainMenu.SetActive(true);
         pauseMenu.SetActive(false);
-        musicLevel.volume += lowerVolume;
     }
 
     private void OnClickHelpHandler()

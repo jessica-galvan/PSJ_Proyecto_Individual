@@ -37,7 +37,7 @@ public class PhysicalAttackController : MonoBehaviour
                 if (life != null)
                 {
                     life.TakeDamage(attackStats.PhysicalDamage);
-                    //RechargeMana(1);
+                    //TODO: RechargeMana, quizas puede ser que el enemigo haga un drop en vez de llamar a la funcion de otro script. O quizas puede ser un invoke?.
                 }
             }
 

@@ -7,11 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(MovementController))]
 public class PlayerController : Actor, IDamagable
 {
-    //Serializados
     [SerializeField] private int coins = 0;
-    [SerializeField] private float turnSmoothTime = 0.1f;
 
-    //Propiedades
     public int Coins => coins;
     public MovementController MovementController { get; private set; }
     public MagicalShooterController ShooterController { get; private set; }
@@ -74,6 +71,10 @@ public class PlayerController : Actor, IDamagable
             PhysicalAttackController.Attack();
             //attackSound.Play();
             _animatorController.SetTrigger("IsPhisicalAttacking");
+        }
+        else
+        {
+            //Invoke Negative sound;
         }
     }
 

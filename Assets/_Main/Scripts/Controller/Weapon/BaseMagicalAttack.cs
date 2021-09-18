@@ -46,6 +46,7 @@ public abstract class BaseMagicalAttack : MonoBehaviour
             CurrentMana -= spellsPerAttack;
 
             InstantiateBullets(Owner.ShootingPoint);
+            HUDManager.instance.UpdateMana(CurrentMana, MaxMana);
             //TODO: ShootingSound
         }
     }
@@ -57,6 +58,8 @@ public abstract class BaseMagicalAttack : MonoBehaviour
                 CurrentMana += number;
             else
                 CurrentMana = MaxMana;
+
+            HUDManager.instance.UpdateMana(CurrentMana, MaxMana);
         }
     }
     public abstract void InstantiateBullets(Transform shootingPoint);

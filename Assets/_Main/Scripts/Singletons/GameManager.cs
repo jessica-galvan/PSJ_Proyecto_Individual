@@ -36,16 +36,21 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
-        //character.LifeController.OnDie -= GameOver;
-        //TODO: Change Scene, respawn, whatever.
+        //TODO: Respawn
     }
 
     public void Pause(bool value)
     {
         IsGameFreeze = value;
         if (value)
+        {
             Time.timeScale = 0;
+            //TODO: lower music
+        }
         else
+        {
             Time.timeScale = 1;
+            //TODO: subir musica
+        }         
     }
 }

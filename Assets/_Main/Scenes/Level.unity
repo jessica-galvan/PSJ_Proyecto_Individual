@@ -1216,7 +1216,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6139,6 +6138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 132320068}
+  - component: {fileID: 132320069}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -6169,6 +6169,21 @@ RectTransform:
   m_AnchoredPosition: {x: -0.5, y: -365.5}
   m_SizeDelta: {x: -1821, y: -249}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &132320069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132320067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831fba2e2d9b24c4daea3b4a707cc3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaBar: {fileID: 164083670}
+  score: {fileID: 2078192791}
+  scoreText: {fileID: 2122585300}
 --- !u!1 &132570500
 GameObject:
   m_ObjectHideFlags: 0
@@ -6222,7 +6237,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11405,6 +11419,7 @@ GameObject:
   - component: {fileID: 164083667}
   - component: {fileID: 164083669}
   - component: {fileID: 164083668}
+  - component: {fileID: 164083670}
   m_Layer: 5
   m_Name: ManaBarBackground
   m_TagString: Untagged
@@ -11472,6 +11487,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164083666}
   m_CullTransparentMesh: 0
+--- !u!114 &164083670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164083666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f15bc51f821e7e4997405230ca35f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bar: {fileID: 164083666}
+  barImage: {fileID: 130288510}
 --- !u!1 &166217040
 GameObject:
   m_ObjectHideFlags: 0
@@ -15283,7 +15312,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25514,8 +25542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf834ddee90fd643b248bf644a8c3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 548623185}
-  lifeController: {fileID: 0}
   hearts: []
   heart: {fileID: 8306274332959031846, guid: d5548b40b7a355a4f8103c4cab7ee328, type: 3}
 --- !u!114 &1648433331
@@ -27039,8 +27065,6 @@ GameObject:
   - component: {fileID: 1909655839}
   - component: {fileID: 1909655838}
   - component: {fileID: 1909655842}
-  - component: {fileID: 1909655843}
-  - component: {fileID: 1909655844}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -27147,44 +27171,12 @@ MonoBehaviour:
   pauseMenu: {fileID: 1410454466}
   mainMenu: {fileID: 413435680}
   helpMenu: {fileID: 277067873}
-  gameManager: {fileID: 1791990250}
-  musicLevel: {fileID: 1632973291}
-  lowerVolume: 0.5
   buttonResume: {fileID: 2006037224}
   buttonMainMenu: {fileID: 619412893}
   buttonHelp: {fileID: 1922059098}
   buttonQuit: {fileID: 751836489}
   goBackButton: {fileID: 1241565538}
   returnMenuButton: {fileID: 206045169}
---- !u!114 &1909655843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1909655837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 290979d7f243d1f439864f05199de835, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1810434324}
-  manaBar: {fileID: 130288510}
---- !u!114 &1909655844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1909655837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a35fc03e4f994144ea69b5bcb51ec3f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManager: {fileID: 1791990250}
-  hudCollectable: {fileID: 2078192791}
-  textBox: {fileID: 2122585300}
 --- !u!1001 &1912279393
 PrefabInstance:
   m_ObjectHideFlags: 0

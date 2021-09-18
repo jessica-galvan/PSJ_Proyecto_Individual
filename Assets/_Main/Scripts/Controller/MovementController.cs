@@ -8,17 +8,15 @@ public class MovementController : MonoBehaviour
     [SerializeField] private LayerMask groundDetectionList;
 
     //PRIVATE VARIABLES
+    private readonly float distance = 1.1f;
     private ActorStats _actorStats;
     private Rigidbody2D rbody;
     private bool isSprinting;
-    private readonly float distance = 1.1f;
-    private TrailRenderer trail;
     private bool facingRight = true;
 
     private void Start()
     {
         rbody = GetComponent<Rigidbody2D>();
-        trail = GetComponent<TrailRenderer>();
     }
 
     public void SetStats(ActorStats stats)
@@ -34,7 +32,7 @@ public class MovementController : MonoBehaviour
 
     public void OnMove2D(float horizontal)
     {
-        var movement = horizontal * (currentSpeed * Time.deltaTime); //El valor va entre -1 (izquierda) y 1 (derecha). 
+        var movement = horizontal * (currentSpeed * Time.deltaTime);
         transform.Translate(Mathf.Abs(movement), 0, 0); //El Mathf.Abs -> Math Absolute le saca los signos. Esto sirve porque al flippear el personaje siempre se mueve hacia adelante y el Flip me lo rota. 
 
         if (movement < 0 && facingRight) //Si el movimiento es positivo y esta mirando a la derecha...
