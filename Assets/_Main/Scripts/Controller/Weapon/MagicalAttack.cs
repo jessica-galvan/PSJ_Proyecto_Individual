@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class MagicalAttack : MonoBehaviour
 {
-    [SerializeField] private GunStats _gunStats;
+    [SerializeField] private AttackStats _gunStats;
     private bool canMove;
     private float timer;
     public bool CanReturn { get; set; }
@@ -13,15 +13,14 @@ public class Bullet : MonoBehaviour
         transform.position = firePoint.position;
         transform.rotation = firePoint.rotation;
         canMove = boolean;
-        timer = _gunStats.LifeBullet;
-        //TODO: Agregar VFX al inicializarse
+        timer = _gunStats.LifeMagicalAttack;
     }
 
     void Update()
     {
         if (canMove)
         {
-            transform.position += transform.forward * _gunStats.Speed * Time.deltaTime;
+            transform.position += transform.right * _gunStats.Speed * Time.deltaTime;
         }
             
         timer -= Time.deltaTime;
@@ -33,7 +32,6 @@ public class Bullet : MonoBehaviour
     public void OnDestroy()
     {
         CanReturn = true;
-        //TODO: Agregar VFX al explotar
     }
     //TODO: Agregar collider y que cuando hace un collision tambien haga un OnDestroy.
 }

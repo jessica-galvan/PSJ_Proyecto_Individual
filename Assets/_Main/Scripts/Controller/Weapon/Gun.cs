@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BulletManager))]
 public abstract class Gun : MonoBehaviour
 {
     //Serializados
-    [SerializeField] protected GunStats _gunStats;
-    [SerializeField] protected GameObject ammoPrefab;
+    [SerializeField] protected AttackStats _gunStats;
     [SerializeField] protected int bulletsPerShoot = 1;
     [SerializeField]protected BulletManager bulletManager;
 
@@ -15,19 +15,19 @@ public abstract class Gun : MonoBehaviour
     protected bool canShoot;
 
     //PROPIEDADES
-    public int CurrentAmmo { get; protected set; }
+    public int CurrentMana { get; protected set; }
     public bool CanAttack { get; set; }
     public IOwner Owner { get; protected set; }
-    public int MaxAmmo => _gunStats.MaxAmmo;
-    public int Damage => _gunStats.Damage;
-    public float Cooldown => _gunStats.Cooldown;
+    public int MaxAmmo => _gunStats.MaxMana;
+    public int Damage => _gunStats.MagicalDamage;
+    public float Cooldown => _gunStats.CooldownMana;
 
     //METODOS
     private void Start()
     {
-        CurrentAmmo = _gunStats.MaxAmmo;
+        CurrentMana = _gunStats.MaxMana;
         bulletManager = GetComponent<BulletManager>();
-        bulletManager.Initializer(_gunStats.MaxAmmo);
+        bulletManager.Initializer(_gunStats.MagicalAttackPrefab, _gunStats.MaxMana);
     }
 
     void Update()
@@ -38,23 +38,24 @@ public abstract class Gun : MonoBehaviour
 
     public void Attack()
     {
-        if (CanAttack && CurrentAmmo >= bulletsPerShoot)
+        if (CanAttack && CurrentMana >= bulletsPerShoot)
         {
             CanAttack = false;
             timerCD = Time.deltaTime + Cooldown;
-            CurrentAmmo -= bulletsPerShoot;
+            CurrentMana -= bulletsPerShoot;
 
             InstantiateBullets(Owner.ShootingPoint);
+            //TODO: ShootingSound
         }
     }
     public void Reload(int number)
     {
-        if (CurrentAmmo < MaxAmmo)
+        if (CurrentMana < MaxAmmo)
         {
-            if (CurrentAmmo < (MaxAmmo - number))
-                CurrentAmmo += number;
+            if (CurrentMana < (MaxAmmo - number))
+                CurrentMana += number;
             else
-                CurrentAmmo = MaxAmmo;
+                CurrentMana = MaxAmmo;
         }
     }
     public abstract void InstantiateBullets(Transform shootingPoint);

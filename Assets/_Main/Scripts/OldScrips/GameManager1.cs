@@ -108,7 +108,6 @@ public class GameManager1 : MonoBehaviour
     public void GameOver()
     {
         //character.LifeController.OnDie -= GameOver;
-        //TODO: Change Scene, respawn, whatever.
         gameOver = true;
         IsGameFreeze = true;
         gameOverScreen.SetActive(true);

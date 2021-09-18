@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LifeController))]
-[RequireComponent(typeof(MovementController))]
+[RequireComponent(typeof(Animator))]
 public class Actor : MonoBehaviour, IDamagable
 {
     [SerializeField] protected ActorStats _actorStats;
-
+    protected Animator _animatorController;
     public LifeController LifeController { get; private set; }
-    public MovementController MovementController { get; private set; }
 
     public virtual void Start()
     {
         LifeController = GetComponent<LifeController>();
-        MovementController = GetComponent<MovementController>();
+        _animatorController = GetComponent<Animator>();
+
         InitStats();
     }
 
     private void InitStats()
     {
-        MovementController.SetStats(_actorStats);
+
         LifeController.SetStats(_actorStats);
         LifeController.OnDie += Die;
     }
@@ -30,5 +30,4 @@ public class Actor : MonoBehaviour, IDamagable
         //TODO: TBD
         //Destroy(gameObject);
     }
-
 }

@@ -9,9 +9,9 @@ public class InputController : MonoBehaviour
 
     #region KeyCodes
     private string horizontalAxis = "Horizontal";
-    private string verticalAxis = "Vertical";
     private KeyCode jump = KeyCode.Space;
     private KeyCode shoot = KeyCode.Mouse0;
+    private KeyCode physicalAttack = KeyCode.Mouse1;
     private KeyCode dash = KeyCode.LeftShift;
     private KeyCode pause = KeyCode.Escape;
     private KeyCode sprint = KeyCode.LeftShift;
@@ -20,10 +20,11 @@ public class InputController : MonoBehaviour
     #region Events
     public Action OnPause;
     public Action OnShoot;
+    public Action OnPhysicalAttack;
     public Action OnDash;
     public Action OnJump;
     public Action OnSprint;
-    public Action<float, float> OnMove; //horizontal, vertical
+    public Action<float> OnMove;
     #endregion
 
     #region Unity
@@ -50,6 +51,7 @@ public class InputController : MonoBehaviour
             CheckJump();
             CheckShoot();
             CheckSprint();
+            CheckPhysicalAttack();
             //CheckDash();
         }
     }
@@ -59,16 +61,22 @@ public class InputController : MonoBehaviour
     private void CheckMovement()
     {
         float horizontal = Input.GetAxisRaw(horizontalAxis);
-        float vertical = Input.GetAxisRaw(verticalAxis);
 
-        if(vertical !=  0 || horizontal != 0)
-            OnMove?.Invoke(horizontal, vertical);
+        if( horizontal != 0)
+            OnMove?.Invoke(horizontal);
     }
     private void CheckShoot()
     {
         if (Input.GetKeyDown(shoot))
             OnShoot?.Invoke();
     }
+
+    private void CheckPhysicalAttack()
+    {
+        if (Input.GetKeyDown(physicalAttack))
+            OnPhysicalAttack?.Invoke();
+    }
+
     private void CheckJump()
     {
         if (Input.GetKeyDown(jump))

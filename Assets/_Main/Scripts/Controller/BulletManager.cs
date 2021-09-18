@@ -5,25 +5,27 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour
 {
     private int bulletsQuantity;
-    private Pool<Bullet> bulletList; //Si hay más bullets, hacer una clase base de bullets para que hereden, no usar interface.
+    private MagicalAttack magicalAttackPrefab;
+    private Pool<MagicalAttack> bulletList; //Si hay más bullets, hacer una clase base de bullets para que hereden, no usar interface.
 
-    public BulletManager(int quantity)
+    public BulletManager(MagicalAttack prefab, int quantity)
     {
-        Initializer(quantity);
+        Initializer(prefab, quantity);
     }
 
-    public void Initializer(int quantity)
+    public void Initializer(MagicalAttack prefab, int quantity)
     {
         bulletsQuantity = quantity;
+        magicalAttackPrefab = prefab;
 
-        var list = new List<Bullet>();
+        var list = new List<MagicalAttack>();
         for (int i = 0; i < bulletsQuantity; i++)
         {
-            var bullet = BulletFactory.instance.CreateBullet();
+            var bullet = ManaFactory.instance.CreateMagicalAttack(magicalAttackPrefab);
             list.Add(bullet);
         }
 
-        bulletList =  new Pool<Bullet>(list);
+        bulletList =  new Pool<MagicalAttack>(list);
     }
 
     void Update()
@@ -36,12 +38,12 @@ public class BulletManager : MonoBehaviour
         }
     }
 
-    public Bullet GetBullet()
+    public MagicalAttack GetBullet()
     {
         return bulletList.GetInstance();
     }
 
-    public void StoreBullet(Bullet bullet)
+    public void StoreBullet(MagicalAttack bullet)
     {
         bullet.CanReturn = false;
         bulletList.Store(bullet);

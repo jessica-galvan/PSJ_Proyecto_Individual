@@ -21,15 +21,19 @@ public class ShooterController : MonoBehaviour, IOwner
             currentGun.CanAttack = true;
     }
 
+    public int GetCurrentAmmo()
+    {
+        return currentGun.CurrentMana;
+    }
+
     public void RechargeAmmo(int ammo)
     {
-        print(ammo);
         currentGun.Reload(ammo);
     }
     
     public bool CanRechargeAmmo()
     {
-        return currentGun.CurrentAmmo < currentGun.MaxAmmo;
+        return currentGun.CurrentMana < currentGun.MaxAmmo;
     }
 
     public void Shoot()
@@ -37,7 +41,6 @@ public class ShooterController : MonoBehaviour, IOwner
         if (currentGun.CanAttack)
         {
             currentGun.Attack();
-            //cdTimer = currentGun.Cooldown + Time.deltaTime;
         }
     }
 

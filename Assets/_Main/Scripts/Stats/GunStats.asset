@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a6562a517341d4891412e1dae8f9fc, type: 3}
   m_Name: GunStats
   m_EditorClassIdentifier: 
-  _damage: 2
-  _bulletPrefab: {fileID: 393304154939564882, guid: 753c7b56ecc85ad42b8635d1b60b4a3a, type: 3}
-  _cooldown: 2
-  _maxAmmo: 10
+  _canDoPhysicalAttack: 1
+  _canDoMagicalAttack: 1
+  _damageMagical: 1
+  _damagePhysical: 1
+  _magicalAttackPrefab: {fileID: 698531222225312903, guid: 703240003517a7548acfa66829f70e0c,
+    type: 3}
+  _cooldownPhysical: 2
+  _cooldownMana: 2
+  _maxMana: 6
   _speed: 10
-  lifeTimerBullet: 2
+  lifeTimerMagicalAttack: 5

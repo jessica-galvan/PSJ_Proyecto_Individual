@@ -3,30 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ShooterController))]
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(MovementController))]
 public class PlayerController : Actor, IDamagable
 {
     //Serializados
     [SerializeField] private int coins = 0;
     [SerializeField] private float turnSmoothTime = 0.1f;
-    [SerializeField] private ParticleController damageEffect;
-
-    //Privados
-    private float turnSmoothVelocity;
 
     //Propiedades
     public int Coins => coins;
+    public MovementController MovementController { get; private set; }
     public ShooterController ShooterController { get; private set; }
+    public PhysicalAttackController PhysicalAttackController { get; private set; }
 
     #region Unity
     void Awake()
     {
         ShooterController = GetComponent<ShooterController>();
+        PhysicalAttackController = GetComponent<PhysicalAttackController>();
+        MovementController = GetComponent<MovementController>();
     }
 
     public override void Start()
     {
         base.Start();
+        MovementController.SetStats(_actorStats);
         GameManager.instance.AssingCharacter(this);
         SubscribeEvents();
     }
@@ -39,20 +41,35 @@ public class PlayerController : Actor, IDamagable
         InputController.instance.OnShoot += OnShoot;
         InputController.instance.OnJump += OnJump;
         InputController.instance.OnSprint += OnSprint;
+        InputController.instance.OnPhysicalAttack += OnPhysicalAttack;
 
         LifeController.OnTakeDamage += OnTakeDamage;
         LifeController.OnHeal += OnHeal;
         LifeController.OnDie += OnDie;
     }
 
-    private void OnMove(float horizontal, float vertical)
-    {
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+    private void OnMove(float horizontal)
+    {      
+        MovementController.OnMove2D(horizontal);
+        _animatorController.SetBool("IsRunning", horizontal != 0);
+    }
 
-        MovementController.Move(direction);
+    private void OnShoot()
+    {
+        if(ShooterController.GetCurrentAmmo() > 0)
+        {
+            ShooterController.Shoot();
+            _animatorController.SetTrigger("IsShooting");
+        } else
+        {
+            //Invoke Negative sound;
+        }
+    }
+
+    private void OnPhysicalAttack()
+    {
+        PhysicalAttackController.Attack();
+        _animatorController.SetTrigger("IsPhisicalAttacking");
     }
 
     private void OnSprint()
@@ -67,7 +84,8 @@ public class PlayerController : Actor, IDamagable
 
     private void OnTakeDamage()
     {
-        damageEffect.Play();
+        _animatorController.SetTrigger("TakeDamage");
+        //Invoke damage sound
     }
 
     private void OnHeal()
@@ -79,6 +97,7 @@ public class PlayerController : Actor, IDamagable
     {
         //TODO: Destroy? Respawn? Animation? Whatever.
     }
+
     #endregion
 
     #region Publicos
@@ -87,9 +106,15 @@ public class PlayerController : Actor, IDamagable
         coins += value;
     }
 
-    public void OnShoot()
+    public void SetCurrentPosition(Vector2 spawnPosition)
     {
-        ShooterController.Shoot();
+        transform.position = spawnPosition;
     }
+
+    public bool CanHeadKill()
+    {
+        return !MovementController.CheckIfGrounded();
+    }
+
     #endregion
 }
