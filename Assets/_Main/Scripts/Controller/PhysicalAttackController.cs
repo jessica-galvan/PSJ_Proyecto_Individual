@@ -4,44 +4,50 @@ using UnityEngine;
 
 public class PhysicalAttackController : MonoBehaviour
 {
-    [Header("Attack Phisical Settings")]
+    [Header("Attack Physical Settings")]
     [SerializeField] private Transform attackPoint;
     [SerializeField] private LayerMask enemyDetectionList;
     [SerializeField] private float attackRadius = 1f;
-    [SerializeField] private int damage = 5;
-    [SerializeField] private float slashCooldown = 1f;
-    private float slashCooldownTimer = 0f;
-    private bool isAttacking;
 
+    private float slashCooldownTimer;
+    private AttackStats attackStats;
 
-
-    void Start()
-    {
-        
-    }
+    public bool IsAttacking { get; private set; }
 
     void Update()
     {
-        
+        if(IsAttacking )
+        {
+            slashCooldownTimer -= Time.deltaTime;
+            if (slashCooldownTimer <= 0)
+            {
+                IsAttacking = false;
+                print("canAttackAgain");
+            }
+        }
     }
     public void Attack()
     {
-        isAttacking = true;
-        //animatorController.SetTrigger("IsPhisicalAttacking");
-        //attackSound.Play();
-        Collider2D collider = Physics2D.OverlapCircle((Vector2)attackPoint.position, attackRadius, enemyDetectionList);
-        if (collider != null)
+        if (!IsAttacking)
         {
-            LifeController1 life = collider.gameObject.GetComponent<LifeController1>();
-            if (life != null)
+            Collider2D collider = Physics2D.OverlapCircle((Vector2)attackPoint.position, attackRadius, enemyDetectionList);
+            if (collider != null)
             {
-                Debug.Log("Daño al enemigo");
-                life.TakeDamage(damage);
-                //RechargeMana(1);
+                LifeController life = collider.GetComponent<LifeController>();
+                if (life != null)
+                {
+                    life.TakeDamage(attackStats.PhysicalDamage);
+                    //RechargeMana(1);
+                }
             }
+
+            IsAttacking = true;
+            slashCooldownTimer = attackStats.CooldownPhysical;
         }
-        isAttacking = false;
-        slashCooldownTimer = slashCooldown + Time.time;  //Comienza el attack cooldown
     }
 
+    public void SetStats(AttackStats attack)
+    {
+        attackStats = attack;
+    }
 }

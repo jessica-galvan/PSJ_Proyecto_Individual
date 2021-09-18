@@ -21,7 +21,7 @@ public class AttackStats : ScriptableObject
     [SerializeField] private MagicalAttack _magicalAttackPrefab;
 
     public float CooldownPhysical => _cooldownPhysical;
-    [SerializeField] private float _cooldownPhysical = 2f;
+    [SerializeField] private float _cooldownPhysical = 1f;
 
     public float CooldownMana => _cooldownMana;
     [SerializeField] private float _cooldownMana = 2f;

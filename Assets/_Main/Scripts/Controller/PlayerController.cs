@@ -29,6 +29,7 @@ public class PlayerController : Actor, IDamagable
     {
         base.Start();
         MovementController.SetStats(_actorStats);
+        PhysicalAttackController.SetStats(_attackStats);
         GameManager.instance.AssingCharacter(this);
         SubscribeEvents();
     }
@@ -68,8 +69,12 @@ public class PlayerController : Actor, IDamagable
 
     private void OnPhysicalAttack()
     {
-        PhysicalAttackController.Attack();
-        _animatorController.SetTrigger("IsPhisicalAttacking");
+        if (!PhysicalAttackController.IsAttacking)
+        {
+            PhysicalAttackController.Attack();
+            //attackSound.Play();
+            _animatorController.SetTrigger("IsPhisicalAttacking");
+        }
     }
 
     private void OnSprint()

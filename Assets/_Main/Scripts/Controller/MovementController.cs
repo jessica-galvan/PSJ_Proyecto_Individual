@@ -58,8 +58,7 @@ public class MovementController : MonoBehaviour
 
     public bool CheckIfGrounded()
     {
-        RaycastHit hit;
-        Physics.Raycast(new Ray(transform.position, Vector3.down), out hit, distance);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distance);
         if(hit.collider != null)
             return true;
         else
