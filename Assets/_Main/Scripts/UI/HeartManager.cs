@@ -12,7 +12,7 @@ public class HeartManager : MonoBehaviour
 
     void Start()
     {
-        lifeController = GameManager.instance.Player.GetComponent<LifeController>();
+        lifeController = LevelManager.instance.Player.GetComponent<LifeController>();
         lifeController.UpdateLifeBar += UpdateLifeBar;
         lifeController.OnDie += OnRespawn;
 

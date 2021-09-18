@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MagicStats", menuName = "Stats/MagicStats", order = 1)]
+[CreateAssetMenu(fileName = "AttackStats", menuName = "Stats/Attack", order = 1)]
 public class AttackStats : ScriptableObject
 {
+    public LayerMask TargetList => _targetList;
+    [SerializeField] private LayerMask _targetList;
+
+    public int BodyDamage => _bodyDamage;
+    [SerializeField] private int _bodyDamage;
+
     public bool CanDoPhysicalAttack => _canDoPhysicalAttack;
     [SerializeField] private bool _canDoPhysicalAttack;
 
@@ -17,8 +23,8 @@ public class AttackStats : ScriptableObject
     public int PhysicalDamage => _damagePhysical;
     [SerializeField] private int _damagePhysical = 2;
 
-    public MagicalAttack MagicalAttackPrefab => _magicalAttackPrefab;
-    [SerializeField] private MagicalAttack _magicalAttackPrefab;
+    public MagicalAttackBullet MagicalAttackPrefab => _magicalAttackPrefab;
+    [SerializeField] private MagicalAttackBullet _magicalAttackPrefab;
 
     public float CooldownPhysical => _cooldownPhysical;
     [SerializeField] private float _cooldownPhysical = 1f;

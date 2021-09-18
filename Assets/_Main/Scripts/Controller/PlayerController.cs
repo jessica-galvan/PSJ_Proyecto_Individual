@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MagicalShooterController))]
-[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(MovementController))]
 public class PlayerController : Actor, IDamagable
 {
-    [SerializeField] private int coins = 0;
+    [SerializeField] private int collectableCount = 0;
 
-    public int Coins => coins;
+    public int Coins => collectableCount;
     public MovementController MovementController { get; private set; }
     public MagicalShooterController ShooterController { get; private set; }
     public PhysicalAttackController PhysicalAttackController { get; private set; }
@@ -22,12 +21,12 @@ public class PlayerController : Actor, IDamagable
         MovementController = GetComponent<MovementController>();
     }
 
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
+        LevelManager.instance.AssingCharacter(this);
         MovementController.SetStats(_actorStats);
         PhysicalAttackController.SetStats(_attackStats);
-        GameManager.instance.AssingCharacter(this);
         SubscribeEvents();
     }
     #endregion
@@ -41,9 +40,7 @@ public class PlayerController : Actor, IDamagable
         InputController.instance.OnSprint += OnSprint;
         InputController.instance.OnPhysicalAttack += OnPhysicalAttack;
 
-        LifeController.OnTakeDamage += OnTakeDamage;
         LifeController.OnHeal += OnHeal;
-        LifeController.OnDie += OnDie;
     }
 
     private void OnMove(float horizontal)
@@ -88,18 +85,12 @@ public class PlayerController : Actor, IDamagable
         MovementController.Jump();
     }
 
-    private void OnTakeDamage()
-    {
-        _animatorController.SetTrigger("TakeDamage");
-        //Invoke damage sound
-    }
-
     private void OnHeal()
     {
         //TODO: Heal effect?
     }
 
-    private void OnDie()
+    protected override void Die()
     {
         //TODO: Destroy? Respawn? Animation? Whatever.
     }
@@ -107,9 +98,10 @@ public class PlayerController : Actor, IDamagable
     #endregion
 
     #region Publicos
-    public void AddCoins(int value)
+    public void PickUpCollectable(int value)
     {
-        coins += value;
+        collectableCount += value;
+        HUDManager.instance.UpdateScore(value);
     }
 
     public void SetCurrentPosition(Vector2 spawnPosition)
@@ -121,6 +113,5 @@ public class PlayerController : Actor, IDamagable
     {
         return !MovementController.CheckIfGrounded();
     }
-
     #endregion
 }

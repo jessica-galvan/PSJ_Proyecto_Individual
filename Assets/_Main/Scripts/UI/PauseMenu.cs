@@ -21,7 +21,6 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button goBackButton;
 
     [Header("Victory & GameOver")]
-    [SerializeField] private GameObject victoryScreen;
     [SerializeField] private Button returnMenuButton;
 
     //Extras
@@ -31,7 +30,6 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         InputController.instance.OnPause += CheckIfPause;
-        victoryScreen.SetActive(false);
         GoBack();
         ExitMenu();
         ButtonsListeners();

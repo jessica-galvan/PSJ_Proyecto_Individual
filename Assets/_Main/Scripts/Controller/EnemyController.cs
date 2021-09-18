@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
-{
-    [Header("Health Settings")]
-    public LifeController1 lifeController = null;
-    private Animator animatorController;
-    
+[RequireComponent(typeof(UIBarController))]
+public class EnemyController : Actor
+{    
     [Header("Attack Settings")]
     [SerializeField] private int bodyDamage = 5;
     public bool facingRight = false;
@@ -15,24 +12,17 @@ public class EnemyController : MonoBehaviour
 
     [Header("Prefabs Settings")]
     [SerializeField] private GameObject canvas = null;
-    private GameManager1 gameManager = null;
-    private GameObject player;
 
     [Header("Audio Sources")]
     [SerializeField] private AudioSource shootingSound = null;
     [SerializeField] private AudioSource damageSound = null;
 
-
-    private void Awake() 
+    protected override void Start()
     {
-        animatorController = GetComponent<Animator>();
-    }
-    void Start()
-    {
-        animatorController = GetComponent<Animator>();
-        lifeController = GetComponent<LifeController1>();
-        lifeController.OnTakeDamage += OnTakeDamageListener;
-        lifeController.OnDie.AddListener(OnDieListener);
+        base.Start();
+        _rigidBody = GetComponent<Rigidbody2D>();
+        LevelManager.instance.AddEnemyToList(this);
+        LevelManager.instance.OnPlayerRespawn += OnPlayerRespawnListener;
     }
 
     public void BackFlip()
@@ -42,16 +32,11 @@ public class EnemyController : MonoBehaviour
         facingRight = !facingRight;
     }
 
-    private void OnTakeDamageListener(int currentLife, int damage)
+    protected virtual void OnPlayerRespawnListener()
     {
-        animatorController.SetTrigger("TakeDamage");
-        damageSound.Play();
+
     }
 
-    private void OnDieListener()
-    {
-        gameManager.takeOneEnemy();
-    }
 
     /*private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -63,14 +48,4 @@ public class EnemyController : MonoBehaviour
         }
     }*/
 
-    //SET & GET
-    public void SetGameManager(GameManager1 _gameManager)
-    {
-        gameManager = _gameManager;
-    }
-
-    public void SetPlayer(GameObject _player)
-    {
-        player = _player;
-    }
 }

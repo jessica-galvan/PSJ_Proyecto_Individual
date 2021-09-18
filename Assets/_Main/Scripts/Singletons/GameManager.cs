@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     //PROPIEDADES
     public bool IsGameFreeze { get; private set; }
-    public PlayerController Player { get; private set; }
+
     public string CurrentLevel { get; private set; }
 
     //EVENTS
@@ -27,16 +27,6 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-    }
-
-    public void AssingCharacter(PlayerController newCharacter)
-    {
-        this.Player = newCharacter;
-        Player.LifeController.OnDie += GameOver;
-    }
-    public void GameOver()
-    {
-        //TODO: Respawn
     }
 
     public void Pause(bool value)

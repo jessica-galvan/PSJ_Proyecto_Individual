@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicalAttack : MonoBehaviour
+public class MagicalAttackBullet : MonoBehaviour
 {
-    [SerializeField] private AttackStats _attackStats;
+    private AttackStats _attackStats;
     private bool canMove;
     private float timer;
     public bool CanReturn { get; set; }

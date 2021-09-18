@@ -5,27 +5,27 @@ using UnityEngine;
 public class ManaManager : MonoBehaviour
 {
     private int manaQuantity;
-    private MagicalAttack magicalAttackPrefab;
-    private Pool<MagicalAttack> magicalAttackList; //Si hay más bullets, hacer una clase base de bullets para que hereden, no usar interface.
+    private MagicalAttackBullet magicalAttackPrefab;
+    private Pool<MagicalAttackBullet> magicalAttackList; //Si hay más bullets, hacer una clase base de bullets para que hereden, no usar interface.
 
-    public ManaManager(MagicalAttack prefab, int quantity)
+    public ManaManager(MagicalAttackBullet prefab, int quantity)
     {
         Initializer(prefab, quantity);
     }
 
-    public void Initializer(MagicalAttack prefab, int quantity)
+    public void Initializer(MagicalAttackBullet prefab, int quantity)
     {
         manaQuantity = quantity;
         magicalAttackPrefab = prefab;
 
-        var list = new List<MagicalAttack>();
+        var list = new List<MagicalAttackBullet>();
         for (int i = 0; i < manaQuantity; i++)
         {
             var bullet = ManaFactory.instance.CreateMagicalAttack(magicalAttackPrefab);
             list.Add(bullet);
         }
 
-        magicalAttackList =  new Pool<MagicalAttack>(list);
+        magicalAttackList =  new Pool<MagicalAttackBullet>(list);
     }
 
     void Update()
@@ -38,12 +38,12 @@ public class ManaManager : MonoBehaviour
         }
     }
 
-    public MagicalAttack GetBullet()
+    public MagicalAttackBullet GetBullet()
     {
         return magicalAttackList.GetInstance();
     }
 
-    public void StoreBullet(MagicalAttack bullet)
+    public void StoreBullet(MagicalAttackBullet bullet)
     {
         bullet.CanReturn = false;
         magicalAttackList.Store(bullet);

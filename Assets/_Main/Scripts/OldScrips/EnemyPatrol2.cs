@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPatrol2 : MonoBehaviour
+public class EnemyPatrol2 : EnemyController
 {
     [Header("Patrol Settings")]
     [SerializeField] private float normalSpeed = 5f;
@@ -17,7 +17,6 @@ public class EnemyPatrol2 : MonoBehaviour
     private Vector2 spawnPoint;
     private GameObject barrierLeft;
     private GameObject barrierRight;
-    private EnemyController enemy;
     private bool followingPlayer;
     private bool isBarrierActive;
     private bool checkDirection;
@@ -40,22 +39,14 @@ public class EnemyPatrol2 : MonoBehaviour
     [SerializeField] private float cooldown = 5f;
     [SerializeField] private float moveCooldown = 0.8f;
     private float cooldownTimer = 0f;
-    private bool canAttack;
     private float playerDetectionDistance;
 
     //Extras
-    private Rigidbody2D rb2d;
-    private Animator animatorController = null;
     private bool canMove;
-    private bool facingRight;
     private float moveTimer = 0f;
-    private GameManager1 gameManager;
 
-    void Start()
+    protected override void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
-        animatorController = GetComponent<Animator>();
-        enemy = GetComponent<EnemyController>();
         canMove = true;
         canAttack = true;
         isBarrierActive = true;
@@ -70,7 +61,7 @@ public class EnemyPatrol2 : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.IsGameFreeze)
+        if (!GameManager.instance.IsGameFreeze)
         {
             RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, transform.right, playerDetectionDistance, playerDetectionList);
             if (hitPlayer) //CUANDO VEAS AL PLAYER
@@ -133,10 +124,10 @@ public class EnemyPatrol2 : MonoBehaviour
                 }
             }
 
-            animatorController.SetBool("Walk", canMove); //Mientras canMove sea true, vas a caminar
+            _animatorController.SetBool("Walk", canMove); //Mientras canMove sea true, vas a caminar
             if (canMove)
             {
-                animatorController.SetFloat("Speed", currentSpeed);
+                _animatorController.SetFloat("Speed", currentSpeed);
             }
 
 
@@ -155,9 +146,9 @@ public class EnemyPatrol2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove && !gameManager.IsGameFreeze)
+        if (canMove && !GameManager.instance.IsGameFreeze)
         {
-            rb2d.velocity = transform.right * currentSpeed;
+            _rigidBody.velocity = transform.right * currentSpeed;
         }
     }
 
@@ -175,7 +166,7 @@ public class EnemyPatrol2 : MonoBehaviour
 
         moveTimer = moveCooldown + Time.time;
         attackSound.Play();
-        animatorController.SetTrigger("IsAttacking");
+        _animatorController.SetTrigger("IsAttacking");
 
         Collider2D collider = Physics2D.OverlapCircle((Vector2)attackPoint.position, attackRadius, playerDetectionList);
         if (collider != null)
@@ -201,19 +192,9 @@ public class EnemyPatrol2 : MonoBehaviour
         }
     }
 
-    public void BackFlip()
-    {
-        enemy.BackFlip();
-        facingRight = !facingRight;
-    }
-
     public void OnDestroy() //Para que destruya las barreras cuando se destruye el objeto. 
     {
         Destroy(barrierLeft);
         Destroy(barrierRight);
-    }
-    public void SetGameManager(GameManager1 _gameManager)
-    {
-        gameManager = _gameManager;
     }
 }

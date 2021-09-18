@@ -1,25 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DetectionArea : MonoBehaviour
 {
+    //public Action<bool, Actor> OnTriggerEvent;
+    private EnemyController enemyController;
+
+    private void Start()
+    {
+        enemyController = transform.parent.GetComponent<EnemyController>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))     //Comparamos el tag del collision, si coincide con player, buscame el controller del enemigo y activame/desactivame su canAttack. 
-        {
-            EnemyController enemy = transform.parent.GetComponent<EnemyController>(); //Buscalo en el padre del objeto que contiene esto
-            enemy.canAttack = true;
-        }      
+        PlayerController player = collision.GetComponent<PlayerController>();
+        if (player != null)
+            enemyController.canAttack = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-       
-        if (collision.CompareTag("Player"))
-        {
-            EnemyController enemy = transform.parent.GetComponent<EnemyController>(); 
-            enemy.canAttack = false;
-        }
+        PlayerController player = collision.GetComponent<PlayerController>();
+        if (player != null)
+            enemyController.canAttack = false;
     }
 }

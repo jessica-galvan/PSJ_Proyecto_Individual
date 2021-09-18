@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFly : MonoBehaviour
+public class EnemyFly : EnemyController
 {
     [Header("Patrol Settings")]
     [SerializeField] private float speed = 5f;
@@ -10,7 +10,6 @@ public class EnemyFly : MonoBehaviour
     [SerializeField] private GameObject rightX;
     private GameObject barrierLeft;
     private GameObject barrierRight;
-    private EnemyController enemy;
     private Vector2 spawnPoint;
 
     [Header("Prefab Settings")]
@@ -29,23 +28,15 @@ public class EnemyFly : MonoBehaviour
     private bool canShoot;
 
     //Extras
-    private Rigidbody2D rb2d;
-    private GameObject player;
-    private Animator animatorController = null;
     private bool canMove;
-    private bool facingRight;
     private float moveTimer = 0f;
 
-    private GameManager1 gameManager;
-
-    void Start()
+    protected override void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
-        animatorController = GetComponent<Animator>();
-        //animatorController.SetBool("Fly", true); //La idea es que siempre que no este atacando o muriendo, el personaje vuele. No necesita una animación de idle, es la misma que cuando se mueve.
-        gameManager.OnPlayerRespawn.AddListener(OnPlayerRespawnListener);
+        base.Start();
+        
+
         canMove = true;
-        enemy = GetComponent<EnemyController>();
         canShoot = true;
         spawnPoint = transform.position;
         barrierLeft = Instantiate(invisibleBarrierPrefab, leftX.transform.position, transform.rotation);
@@ -56,9 +47,9 @@ public class EnemyFly : MonoBehaviour
 
     void Update()
     {
-        if (!gameManager.IsGameFreeze)
+        if (!GameManager.instance.IsGameFreeze)
         {
-            if (enemy.canAttack) //Si el enemigo puede atacar es porque el player esta dentro de al trigger zone
+            if (canAttack) //Si el enemigo puede atacar es porque el player esta dentro de al trigger zone
             {
                 if (canShoot && Time.time > cooldownTimer) //cooldown y que ataque
                 {
@@ -77,16 +68,10 @@ public class EnemyFly : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove && !gameManager.IsGameFreeze)
+        if (canMove && !GameManager.instance.IsGameFreeze)
         {
-            rb2d.velocity = transform.right * speed;
+            _rigidBody.velocity = transform.right * speed;
         }
-    }
-
-    public void BackFlip()
-    {
-        enemy.BackFlip();
-        facingRight = !facingRight;
     }
 
     private void Attack()
@@ -94,7 +79,7 @@ public class EnemyFly : MonoBehaviour
         canShoot = false;
         //canMove = false;
         //moveTimer = moveCooldown + Time.time;
-        animatorController.SetTrigger("IsAttacking");
+        _animatorController.SetTrigger("IsAttacking");
         attackSound.Play();
         Instantiate(bullet, transform.position + offset, Quaternion.identity);
         cooldownTimer = cooldown + Time.time; 
@@ -107,17 +92,8 @@ public class EnemyFly : MonoBehaviour
         Destroy(barrierLeft);
         Destroy(barrierRight);
     }
-    public void SetGameManager(GameManager1 _gameManager)
-    {
-        gameManager = _gameManager;
-    }
 
-    public void SetPlayer(GameObject _player)
-    {
-        player = _player;
-    }
-
-    public void OnPlayerRespawnListener()
+    protected override void OnPlayerRespawnListener()
     {
         transform.position = spawnPoint;
     }

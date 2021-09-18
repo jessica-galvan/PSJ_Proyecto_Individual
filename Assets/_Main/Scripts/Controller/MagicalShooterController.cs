@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ManaManager))]
+[RequireComponent(typeof(BaseMagicalAttack))]
 public class MagicalShooterController : MonoBehaviour, IOwner
 {
     [SerializeField] private Transform shootingPoint;

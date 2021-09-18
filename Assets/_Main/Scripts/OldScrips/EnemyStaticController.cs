@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStaticController : MonoBehaviour
+[RequireComponent(typeof(MagicalShooterController))]
+public class EnemyStaticController : EnemyController
 {
     [Header("Attack Settings")]
+
     [SerializeField] private Vector3 offset = Vector3.zero;
     [SerializeField] private float cooldown = 2f;
     private float cooldownTimer = 0f;
@@ -12,66 +14,57 @@ public class EnemyStaticController : MonoBehaviour
 
     [Header("Prefabs Settings")]
     [SerializeField] private GameObject bullet = null;
-    private EnemyController enemyController = null;
-    private GameManager1 gameManager = null;
-    private Animator animatorController = null;
-    private GameObject player = null;
 
     [Header("Audio Sources")]
     [SerializeField] private AudioSource shootingSound = null;
 
+    public MagicalShooterController ShooterController { get; private set; }
+
     //Extra
     private bool canTime;
 
-    void Start()
+    protected override void Start()
     {
-        animatorController = GetComponent<Animator>();
-        enemyController = GetComponent<EnemyController>();
+        base.Start();
         canTime = false;
     }
 
     void Update()
     {
-        if (!gameManager.IsGameFreeze)
+        if (!GameManager.instance.IsGameFreeze)
         {
-            if (enemyController.canAttack) //Si el enemigo puede atacar es porque el player esta dentro de al trigger zone
+            if (canAttack) //Si el enemigo puede atacar es porque el player esta dentro de al trigger zone
             {
-                //con esto chequea el sentido del player antes de atacar
-                if (player.transform.position.x > transform.position.x && !enemyController.facingRight) //estoy a la derecha
-                {
-                    enemyController.BackFlip();
-                }
-                else if (player.transform.position.x < transform.position.x && enemyController.facingRight) //estoy a la izquierda
-                {
-                    enemyController.BackFlip();
-                }
+                CheckPlayerLocation();
 
-                if (canShoot && Time.time > cooldownTimer) //cooldown y que ataque
-                {
-            
-                    Shoot();
-                }
+                Shoot();
             }
         }
     }
 
+    private void CheckPlayerLocation()
+    {
+        ////con esto chequea el sentido del player antes de atacar
+        //if (player.transform.position.x > transform.position.x && !facingRight) //estoy a la derecha
+        //{
+        //    BackFlip();
+        //}
+        //else if (player.transform.position.x < transform.position.x && facingRight) //estoy a la izquierda
+        //{
+        //    BackFlip();
+        //}
+    }
+
     private void Shoot()
     {
-        canShoot = false;
-        shootingSound.Play();
-        animatorController.SetTrigger("IsShooting");
-        Instantiate(bullet, transform.position + offset, transform.rotation);
-        cooldownTimer = cooldown + Time.time;
-        canShoot = true;
-    }
-
-    public void SetPlayer(GameObject _player)
-    {
-        player = _player;
-    }
-
-    public void SetGameManager(GameManager1 _gameManager)
-    {
-        gameManager = _gameManager;
+        if (canShoot && Time.time > cooldownTimer)
+        {
+            canShoot = false;
+            shootingSound.Play();
+            _animatorController.SetTrigger("IsShooting");
+            Instantiate(bullet, transform.position + offset, transform.rotation);
+            cooldownTimer = cooldown + Time.time;
+            canShoot = true;
+        }
     }
 }

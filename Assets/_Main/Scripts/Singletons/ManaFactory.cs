@@ -6,7 +6,7 @@ public class ManaFactory : MonoBehaviour
 {
     [SerializeField] private GameObject magicalAttackPrefab;
     public static ManaFactory instance;
-    private readonly Factory<MagicalAttack> factory = new Factory<MagicalAttack>();
+    private readonly Factory<MagicalAttackBullet> factory = new Factory<MagicalAttackBullet>();
 
     public void Awake()
     {
@@ -21,7 +21,7 @@ public class ManaFactory : MonoBehaviour
         }
     }
 
-    public MagicalAttack CreateMagicalAttack(MagicalAttack prefab)
+    public MagicalAttackBullet CreateMagicalAttack(MagicalAttackBullet prefab)
     {
         //return factory.Create(magicalAttackPrefab.GetComponent<MagicalAttack>());
         return factory.Create(prefab);
