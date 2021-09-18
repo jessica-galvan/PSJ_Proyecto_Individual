@@ -42,7 +42,3 @@ public class MagicalAttackBullet : MonoBehaviour
         CanReturn = true;
     }
 }
-
-
-
-   

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AttackStats_FlyEnemy
   m_EditorClassIdentifier: 
   _canDoPhysicalAttack: 0
-  _canDoMagicalAttack: 0
+  _canDoMagicalAttack: 1
   _damageMagical: 2
   _damagePhysical: 2
   _magicalAttackPrefab: {fileID: 0}

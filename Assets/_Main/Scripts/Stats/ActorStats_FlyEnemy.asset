@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf983fe08eaf7c43b2167e07b3d1fc5, type: 3}
   m_Name: ActorStats_FlyEnemy
   m_EditorClassIdentifier: 
-  _maxLife: 100
+  _maxLife: 15
   _speed: 10
   _buffedSpeed: 10
   canJump: 0
-  jumpForce: 5
+  jumpForce: 0
