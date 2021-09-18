@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37a6562a517341d4891412e1dae8f9fc, type: 3}
-  m_Name: GunStats
+  m_Name: PlayerAttackStats
   m_EditorClassIdentifier: 
   _canDoPhysicalAttack: 1
   _canDoMagicalAttack: 1
-  _damageMagical: 1
+  _damageMagical: 5
   _damagePhysical: 1
   _magicalAttackPrefab: {fileID: 698531222225312903, guid: 703240003517a7548acfa66829f70e0c,
     type: 3}
   _cooldownPhysical: 2
   _cooldownMana: 2
   _maxMana: 6
-  _speed: 10
+  _speed: 2
   lifeTimerMagicalAttack: 5

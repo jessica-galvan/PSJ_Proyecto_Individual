@@ -2,32 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BulletManager))]
-public abstract class Gun : MonoBehaviour
+[RequireComponent(typeof(ManaManager))]
+public abstract class BaseMagicalAttack : MonoBehaviour
 {
     //Serializados
-    [SerializeField] protected AttackStats _gunStats;
-    [SerializeField] protected int bulletsPerShoot = 1;
-    [SerializeField]protected BulletManager bulletManager;
+    [SerializeField] protected int spellsPerAttack = 1;
 
     //Privados
+    protected ManaManager manaManager;
     protected float timerCD;
     protected bool canShoot;
+    protected AttackStats _attackStats;
 
     //PROPIEDADES
     public int CurrentMana { get; protected set; }
     public bool CanAttack { get; set; }
     public IOwner Owner { get; protected set; }
-    public int MaxAmmo => _gunStats.MaxMana;
-    public int Damage => _gunStats.MagicalDamage;
-    public float Cooldown => _gunStats.CooldownMana;
+    public int MaxMana => _attackStats.MaxMana;
+    public int Damage => _attackStats.MagicalDamage;
+    public float Cooldown => _attackStats.CooldownMana;
 
     //METODOS
     private void Start()
     {
-        CurrentMana = _gunStats.MaxMana;
-        bulletManager = GetComponent<BulletManager>();
-        bulletManager.Initializer(_gunStats.MagicalAttackPrefab, _gunStats.MaxMana);
+        manaManager = GetComponent<ManaManager>();
+        _attackStats = GetComponent<Actor>().AttackStats;
+        CurrentMana = _attackStats.MaxMana;
+        manaManager.Initializer(_attackStats.MagicalAttackPrefab, _attackStats.MaxMana);
     }
 
     void Update()
@@ -38,11 +39,11 @@ public abstract class Gun : MonoBehaviour
 
     public void Attack()
     {
-        if (CanAttack && CurrentMana >= bulletsPerShoot)
+        if (CanAttack && CurrentMana >= spellsPerAttack)
         {
             CanAttack = false;
             timerCD = Time.deltaTime + Cooldown;
-            CurrentMana -= bulletsPerShoot;
+            CurrentMana -= spellsPerAttack;
 
             InstantiateBullets(Owner.ShootingPoint);
             //TODO: ShootingSound
@@ -50,12 +51,12 @@ public abstract class Gun : MonoBehaviour
     }
     public void Reload(int number)
     {
-        if (CurrentMana < MaxAmmo)
+        if (CurrentMana < MaxMana)
         {
-            if (CurrentMana < (MaxAmmo - number))
+            if (CurrentMana < (MaxMana - number))
                 CurrentMana += number;
             else
-                CurrentMana = MaxAmmo;
+                CurrentMana = MaxMana;
         }
     }
     public abstract void InstantiateBullets(Transform shootingPoint);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ShooterController))]
+[RequireComponent(typeof(MagicalShooterController))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(MovementController))]
 public class PlayerController : Actor, IDamagable
@@ -14,13 +14,13 @@ public class PlayerController : Actor, IDamagable
     //Propiedades
     public int Coins => coins;
     public MovementController MovementController { get; private set; }
-    public ShooterController ShooterController { get; private set; }
+    public MagicalShooterController ShooterController { get; private set; }
     public PhysicalAttackController PhysicalAttackController { get; private set; }
 
     #region Unity
     void Awake()
     {
-        ShooterController = GetComponent<ShooterController>();
+        ShooterController = GetComponent<MagicalShooterController>();
         PhysicalAttackController = GetComponent<PhysicalAttackController>();
         MovementController = GetComponent<MovementController>();
     }
@@ -56,7 +56,7 @@ public class PlayerController : Actor, IDamagable
 
     private void OnShoot()
     {
-        if(ShooterController.GetCurrentAmmo() > 0)
+        if(ShooterController.GetCurrentMana() > 0)
         {
             ShooterController.Shoot();
             _animatorController.SetTrigger("IsShooting");

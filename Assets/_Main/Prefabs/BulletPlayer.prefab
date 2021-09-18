@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3762357391963882062}
-  - component: {fileID: 3762357391963882061}
-  - component: {fileID: 3762357391963882060}
   - component: {fileID: 2611181786558738192}
   - component: {fileID: 3370890376886560202}
   - component: {fileID: -1189690523635383163}
@@ -38,33 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3762357391963882061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3762357391963882051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec41d0b36ae0b314fa72369e85071d1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  damage: 5
---- !u!114 &3762357391963882060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3762357391963882051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b5821268f153324e9780d17dd445428, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timer: 2
 --- !u!58 &2611181786558738192
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -184,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2071a9f532ea1b48aa2c15a356c335b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gunStats: {fileID: 0}
+  _attackStats: {fileID: 0}
 --- !u!1 &3762357392937266564
 GameObject:
   m_ObjectHideFlags: 0

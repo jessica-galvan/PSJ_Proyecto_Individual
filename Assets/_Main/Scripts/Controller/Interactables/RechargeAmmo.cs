@@ -13,7 +13,7 @@ public class RechargeAmmo : MonoBehaviour, IInteractable
 
     public void Interact(PlayerController character)
     {
-        if (character.ShooterController.CanRechargeAmmo())
+        if (character.ShooterController.CanRechargeMana())
         {
             character.ShooterController.RechargeAmmo(_interactableStats.RechargeAmmo);
             Destroy(gameObject);
