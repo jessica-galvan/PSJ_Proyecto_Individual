@@ -28,7 +28,6 @@ public class PlayerController : Actor
         base.Start();
         LevelManager.instance.AssingCharacter(this);
         MovementController.SetStats(_actorStats);
-        PhysicalAttackController.SetStats(_attackStats);
         SubscribeEvents();
     }
     #endregion

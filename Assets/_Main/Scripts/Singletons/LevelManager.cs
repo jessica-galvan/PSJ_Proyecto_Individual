@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    //[SerializeField] private float restartTimer = 2f;
-    //private float restartCooldown;
-
     public static LevelManager instance;
     public PlayerController Player { get; private set; }
 
@@ -44,7 +41,6 @@ public class LevelManager : MonoBehaviour
     {
         victoryScreen = HUDManager.instance.VictoryScreen;
         gameOverEffect = HUDManager.instance.GameOverScreen;
-        gameOverEffect.SetGameOver(false);
         AudioManager.instance.EnviromentMusic(EnviromentSoundClip.LevelMusic);
     }
 

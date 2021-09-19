@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PatrolMovementController : MonoBehaviour
 {
     private EnemyController enemyController;
     protected ActorStats _actorStats;
     private AttackStats _attackStats;
-    protected Rigidbody2D _rigidBody;
 
     [Header("Patrol Settings")]
     [SerializeField] private bool IsGroundEnemy;
@@ -47,10 +45,11 @@ public class PatrolMovementController : MonoBehaviour
 
     public float CurrentSpeed { get; private set; }
     public bool CanMove { get; set; }
+    public bool IsPlayerInRange { get; private set; }
 
     void Start()
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
+        //_rigidBody = GetComponent<Rigidbody2D>();
         enemyController = GetComponent<EnemyController>();
         spawnPoint = transform.position;
         playerDetectionDistance = Vector2.Distance(transform.position, playerDetectionPoint.position);  //Con esto sacamos a cuanta distancia puede ver. 
@@ -59,7 +58,7 @@ public class PatrolMovementController : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.instance.IsGameFreeze)
+        if (!GameManager.instance.IsGameFreeze && !enemyController.LifeController.IsDead)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, playerDetectionDistance, _attackStats.TargetList);
             if (hit) //Hace Raycast, si ves al player...
@@ -75,15 +74,15 @@ public class PatrolMovementController : MonoBehaviour
 
             if (IsGroundEnemy)
                 CheckGroundDetection();
+
+            Move();
         }
     }
 
-    private void FixedUpdate()
+    public void Move()
     {
-        if (CanMove && !GameManager.instance.IsGameFreeze)
-        {
-            _rigidBody.velocity = transform.right * CurrentSpeed;
-        }
+        if(CanMove && !GameManager.instance.IsGameFreeze && !enemyController.IsAttacking)
+            transform.position += transform.right * CurrentSpeed * Time.deltaTime;
     }
 
     private void CreateBarriers()
@@ -110,10 +109,12 @@ public class PatrolMovementController : MonoBehaviour
         if (distance <= attackRadius) //Y si esta a una distancia menor o igual al radio de ataque, dejate de mover. 
         {
             CanMove = false;
+            IsPlayerInRange = true;
             enemyController.TargetDetected(true);
         }
         else
         {
+            IsPlayerInRange = false;
             if (!CanMove && Time.time > moveTimer) //Termino animación ataque? Se puede mover
                 CanMove = true;
         }

@@ -6,45 +6,42 @@ using UnityEngine;
 [RequireComponent(typeof(PhysicalAttackController))]
 public class EnemyPatrolController : EnemyController
 {
-    private Rigidbody2D _rigidBody;
-    private PhysicalAttackController physicalAttackController;
-    private PatrolMovementController patrolMovementController;
+    public PhysicalAttackController PhysicalAttackController { get; private set; }
+    public PatrolMovementController PatrolMovementController { get; private set; }
+
+    private bool isInCooldown;
+    
 
     protected override void Start()
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
-        physicalAttackController = GetComponent<PhysicalAttackController>();
-        patrolMovementController = GetComponent<PatrolMovementController>();
-        physicalAttackController.SetStats(_attackStats);
-        patrolMovementController.SetStats(_actorStats, _attackStats);
+        base.Start();
+        PhysicalAttackController = GetComponent<PhysicalAttackController>();
+        PatrolMovementController = GetComponent<PatrolMovementController>();
+        PatrolMovementController.SetStats(_actorStats, _attackStats);
 
         CanAttack = true;
+
     }
 
     void Update()
     {
-        if (!GameManager.instance.IsGameFreeze)
+        if (!GameManager.instance.IsGameFreeze && !LifeController.IsDead)
         {
-            if(_animatorController != null)
-                _animatorController.SetBool("Walk", patrolMovementController.CanMove); //Mientras canMove sea true, vas a caminar
-
-            //if (patrolMovementController.CanMove)
-            //    _animatorController.SetFloat("Speed", patrolMovementController.CurrentSpeed);
-
-
-            if (!CanAttack && !physicalAttackController.IsAttacking && Time.time > cooldownTimer) //Cooldown Attack Timer
+            if (!IsAttacking)
             {
-                CanAttack = true;            
-                DoAttack();
-            }
-        }
-    }
+                _animatorController.SetBool("Walk", PatrolMovementController.CanMove);
+                _animatorController.SetFloat("Speed", PatrolMovementController.CurrentSpeed);
 
-    private void FixedUpdate()
-    {
-        if (patrolMovementController.CanMove && !GameManager.instance.IsGameFreeze)
-        {
-            _rigidBody.velocity = transform.right * patrolMovementController.CurrentSpeed;
+                if (isInCooldown)
+                {
+                    cooldownTimer -= Time.deltaTime;
+                    if (cooldownTimer <= 0)
+                        isInCooldown = false;
+                }
+            }
+
+            if(PatrolMovementController.IsPlayerInRange)
+                DoAttack();
         }
     }
 
@@ -62,13 +59,12 @@ public class EnemyPatrolController : EnemyController
 
     private void DoAttack()
     {
-        if (!physicalAttackController.IsAttacking && CanAttack)
+        if (!IsAttacking && CanAttack && !isInCooldown )
         {
-            CanAttack = false;
-            patrolMovementController.CanMove = false;
+            isInCooldown = true;
             _animatorController.SetTrigger("IsAttacking");
             AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolAttack);
-            cooldownTimer = _attackStats.CooldownPhysical + Time.deltaTime;
+            cooldownTimer = _attackStats.CooldownPhysical;
         }
     }
 }

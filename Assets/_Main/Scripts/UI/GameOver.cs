@@ -5,12 +5,12 @@ using UnityEngine;
 public class GameOver : MonoBehaviour
 {
     private Animator _animator;
-    
     public bool IsGameOverActive { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
+        SetGameOver(false);
     }
 
     public void SetGameOver(bool value)

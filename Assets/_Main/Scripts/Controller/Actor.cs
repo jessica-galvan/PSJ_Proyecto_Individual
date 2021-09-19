@@ -13,6 +13,8 @@ public class Actor : MonoBehaviour, IDamagable
     [SerializeField] protected AttackStats _attackStats;
     protected Animator _animatorController;
     public LifeController LifeController { get; private set; }
+
+    public bool IsAttacking { get; set; }
     public AttackStats AttackStats => _attackStats;
 
     public Action OnDie;

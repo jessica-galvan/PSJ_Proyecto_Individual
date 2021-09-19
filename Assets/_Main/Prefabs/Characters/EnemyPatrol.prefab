@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &898057852
 Transform:
   m_ObjectHideFlags: 0
@@ -393,7 +393,6 @@ GameObject:
   - component: {fileID: 5787261840049859416}
   - component: {fileID: 5787261840049859415}
   - component: {fileID: 5787261840049859412}
-  - component: {fileID: 4142080222235212385}
   - component: {fileID: 5799902458436473082}
   - component: {fileID: 2878119533713761341}
   - component: {fileID: 8986708539630152121}
@@ -493,7 +492,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.039143085, y: -0.06493533}
+  m_Offset: {x: -0.087581396, y: -0.105300784}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -504,29 +503,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9261675, y: 0.88352275}
+  m_Size: {x: 1.0230441, y: 0.89966893}
   m_EdgeRadius: 0
---- !u!50 &4142080222235212385
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5787261840049859411}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!95 &5799902458436473082
 Animator:
   serializedVersion: 3
@@ -572,6 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bar: {fileID: 1433766463571121059}
   barImage: {fileID: 1724311354912455881}
+  particles: {fileID: 0}
 --- !u!114 &5964268775823845525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,18 +569,6 @@ MonoBehaviour:
   reward:
   - {fileID: 4643241683810020395, guid: f44bf3e25cf69b146a39e41087952271, type: 3}
   - {fileID: 4643241683810020395, guid: a52a3bdb83f5a5a418d8a2c68e49d6ff, type: 3}
-  normalSpeed: 2
-  followingSpeed: 3
-  leftX: {fileID: 6610763774825115603}
-  rightX: {fileID: 2851005564946464381}
-  groundDetectionList:
-    serializedVersion: 2
-    m_Bits: 1024
-  groundDetectionDistance: 0.5
-  checkPlayerTimeDuration: 5
-  attackRadius: 1
-  attackTimeDuration: 1
-  cooldown: 5
 --- !u!114 &1660648626579672111
 MonoBehaviour:
   m_ObjectHideFlags: 0
