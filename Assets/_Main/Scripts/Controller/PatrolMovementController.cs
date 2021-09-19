@@ -6,7 +6,6 @@ public class PatrolMovementController : MonoBehaviour
 {
     private EnemyController enemyController;
     protected ActorStats _actorStats;
-    private AttackStats _attackStats;
 
     [Header("Patrol Settings")]
     [SerializeField] private bool IsGroundEnemy;
@@ -38,9 +37,6 @@ public class PatrolMovementController : MonoBehaviour
     private bool checkDirection;
     private bool canReturnToSpawnPoint;
 
-    [Header("Attack Settings")]
-    [SerializeField] private float attackRadius = 1f;
-    [SerializeField] private float cooldown = 5f;
     [SerializeField] private float moveCooldown = 0.8f;
 
     public float CurrentSpeed { get; private set; }
@@ -49,7 +45,6 @@ public class PatrolMovementController : MonoBehaviour
 
     void Start()
     {
-        //_rigidBody = GetComponent<Rigidbody2D>();
         enemyController = GetComponent<EnemyController>();
         spawnPoint = transform.position;
         playerDetectionDistance = Vector2.Distance(transform.position, playerDetectionPoint.position);  //Con esto sacamos a cuanta distancia puede ver. 
@@ -60,7 +55,7 @@ public class PatrolMovementController : MonoBehaviour
     {
         if (!GameManager.instance.IsGameFreeze && !enemyController.LifeController.IsDead)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, playerDetectionDistance, _attackStats.TargetList);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, playerDetectionDistance, enemyController.AttackStats.TargetList);
             if (hit) //Hace Raycast, si ves al player...
             {
                 player = hit.collider.GetComponent<PlayerController>();
@@ -106,7 +101,7 @@ public class PatrolMovementController : MonoBehaviour
         }
 
         float distance = Vector2.Distance(hit.collider.transform.position, attackPoint.position);
-        if (distance <= attackRadius) //Y si esta a una distancia menor o igual al radio de ataque, dejate de mover. 
+        if (distance <= enemyController.AttackStats.PhysicalAttackRadious) //Y si esta a una distancia menor o igual al radio de ataque, dejate de mover. 
         {
             CanMove = false;
             IsPlayerInRange = true;
@@ -164,10 +159,9 @@ public class PatrolMovementController : MonoBehaviour
         barrierRight.SetActive(isBarrierActive);
     }
 
-    public void SetStats(ActorStats actor, AttackStats attacks)
+    public void SetStats(ActorStats actor)
     {
         _actorStats = actor;
-        _attackStats = attacks;
         CurrentSpeed = _actorStats.OriginalSpeed;
     }
 

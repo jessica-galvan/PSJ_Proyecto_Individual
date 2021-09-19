@@ -15,15 +15,13 @@ MonoBehaviour:
   _targetList:
     serializedVersion: 2
     m_Bits: 256
-  _bodyDamage: 1
-  _canDoPhysicalAttack: 0
-  _canDoMagicalAttack: 1
   _damageMagical: 1
   _damagePhysical: 1
+  _physicalAttackRadious: 1
   _magicalAttackPrefab: {fileID: 1020362333111516470, guid: abcf110299afb8a42bfef5fcb797690e,
     type: 3}
   _cooldownPhysical: 1
   _cooldownMana: 2
   _maxMana: 10
-  _speed: 3
+  _spellSpeed: 5
   lifeTimerMagicalAttack: 5

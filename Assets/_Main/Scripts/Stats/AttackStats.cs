@@ -8,20 +8,14 @@ public class AttackStats : ScriptableObject
     public LayerMask TargetList => _targetList;
     [SerializeField] private LayerMask _targetList;
 
-    public int BodyDamage => _bodyDamage;
-    [SerializeField] private int _bodyDamage;
-
-    public bool CanDoPhysicalAttack => _canDoPhysicalAttack;
-    [SerializeField] private bool _canDoPhysicalAttack;
-
-    public bool CanDoMagicalAttack => _canDoMagicalAttack;
-    [SerializeField] private bool _canDoMagicalAttack;
-
     public int MagicalDamage => _damageMagical;
     [SerializeField] private int _damageMagical = 2;
 
     public int PhysicalDamage => _damagePhysical;
     [SerializeField] private int _damagePhysical = 2;
+
+    public float PhysicalAttackRadious => _physicalAttackRadious;
+    [SerializeField] private float _physicalAttackRadious = 1f;
 
     public MagicalAttackBullet MagicalAttackPrefab => _magicalAttackPrefab;
     [SerializeField] private MagicalAttackBullet _magicalAttackPrefab;
@@ -35,8 +29,8 @@ public class AttackStats : ScriptableObject
     public int MaxMana => _maxMana;
     [SerializeField] private int _maxMana = 10;
 
-    public float Speed => _speed;
-    [SerializeField] private float _speed = 7f;
+    public float SpellSpeed => _spellSpeed;
+    [SerializeField] private float _spellSpeed = 7f;
 
     public float LifeMagicalAttack => lifeTimerMagicalAttack;
     [SerializeField] private float lifeTimerMagicalAttack = 5f;

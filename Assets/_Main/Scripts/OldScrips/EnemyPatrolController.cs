@@ -17,7 +17,7 @@ public class EnemyPatrolController : EnemyController
         base.Start();
         PhysicalAttackController = GetComponent<PhysicalAttackController>();
         PatrolMovementController = GetComponent<PatrolMovementController>();
-        PatrolMovementController.SetStats(_actorStats, _attackStats);
+        PatrolMovementController.SetStats(_actorStats);
 
         CanAttack = true;
 

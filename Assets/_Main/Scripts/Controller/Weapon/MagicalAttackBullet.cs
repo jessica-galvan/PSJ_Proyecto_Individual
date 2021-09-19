@@ -20,7 +20,7 @@ public class MagicalAttackBullet : MonoBehaviour
     void Update()
     {
         if (canMove)
-            transform.position += transform.right * _attackStats.Speed * Time.deltaTime;
+            transform.position += transform.right * _attackStats.SpellSpeed * Time.deltaTime;
 
         timer -= Time.deltaTime;
         if (timer <= 0)
