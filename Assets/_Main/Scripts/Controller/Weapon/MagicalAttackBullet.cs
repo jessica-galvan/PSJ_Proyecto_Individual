@@ -24,7 +24,7 @@ public class MagicalAttackBullet : MonoBehaviour
 
         timer -= Time.deltaTime;
         if (timer <= 0)
-            OnDestroy();
+            OnCollision();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,11 +33,11 @@ public class MagicalAttackBullet : MonoBehaviour
         if (life != null)
         {
             life.TakeDamage(_attackStats.MagicalDamage);
-            OnDestroy();
+            OnCollision();
         }
     }
 
-    private void OnDestroy()
+    private void OnCollision()
     {
         CanReturn = true;
     }

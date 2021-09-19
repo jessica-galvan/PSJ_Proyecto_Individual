@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerController : Actor
 {
     private int collectableCount;
+    protected Rigidbody2D _rigidBody;
 
     public int Collectables => collectableCount;
     public MovementController MovementController { get; private set; }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PatrolMovementController))]
 public class EnemyFly : EnemyController
 {
     [Header("Patrol Settings")]
@@ -25,12 +25,12 @@ public class EnemyFly : EnemyController
     [SerializeField] private float cooldown = 5f;
     [SerializeField] private float moveCooldown = 0.8f;
     [SerializeField] private Vector3 offset = Vector3.zero;
-    private float cooldownTimer = 0f;
-    private bool canShoot;
+
 
     //Extras
     private bool canMove;
     private float moveTimer = 0f;
+    private Rigidbody2D _rigidBody;
 
     protected override void Start()
     {
@@ -50,7 +50,7 @@ public class EnemyFly : EnemyController
     {
         if (!GameManager.instance.IsGameFreeze)
         {
-            if (canAttack) //Si el enemigo puede atacar es porque el player esta dentro de al trigger zone
+            if (CanAttack) //Si el enemigo puede atacar es porque el player esta dentro de al trigger zone
             {
                 if (canShoot && Time.time > cooldownTimer) //cooldown y que ataque
                 {

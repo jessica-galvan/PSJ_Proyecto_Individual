@@ -11,9 +11,12 @@ public class EnemyController : Actor
     [SerializeField] protected Collider2D detectionZone;
 
     protected UIBarController lifeBar;
-    protected bool facingRight;
-    protected bool canAttack;
+    protected bool canShoot;
     protected PlayerController player;
+    protected float cooldownTimer;
+
+    public bool FacingRight { get; protected set; }
+    public bool CanAttack { get; protected set; }
 
     protected override void Start()
     {
@@ -22,6 +25,7 @@ public class EnemyController : Actor
         LifeController.UpdateLifeBar += UpdateLifeBar;
         LevelManager.instance.AddEnemyToList(this);
         LevelManager.instance.OnPlayerRespawn += OnPlayerRespawnListener;
+        TargetDetected(false);
     }
     
     protected void UpdateLifeBar(int currentLife, int maxLife)
@@ -33,18 +37,13 @@ public class EnemyController : Actor
     {
         transform.Rotate(0f, 180f, 0f);
         canvas.transform.Rotate(0f, 180f, 0f);
-        facingRight = !facingRight;
-    }
-
-    protected virtual void OnPlayerRespawnListener()
-    {
-
+        FacingRight = !FacingRight;
     }
 
     protected override void DieAnimation()
     {
         base.DieAnimation();
-        //TODO: Apagar collider? agregar death animation, etc. etc. olvidarse de los prefabs. Configurar el drop post muerte.
+        gameObject.GetComponent<Collider2D>().enabled = false;
     }
 
     protected override void DeathAnimationOver()
@@ -56,8 +55,13 @@ public class EnemyController : Actor
 
     public void TargetDetected(bool value, PlayerController player = null)
     {
-        canAttack = value;
+        CanAttack = value;
         this.player = player;
+    }
+
+    protected virtual void OnPlayerRespawnListener()
+    {
+
     }
 
     /*private void OnCollisionEnter2D(Collision2D collision)

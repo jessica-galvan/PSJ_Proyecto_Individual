@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PatrolMovementController))]
 public class EnemyPatrolController : EnemyController
 {
     [Header("Patrol Settings")]
@@ -24,7 +24,7 @@ public class EnemyPatrolController : EnemyController
     private bool canReturnToSpawnPoint;
 
     [Header("Prefab Settings")]
-    [SerializeField] private Transform groundDetectionPoint;
+    //[SerializeField] private Transform groundDetectionPoint;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform playerDetectionPoint;
     [SerializeField] private GameObject invisibleBarrierPrefab;
@@ -36,19 +36,19 @@ public class EnemyPatrolController : EnemyController
     [SerializeField] private float attackTimeDuration = 1f;
     [SerializeField] private float cooldown = 5f;
     [SerializeField] private float moveCooldown = 0.8f;
-    private float cooldownTimer = 0f;
     private float playerDetectionDistance;
 
     //Extras
     private bool canMove;
     private float moveTimer = 0f;
+    private Rigidbody2D _rigidBody;
 
     protected override void Start()
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
+        //_rigidBody = GetComponent<Rigidbody2D>();
 
         canMove = true;
-        canAttack = true;
+        CanAttack = true;
         isBarrierActive = true;
         currentSpeed = normalSpeed;
         barrierLeft = Instantiate(invisibleBarrierPrefab, leftX.transform.position, transform.rotation);
@@ -80,7 +80,7 @@ public class EnemyPatrolController : EnemyController
                 if (distance <= attackRadius) //Y si esta a una distancia menor o igual al radio de ataque, dejate de mover. 
                 {
                     canMove = false;
-                    if (canAttack && Time.time > cooldownTimer)
+                    if (CanAttack && Time.time > cooldownTimer)
                     {
                         Attack();
                     }
@@ -130,15 +130,9 @@ public class EnemyPatrolController : EnemyController
             //    _animatorController.SetFloat("Speed", currentSpeed);
             
 
-            RaycastHit2D hitPatrol = Physics2D.Raycast(groundDetectionPoint.position, Vector2.down, groundDetectionDistance, groundDetectionList);
-            if (!hitPatrol)      //GroundDetection esta funcionando todo el tiempo, si deja de detectar ground, va a flippear.
+            if (!CanAttack && Time.time > cooldownTimer) //Cooldown Attack Timer
             {
-                BackFlip();
-            }
-
-            if (!canAttack && Time.time > cooldownTimer) //Cooldown Attack Timer
-            {
-                canAttack = true;
+                CanAttack = true;
             }
         }
     }
@@ -174,7 +168,7 @@ public class EnemyPatrolController : EnemyController
     private void Attack()
     {
         canMove = false; //mientras hace la animación de ataque, no deberia moverse
-        canAttack = false;
+        CanAttack = false;
 
         moveTimer = moveCooldown + Time.time;
 
@@ -196,10 +190,10 @@ public class EnemyPatrolController : EnemyController
 
     private void checkSpawnPointDirection()     //Aca chequeamos en que sentido esta mirando el enemigo y en que sentido esta el spawn point. 
     {
-        if (spawnPoint.x > transform.position.x && !facingRight) //Si el spawnpint es mayor a la posicion del enemigo, y no esta mirando a la derecha...
+        if (spawnPoint.x > transform.position.x && !FacingRight) //Si el spawnpint es mayor a la posicion del enemigo, y no esta mirando a la derecha...
         {
             BackFlip();
-        } else if(spawnPoint.x < transform.position.x && facingRight) //si o si esta este else if porque solo tiene que flipear si esta mirando en la direccion contraria, sino ni flipea. 
+        } else if(spawnPoint.x < transform.position.x && FacingRight) //si o si esta este else if porque solo tiene que flipear si esta mirando en la direccion contraria, sino ni flipea. 
         {
             BackFlip();
         }

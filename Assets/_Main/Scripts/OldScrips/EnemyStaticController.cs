@@ -5,10 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(MagicalShooterController))]
 public class EnemyStaticController : EnemyController
 {
-    private float cooldownTimer;
-    private bool canShoot = true;
-    private bool canTime;
-
     public MagicalShooterController ShooterController { get; private set; }
 
     protected override void Start()
@@ -20,11 +16,14 @@ public class EnemyStaticController : EnemyController
     void Update()
     {
         if (!GameManager.instance.IsGameFreeze)
-            if (canAttack)
+            if (CanAttack)
             {
                 CheckPlayerLocation();
-                Shoot();
+                Attack();
             }
+
+        if (CanAttack && !canShoot && cooldownTimer <= Time.deltaTime)
+            canShoot = true;
     }
 
     protected override void OnTakeDamage()
@@ -43,23 +42,21 @@ public class EnemyStaticController : EnemyController
     {
         if(player != null)
         {
-            if (player.transform.position.x > transform.position.x && !facingRight) //estoy a la derecha
+            if (player.transform.position.x > transform.position.x && !FacingRight) //estoy a la derecha
                 BackFlip();
-            else if (player.transform.position.x < transform.position.x && facingRight) //estoy a la izquierda
+            else if (player.transform.position.x < transform.position.x && FacingRight) //estoy a la izquierda
                 BackFlip();
         }
     }
 
-    private void Shoot()
+    private void Attack()
     {
-        if (canShoot && Time.time > cooldownTimer)
+        if (canShoot && !ShooterController.IsAttacking && ShooterController.GetCurrentMana() > 0)
         {
             canShoot = false;
-            //shootingSound.Play();
-            _animatorController.SetTrigger("IsShooting");
-            //Instantiate(bullet, transform.position + offset, transform.rotation);
             cooldownTimer = _attackStats.CooldownMana + Time.time;
-            canShoot = true;
+            _animatorController.SetTrigger("IsShooting");
+            AudioManager.instance.PlayEnemySound(EnemySoundClips.StaticAttack);
         }
     }
 }
