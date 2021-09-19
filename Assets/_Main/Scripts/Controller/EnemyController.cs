@@ -4,7 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(UIBarController))]
 public class EnemyController : Actor
-{    
+{
+    protected UIBarController lifeBar;
     [Header("Attack Settings")]
     [SerializeField] private int bodyDamage = 5;
     public bool facingRight = false;
@@ -14,15 +15,22 @@ public class EnemyController : Actor
     [SerializeField] private GameObject canvas = null;
 
     [Header("Audio Sources")]
-    [SerializeField] private AudioSource shootingSound = null;
+    [SerializeField] protected AudioSource shootingSound = null;
     [SerializeField] private AudioSource damageSound = null;
 
     protected override void Start()
     {
         base.Start();
+        lifeBar = GetComponent<UIBarController>();
         _rigidBody = GetComponent<Rigidbody2D>();
+        LifeController.UpdateLifeBar += UpdateLifeBar;
         LevelManager.instance.AddEnemyToList(this);
         LevelManager.instance.OnPlayerRespawn += OnPlayerRespawnListener;
+    }
+    
+    protected void UpdateLifeBar(int currentLife, int maxLife)
+    {
+        lifeBar.UpdateLifeBar(currentLife, maxLife);
     }
 
     public void BackFlip()

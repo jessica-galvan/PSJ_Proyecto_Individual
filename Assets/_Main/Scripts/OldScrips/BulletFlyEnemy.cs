@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class BulletFlyEnemy : MonoBehaviour
 {
     [SerializeField] private float speed = 0f;
     [SerializeField] private int damage = 1;
     private Rigidbody2D rb2;
-    private PlayerController1 player;
     private Vector2 movement;
     private Vector2 direction;
     private Vector2 spawnPosition;
@@ -15,10 +15,6 @@ public class BulletFlyEnemy : MonoBehaviour
     void Start()
     {
         rb2 = GetComponent<Rigidbody2D>();
-        spawnPosition = transform.position;
-        player = GameObject.FindObjectOfType<PlayerController1>();
-        direction = player.transform.position - (Vector3)spawnPosition;
-        direction.Normalize();
     }
 
     private void Update()
@@ -29,7 +25,7 @@ public class BulletFlyEnemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision);
-        LifeController1 life = collision.GetComponent<LifeController1>(); //Si el item tiene un life controller.... (ya la matrix de fisica va decidir si detecta la collision)
+        LifeController life = collision.GetComponent<LifeController>(); //Si el item tiene un life controller.... (ya la matrix de fisica va decidir si detecta la collision)
         if (life != null) //si no tiene un life controller el item con el que collisiono, va a ser null. 
         {
             life.TakeDamage(damage);
@@ -38,10 +34,12 @@ public class BulletFlyEnemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void SetBullet(PlayerController1 _player)
+    public void SetBullet(PlayerController _player)
     {
-        player = _player;
-        movement = (player.transform.position - transform.position).normalized * speed;
+        direction = _player.transform.position - (Vector3)spawnPosition;
+        direction.Normalize();
+        spawnPosition = transform.position;
+        movement = (_player.transform.position - transform.position).normalized * speed;
         rb2.velocity = new Vector2(movement.x, movement.y);
     }
 }

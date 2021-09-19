@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a6562a517341d4891412e1dae8f9fc, type: 3}
   m_Name: AttackStats_Player
   m_EditorClassIdentifier: 
+  _targetList:
+    serializedVersion: 2
+    m_Bits: 512
+  _bodyDamage: 1
   _canDoPhysicalAttack: 1
   _canDoMagicalAttack: 1
-  _damageMagical: 5
+  _damageMagical: 2
   _damagePhysical: 1
   _magicalAttackPrefab: {fileID: 698531222225312903, guid: 703240003517a7548acfa66829f70e0c,
     type: 3}

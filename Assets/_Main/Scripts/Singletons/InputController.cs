@@ -45,7 +45,7 @@ public class InputController : MonoBehaviour
     {
         CheckPause();
 
-        if (!GameManager1.instance.IsGameFreeze)
+        if (!GameManager.instance.IsGameFreeze)
         {
             CheckMovement();
             CheckJump();

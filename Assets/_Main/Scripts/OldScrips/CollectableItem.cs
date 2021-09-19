@@ -6,7 +6,6 @@ public class CollectableItem : MonoBehaviour
 {
     [SerializeField] private GameObject plumaLuz;
     [SerializeField] private float destroyTime = 1f;
-    private GameManager1 gameManager;
     private AudioSource sound;
     private bool canPickup;
     private bool canDestroy;
@@ -15,7 +14,6 @@ public class CollectableItem : MonoBehaviour
     void Start()
     {
         sound = GetComponent<AudioSource>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager1>();
         canPickup = true;
     }
 
@@ -29,20 +27,17 @@ public class CollectableItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        PlayerController player = collision.GetComponent<PlayerController>();
+        if (player != null && canPickup)
         {
-            PlayerController1 player = collision.GetComponent<PlayerController1>();
-            if (player != null && canPickup)
-            {
-                canPickup = false;
-                gameManager.PickUpCollectable();
-                plumaLuz.SetActive(false);
-                sound.Play();
-                GetComponent<Collider2D>().enabled = false;
-                GetComponent<SpriteRenderer>().enabled = false;
-                canDestroy = true;
-                destroyTimer = destroyTime + Time.time;
-            }
+            canPickup = false;
+            player.PickUpCollectable(1);
+            plumaLuz.SetActive(false);
+            sound.Play();
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+            canDestroy = true;
+            destroyTimer = destroyTime + Time.time;
         }
     }
 }

@@ -17,7 +17,7 @@ public class BouncingMushroom : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerController1 player = collision.gameObject.GetComponent<PlayerController1>();
+        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         if (player)
         {
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();

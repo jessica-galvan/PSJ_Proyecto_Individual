@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinScript : MonoBehaviour,IInteractable
+public class CollectableItemScript : MonoBehaviour,IInteractable
 {
     [SerializeField] protected InteractableStats _interactableStats;
 
@@ -13,7 +13,7 @@ public class CoinScript : MonoBehaviour,IInteractable
 
     public void Interact(PlayerController character)
     {
-        character.AddCoins(_interactableStats.Coin);
+        character.PickUpCollectable(_interactableStats.Coin);
         Destroy(gameObject);
     }
 }

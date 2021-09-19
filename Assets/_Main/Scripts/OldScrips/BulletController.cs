@@ -14,7 +14,7 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        LifeController1 life = collision.GetComponent<LifeController1>(); //Si el item tiene un life controller.... (ya la matrix de fisica va decidir si detecta la collision)
+        LifeController life = collision.GetComponent<LifeController>(); //Si el item tiene un life controller.... (ya la matrix de fisica va decidir si detecta la collision)
         if (life != null) //si no tiene un life controller el item con el que collisiono, va a ser null. 
         {
             life.TakeDamage(damage);

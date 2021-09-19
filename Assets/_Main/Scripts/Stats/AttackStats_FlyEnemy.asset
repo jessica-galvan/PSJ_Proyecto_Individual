@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a6562a517341d4891412e1dae8f9fc, type: 3}
   m_Name: AttackStats_FlyEnemy
   m_EditorClassIdentifier: 
+  _targetList:
+    serializedVersion: 2
+    m_Bits: 256
+  _bodyDamage: 1
   _canDoPhysicalAttack: 0
   _canDoMagicalAttack: 1
-  _damageMagical: 2
-  _damagePhysical: 2
-  _magicalAttackPrefab: {fileID: 0}
+  _damageMagical: 1
+  _damagePhysical: 1
+  _magicalAttackPrefab: {fileID: 1020362333111516470, guid: abcf110299afb8a42bfef5fcb797690e,
+    type: 3}
   _cooldownPhysical: 1
   _cooldownMana: 2
   _maxMana: 10
-  _speed: 7
+  _speed: 3
   lifeTimerMagicalAttack: 5

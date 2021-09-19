@@ -9,7 +9,7 @@ public class TrapDamage : MonoBehaviour
     private float timer;
     private bool canDamage;
     private bool isPlayerThere;
-    private LifeController1 playerLifeController = null;
+    private LifeController playerLifeController = null;
 
     private void Start()
     {
@@ -33,17 +33,20 @@ public class TrapDamage : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        PlayerController player = collision.GetComponent<PlayerController>();
+        if (player)
         {
-            playerLifeController = collision.GetComponent<LifeController1>();
+            playerLifeController = player.LifeController;
             isPlayerThere = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        PlayerController player = collision.GetComponent<PlayerController>();
+        if (player)
         {
+            playerLifeController = null;
             isPlayerThere = false;
         }
     }

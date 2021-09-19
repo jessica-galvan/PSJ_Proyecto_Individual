@@ -66,7 +66,7 @@ public class EnemyPatrol2 : EnemyController
             RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, transform.right, playerDetectionDistance, playerDetectionList);
             if (hitPlayer) //CUANDO VEAS AL PLAYER
             {
-                var playerController = hitPlayer.collider.GetComponent<PlayerController1>();
+                var playerController = hitPlayer.collider.GetComponent<PlayerController>();
                 if (!followingPlayer && playerController)  //Desactiva las barreras de patruyar para perseguirlo
                 {
                     statusBarriers(false);
@@ -124,12 +124,11 @@ public class EnemyPatrol2 : EnemyController
                 }
             }
 
-            _animatorController.SetBool("Walk", canMove); //Mientras canMove sea true, vas a caminar
-            if (canMove)
-            {
-                _animatorController.SetFloat("Speed", currentSpeed);
-            }
+           // _animatorController.SetBool("Walk", canMove); //Mientras canMove sea true, vas a caminar
 
+            if (canMove)
+                _animatorController.SetFloat("Speed", currentSpeed);
+            
 
             RaycastHit2D hitPatrol = Physics2D.Raycast(groundDetectionPoint.position, Vector2.down, groundDetectionDistance, groundDetectionList);
             if (!hitPatrol)      //GroundDetection esta funcionando todo el tiempo, si deja de detectar ground, va a flippear.
@@ -171,7 +170,7 @@ public class EnemyPatrol2 : EnemyController
         Collider2D collider = Physics2D.OverlapCircle((Vector2)attackPoint.position, attackRadius, playerDetectionList);
         if (collider != null)
         {
-            LifeController1 life = collider.gameObject.GetComponent<LifeController1>();
+            LifeController life = collider.gameObject.GetComponent<LifeController>();
             if (life != null)
             {
                 life.TakeDamage(damage);

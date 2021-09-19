@@ -12,12 +12,6 @@ public class EnemyStaticController : EnemyController
     private float cooldownTimer = 0f;
     private bool canShoot = true;
 
-    [Header("Prefabs Settings")]
-    [SerializeField] private GameObject bullet = null;
-
-    [Header("Audio Sources")]
-    [SerializeField] private AudioSource shootingSound = null;
-
     public MagicalShooterController ShooterController { get; private set; }
 
     //Extra
@@ -60,9 +54,9 @@ public class EnemyStaticController : EnemyController
         if (canShoot && Time.time > cooldownTimer)
         {
             canShoot = false;
-            shootingSound.Play();
+            //shootingSound.Play();
             _animatorController.SetTrigger("IsShooting");
-            Instantiate(bullet, transform.position + offset, transform.rotation);
+            //Instantiate(bullet, transform.position + offset, transform.rotation);
             cooldownTimer = cooldown + Time.time;
             canShoot = true;
         }

@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class VictoryTrigger : MonoBehaviour
 {
-    [SerializeField] private GameManager1 gameManager = null;
     private bool canCheckpoint = true;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerController1 player = collision.GetComponent<PlayerController1>();
+        PlayerController player = collision.GetComponent<PlayerController>();
         if (player != null)
         {
-            gameManager.Victory();
+            LevelManager.instance.Victory();
             Time.timeScale = 0;
 
             if (canCheckpoint)

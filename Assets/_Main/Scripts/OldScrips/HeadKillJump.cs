@@ -5,19 +5,19 @@ using UnityEngine;
 public class HeadKillJump : MonoBehaviour
 {
     [SerializeField] private bool canBeKilled = true;
-    private LifeController1 life = null;
+    private LifeController life = null;
     
     void Start()
     {
-       life = transform.parent.GetComponent<LifeController1>();
+       life = transform.parent.GetComponent<LifeController>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerController1 player = collision.gameObject.GetComponent<PlayerController1>();
-        if (player.CanHeadKill())
+        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+        if (player != null && player.CanHeadKill())
         {
-            life.Die();
+            //life.Die();
         }
     }
 }

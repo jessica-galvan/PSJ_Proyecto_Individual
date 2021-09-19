@@ -31,14 +31,14 @@ public class HealUp1 : MonoBehaviour
     {
         if (collision.tag == "Player")   //Si el item que collisiona tiene un tag de player...
         {
-            LifeController1 life = collision.GetComponent<LifeController1>();
+            LifeController life = collision.GetComponent<LifeController>();
             if(canHeal && life.CanHeal())
             {
                 canHeal = false;                 //Solo deberia curar una vez. 
                 sprite.enabled = false;                 //Desactivame el animator y el sprite renderer. Además toca el sonido.
                 healLight.SetActive(false);
                 healSound.Play();
-                life.TakeHeal(heal);                 //Cura al jugador, cambia la variable de destruiye y setear el timer. 
+                //life.TakeHeal(heal);                 //Cura al jugador, cambia la variable de destruiye y setear el timer. 
                 canDestroy = true;
                 timer += Time.time;
             }

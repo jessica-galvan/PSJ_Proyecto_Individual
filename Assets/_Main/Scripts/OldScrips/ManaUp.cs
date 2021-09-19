@@ -33,21 +33,21 @@ public class ManaUp : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            PlayerController1 player = collision.GetComponent<PlayerController1>();
+            PlayerController player = collision.GetComponent<PlayerController>();
             if (player != null & canRecharge)  //Si tiene un Player Controller (deberia tenerlo)
             {
-                if (player.CanRechargeMana()) //Si el mana del player es menor al mana maximo
-                {
-                    Debug.Log("Stage1");
-                    canRecharge = false; //Solo deberia curar una vez. 
-                    sprite.enabled = false; //Desactivame el animator y el sprite renderer. Además toca el sonido.
-                    animatorController.enabled = false;
-                    manaLight.SetActive(false);
-                    rechargeSound.Play(); 
-                    player.RechargeMana(manaRecharge); //Recarga el mana
-                    canDestroy = true; //Empeza el timer
-                    timer += Time.time; //Set time
-                }
+                //if (player.CanRechargeMana()) //Si el mana del player es menor al mana maximo
+                //{
+                //    Debug.Log("Stage1");
+                //    canRecharge = false; //Solo deberia curar una vez. 
+                //    sprite.enabled = false; //Desactivame el animator y el sprite renderer. Además toca el sonido.
+                //    animatorController.enabled = false;
+                //    manaLight.SetActive(false);
+                //    rechargeSound.Play(); 
+                //    player.RechargeMana(manaRecharge); //Recarga el mana
+                //    canDestroy = true; //Empeza el timer
+                //    timer += Time.time; //Set time
+                //}
             }
         }
     }
