@@ -5,23 +5,20 @@ using UnityEngine;
 [RequireComponent(typeof(UIBarController))]
 public class EnemyController : Actor
 {
-    protected UIBarController lifeBar;
-    [Header("Attack Settings")]
-    [SerializeField] private int bodyDamage = 5;
-    public bool facingRight = false;
-    public bool canAttack = false;
-
     [Header("Prefabs Settings")]
-    [SerializeField] private GameObject canvas = null;
+    [SerializeField] protected GameObject canvas = null;
+    [SerializeField] protected GameObject[] reward = new GameObject[2];
+    [SerializeField] protected Collider2D detectionZone;
 
-    [Header("Audio Sources")]
-    [SerializeField] private AudioSource damageSound = null;
+    protected UIBarController lifeBar;
+    protected bool facingRight;
+    protected bool canAttack;
+    protected PlayerController player;
 
     protected override void Start()
     {
         base.Start();
         lifeBar = GetComponent<UIBarController>();
-        _rigidBody = GetComponent<Rigidbody2D>();
         LifeController.UpdateLifeBar += UpdateLifeBar;
         LevelManager.instance.AddEnemyToList(this);
         LevelManager.instance.OnPlayerRespawn += OnPlayerRespawnListener;
@@ -44,12 +41,24 @@ public class EnemyController : Actor
 
     }
 
-    protected override void Die()
+    protected override void DieAnimation()
     {
-        base.Die();
+        base.DieAnimation();
         //TODO: Apagar collider? agregar death animation, etc. etc. olvidarse de los prefabs. Configurar el drop post muerte.
     }
 
+    protected override void DeathAnimationOver()
+    {
+        base.DeathAnimationOver();
+        Instantiate(reward[Random.Range(0, reward.Length)], transform.position, transform.rotation);
+        Destroy(gameObject);
+    }
+
+    public void TargetDetected(bool value, PlayerController player = null)
+    {
+        canAttack = value;
+        this.player = player;
+    }
 
     /*private void OnCollisionEnter2D(Collision2D collision)
     {

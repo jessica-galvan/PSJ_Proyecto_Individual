@@ -23,7 +23,6 @@ public class MagicalShooterController : MonoBehaviour
 
         manaManager.Initializer(_attackStats.MagicalAttackPrefab, _attackStats.MaxMana);
         currentMana = _attackStats.MaxMana;
-        print(currentMana);
     }
 
     void Update()
@@ -66,7 +65,6 @@ public class MagicalShooterController : MonoBehaviour
             {
                 IsAttacking = true;
                 timerCD = _attackStats.CooldownMana;
-                print("set timer");
                 currentMana--;
 
                 InstantiateBullets(shootingPoint);

@@ -4766,7 +4766,7 @@ GameObject:
   - component: {fileID: 1251350136166228581}
   - component: {fileID: 1251350136166228582}
   m_Layer: 0
-  m_Name: Particle System (2)
+  m_Name: ManaUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,7 +10,7 @@ public class PatrolEnemyFlip : MonoBehaviour
     {
         if (isPatrol)
         {
-            EnemyPatrol2 enemy = collision.GetComponent<EnemyPatrol2>();
+            EnemyPatrolController enemy = collision.GetComponent<EnemyPatrolController>();
             if (enemy != null)
             {
                 enemy.BackFlip();

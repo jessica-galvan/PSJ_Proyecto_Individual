@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class DetectionArea : MonoBehaviour
 {
-    //public Action<bool, Actor> OnTriggerEvent;
     private EnemyController enemyController;
 
     private void Start()
@@ -17,13 +16,13 @@ public class DetectionArea : MonoBehaviour
     {
         PlayerController player = collision.GetComponent<PlayerController>();
         if (player != null)
-            enemyController.canAttack = true;
+            enemyController.TargetDetected(true, player);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         PlayerController player = collision.GetComponent<PlayerController>();
         if (player != null)
-            enemyController.canAttack = false;
+            enemyController.TargetDetected(false);
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(MagicalShooterController))]
 [RequireComponent(typeof(MovementController))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : Actor
 {
     private int collectableCount;
@@ -72,7 +73,7 @@ public class PlayerController : Actor
         }
         else
         {
-            //Invoke Negative sound;
+            AudioManager.instance.PlayPlayerSound(SoundClips.Negative);
         }
     }
 
@@ -91,11 +92,17 @@ public class PlayerController : Actor
         //TODO: Heal effect?
     }
 
-    protected override void Die()
+    protected override void OnTakeDamage()
     {
-        //TODO: Destroy? Respawn? Animation? Whatever.
+        base.OnTakeDamage();
+        AudioManager.instance.PlayPlayerSound(SoundClips.Damage);
     }
 
+    protected override void DieAnimation()
+    {
+        base.DieAnimation();
+        AudioManager.instance.PlayPlayerSound(SoundClips.Dead);
+    }
     #endregion
 
     #region Publicos

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPatrol2 : EnemyController
+[RequireComponent(typeof(Rigidbody2D))]
+public class EnemyPatrolController : EnemyController
 {
     [Header("Patrol Settings")]
     [SerializeField] private float normalSpeed = 5f;
@@ -44,6 +45,8 @@ public class EnemyPatrol2 : EnemyController
 
     protected override void Start()
     {
+        _rigidBody = GetComponent<Rigidbody2D>();
+
         canMove = true;
         canAttack = true;
         isBarrierActive = true;
@@ -155,12 +158,11 @@ public class EnemyPatrol2 : EnemyController
         AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDamage);
     }
 
-    protected override void Die()
+    protected override void DieAnimation()
     {
-        base.Die();
+        base.DieAnimation();
         AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDead);
     }
-
 
     private void statusBarriers(bool status)
     {

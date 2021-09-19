@@ -44,10 +44,18 @@ public class LevelManager : MonoBehaviour
         gameOverAnimator = gameOverScreen.GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        if (GameManager.instance.IsGameFreeze && gameOverScreen.activeInHierarchy && restartCooldown < Time.deltaTime)
+        {
+            RestartLastCheckpoint();
+        }
+    }
+
     public void AssingCharacter(PlayerController newCharacter)
     {
         this.Player = newCharacter;
-        Player.LifeController.OnDie += GameOver;
+        Player.OnDie += GameOver;
         playerSpawnPosition = Player.transform.position;
         playerCurrentCheckpoint = playerSpawnPosition;
         OnPlayerAssing?.Invoke();
@@ -58,11 +66,6 @@ public class LevelManager : MonoBehaviour
         if (enemyCounter == 0 && !gameOverScreen.activeInHierarchy)
         {
             Victory();
-        }
-
-        if (GameManager.instance.IsGameFreeze && gameOverScreen.activeInHierarchy && restartCooldown < Time.time)
-        {
-            RestartLastCheckpoint();
         }
     }
 
@@ -82,7 +85,7 @@ public class LevelManager : MonoBehaviour
             GameManager.instance.Pause(true);
             gameOverScreen.SetActive(true);
             gameOverAnimator.SetBool("isDead", true);
-            restartCooldown = Time.time + restartTimer;
+            restartCooldown = Time.deltaTime + restartTimer;
         }
     }
 

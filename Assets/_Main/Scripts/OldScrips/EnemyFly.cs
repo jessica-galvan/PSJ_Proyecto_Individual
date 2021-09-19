@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class EnemyFly : EnemyController
 {
     [Header("Patrol Settings")]
@@ -80,9 +81,9 @@ public class EnemyFly : EnemyController
         AudioManager.instance.PlayEnemySound(EnemySoundClips.FlyDamage);
     }
 
-    protected override void Die()
+    protected override void DieAnimation()
     {
-        base.Die();
+        base.DieAnimation();
         AudioManager.instance.PlayEnemySound(EnemySoundClips.FlyDead);
     }
 

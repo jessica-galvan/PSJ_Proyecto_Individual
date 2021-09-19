@@ -5,35 +5,26 @@ using UnityEngine;
 [RequireComponent(typeof(MagicalShooterController))]
 public class EnemyStaticController : EnemyController
 {
-    [Header("Attack Settings")]
-
-    [SerializeField] private Vector3 offset = Vector3.zero;
-    [SerializeField] private float cooldown = 2f;
-    private float cooldownTimer = 0f;
+    private float cooldownTimer;
     private bool canShoot = true;
+    private bool canTime;
 
     public MagicalShooterController ShooterController { get; private set; }
-
-    //Extra
-    private bool canTime;
 
     protected override void Start()
     {
         base.Start();
-        canTime = false;
+        ShooterController = GetComponent<MagicalShooterController>();
     }
 
     void Update()
     {
         if (!GameManager.instance.IsGameFreeze)
-        {
-            if (canAttack) //Si el enemigo puede atacar es porque el player esta dentro de al trigger zone
+            if (canAttack)
             {
                 CheckPlayerLocation();
-
                 Shoot();
             }
-        }
     }
 
     protected override void OnTakeDamage()
@@ -42,24 +33,21 @@ public class EnemyStaticController : EnemyController
         AudioManager.instance.PlayEnemySound(EnemySoundClips.StaticDamage);
     }
 
-    protected override void Die()
+    protected override void DieAnimation()
     {
-        base.Die();
+        base.DieAnimation();
         AudioManager.instance.PlayEnemySound(EnemySoundClips.StaticDead);
     }
 
-
     private void CheckPlayerLocation()
     {
-        ////con esto chequea el sentido del player antes de atacar
-        //if (player.transform.position.x > transform.position.x && !facingRight) //estoy a la derecha
-        //{
-        //    BackFlip();
-        //}
-        //else if (player.transform.position.x < transform.position.x && facingRight) //estoy a la izquierda
-        //{
-        //    BackFlip();
-        //}
+        if(player != null)
+        {
+            if (player.transform.position.x > transform.position.x && !facingRight) //estoy a la derecha
+                BackFlip();
+            else if (player.transform.position.x < transform.position.x && facingRight) //estoy a la izquierda
+                BackFlip();
+        }
     }
 
     private void Shoot()
@@ -70,7 +58,7 @@ public class EnemyStaticController : EnemyController
             //shootingSound.Play();
             _animatorController.SetTrigger("IsShooting");
             //Instantiate(bullet, transform.position + offset, transform.rotation);
-            cooldownTimer = cooldown + Time.time;
+            cooldownTimer = _attackStats.CooldownMana + Time.time;
             canShoot = true;
         }
     }

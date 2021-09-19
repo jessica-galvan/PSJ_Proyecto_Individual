@@ -1,18 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LifeController))]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Rigidbody2D))]
+
 public class Actor : MonoBehaviour, IDamagable
 {
+    [Header("Stats")]
     [SerializeField] protected ActorStats _actorStats;
     [SerializeField] protected AttackStats _attackStats;
     protected Animator _animatorController;
     protected Rigidbody2D _rigidBody;
     public LifeController LifeController { get; private set; }
     public AttackStats AttackStats => _attackStats;
+
+    public Action OnDie;
 
     protected virtual void Start()
     {
@@ -26,18 +30,21 @@ public class Actor : MonoBehaviour, IDamagable
     {
         LifeController.SetStats(_actorStats);
         LifeController.OnTakeDamage += OnTakeDamage;
-        LifeController.OnDie += Die;
+        LifeController.OnDie += DieAnimation;
     }
 
     protected virtual void OnTakeDamage()
     {
         _animatorController.SetTrigger("TakeDamage");
-        //Invoke damage sound
     }
 
-    protected virtual void Die()
+    protected virtual void DieAnimation()
     {
-        //TODO: TBD
-        //Destroy(gameObject);
+        _animatorController.SetTrigger("IsDead");
+    }
+
+    protected virtual void DeathAnimationOver()
+    {
+        OnDie?.Invoke();
     }
 }

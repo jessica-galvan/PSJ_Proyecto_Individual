@@ -10,6 +10,7 @@ public enum SoundClips
     MagicalAttack,
     PhysicalAttack,
     Dead,
+    Damage,
     Negative,
     ReloadMana
 }
@@ -132,6 +133,9 @@ public class AudioManager : MonoBehaviour
                 playerAudioSource.PlayOneShot(negativeSound);
                 break;
             case SoundClips.ReloadMana:
+                playerAudioSource.PlayOneShot(reloadManaSound);
+                break;
+            case SoundClips.Damage:
                 playerAudioSource.PlayOneShot(reloadManaSound);
                 break;
         }

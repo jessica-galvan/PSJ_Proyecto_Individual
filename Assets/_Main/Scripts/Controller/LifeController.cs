@@ -9,6 +9,7 @@ public class LifeController : MonoBehaviour
     [SerializeField] private int currentLife;
     private ActorStats stats;
     private int lifeOnRespawn = 2;
+    private bool isDead;
     
     //PROPIEDADES
     public int MaxLife => stats.MaxLife;
@@ -58,19 +59,23 @@ public class LifeController : MonoBehaviour
 
     private void CheckLife()
     {
-        if (currentLife <= 0)
+        if (currentLife <= 0 && !isDead)
+        {
             Die();
+        }
     }
 
     public void Respawn()
     {
         currentLife = lifeOnRespawn;
+        isDead = false;
         UpdateLifeBar?.Invoke(CurrentLife, MaxLife);
         OnRespawn?.Invoke();
     }
 
     private void Die()
     {
+        isDead = true;
         OnDie?.Invoke();
     }
 }

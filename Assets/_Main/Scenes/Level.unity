@@ -11997,6 +11997,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 435619329345401715, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 435619329345401715, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.355
+      objectReference: {fileID: 0}
+    - target: {fileID: 435619329345401715, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 435619329345401615, guid: fb1557be7a5dc1c48b3521dbbcc9882d, type: 3}
     - {fileID: 435619329345401614, guid: fb1557be7a5dc1c48b3521dbbcc9882d, type: 3}
@@ -12357,10 +12372,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 437755332293763740, guid: 41da1b15499bd74418a88168d1e75cdf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2990835656123660054, guid: 41da1b15499bd74418a88168d1e75cdf,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4126312622226179801, guid: 41da1b15499bd74418a88168d1e75cdf,
         type: 3}
@@ -12381,6 +12401,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4126312622347764945, guid: 41da1b15499bd74418a88168d1e75cdf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4126312622347764972, guid: 41da1b15499bd74418a88168d1e75cdf,
         type: 3}
