@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour
     [Header("Help Settings")]
     [SerializeField] private Button goBackButton;
 
-    [Header("Victory & GameOver")]
+    [Header("Victory")]
     [SerializeField] private Button returnMenuButton;
 
     //Extras
@@ -61,7 +61,7 @@ public class PauseMenu : MonoBehaviour
         buttonQuit.onClick.AddListener(OnClickQuitHandler);
         goBackButton.onClick.AddListener(OnClickGoBackHandler);
         buttonMainMenu.onClick.AddListener(OnClickMenuHandler);
-        //returnMenuButton.onClick.AddListener(OnClickMenuHandler);
+        returnMenuButton.onClick.AddListener(OnClickMenuHandler);
     }
 
     private void Pause()

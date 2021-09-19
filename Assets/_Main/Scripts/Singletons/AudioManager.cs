@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SoundClips
+public enum PlayerSoundClips
 {
     MouseClick,
     Win,
@@ -13,6 +13,12 @@ public enum SoundClips
     Damage,
     Negative,
     ReloadMana
+}
+
+public enum EnviromentSoundClip
+{
+    LevelMusic,
+    MenuMusic
 }
 
 public enum EnemySoundClips
@@ -89,53 +95,53 @@ public class AudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
-        Initialize();
-        SubscribeEvents();
     }
 
-    private void Initialize()
+    public void EnviromentMusic(EnviromentSoundClip soundClip)
     {
+        switch (soundClip)
+        {
+            case EnviromentSoundClip.LevelMusic:
+                musicAudioSource.clip = levelMusic;
+                break;
+            case EnviromentSoundClip.MenuMusic:
+                musicAudioSource.clip = mainMenuMusic;
+                break;
+        }
         musicAudioSource.volume = musicInitialVolumen;
-        musicAudioSource.clip = levelMusic;
         musicAudioSource.Play();
     }
 
-    private void SubscribeEvents()
-    {
-        //TODO: Subscribirse a la victoria, game over.
-    }
-
-    public void PlayPlayerSound(SoundClips soundClip)
+    public void PlayPlayerSound(PlayerSoundClips soundClip)
     {
         playerAudioSource.volume = 1f;
         switch (soundClip)
         {
-            case SoundClips.MouseClick:
+            case PlayerSoundClips.MouseClick:
                 playerAudioSource.PlayOneShot(clickSound);
                 break;
-            case SoundClips.Win:
+            case PlayerSoundClips.Win:
                 playerAudioSource.PlayOneShot(victorySound);
                 break;
-            case SoundClips.Gameover:
+            case PlayerSoundClips.Gameover:
                 playerAudioSource.PlayOneShot(gameOverSound);
                 break;
-            case SoundClips.MagicalAttack:
+            case PlayerSoundClips.MagicalAttack:
                 playerAudioSource.PlayOneShot(magicalAttackSound);
                 break;
-            case SoundClips.PhysicalAttack:
+            case PlayerSoundClips.PhysicalAttack:
                 playerAudioSource.PlayOneShot(physicalAttackSound);
                 break;
-            case SoundClips.Dead:
+            case PlayerSoundClips.Dead:
                 playerAudioSource.PlayOneShot(deathSound);
                 break;
-            case SoundClips.Negative:
+            case PlayerSoundClips.Negative:
                 playerAudioSource.PlayOneShot(negativeSound);
                 break;
-            case SoundClips.ReloadMana:
+            case PlayerSoundClips.ReloadMana:
                 playerAudioSource.PlayOneShot(reloadManaSound);
                 break;
-            case SoundClips.Damage:
+            case PlayerSoundClips.Damage:
                 playerAudioSource.PlayOneShot(reloadManaSound);
                 break;
         }

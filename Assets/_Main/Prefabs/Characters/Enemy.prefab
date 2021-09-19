@@ -293,11 +293,11 @@ GameObject:
   - component: {fileID: 4142080222102873624}
   - component: {fileID: 4142080222102873627}
   - component: {fileID: 4131700202841169333}
+  - component: {fileID: 5097996747106973461}
+  - component: {fileID: 2221903350502165124}
   - component: {fileID: -6455767593669220362}
   - component: {fileID: 5709792334529164907}
   - component: {fileID: 8071289532150503107}
-  - component: {fileID: 5097996747106973461}
-  - component: {fileID: 2221903350502165124}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -420,50 +420,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-6455767593669220362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4142080222102873628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825d38af93cd3d64ca6ad43f2b9408e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actorStats: {fileID: 11400000, guid: 4d214185499db8f49aebb75da3196d32, type: 2}
-  _attackStats: {fileID: 11400000, guid: ed167f3979fb1c345ab9d9f27126a6ca, type: 2}
-  canvas: {fileID: 704804450802718308}
-  reward:
-  - {fileID: 4643241683810020395, guid: f44bf3e25cf69b146a39e41087952271, type: 3}
-  - {fileID: 4643241683810020395, guid: a52a3bdb83f5a5a418d8a2c68e49d6ff, type: 3}
-  detectionZone: {fileID: 0}
---- !u!114 &5709792334529164907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4142080222102873628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9525689cc72f2d04e97bac9089bbaa85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8071289532150503107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4142080222102873628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cef2e6af29ea1e4d8919d409cb6e906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootingPoint: {fileID: 411608985099943562}
 --- !u!114 &5097996747106973461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,7 +446,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d94f8e646276e45bc718c71ef10092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLife: 0
+--- !u!114 &-6455767593669220362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4142080222102873628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 825d38af93cd3d64ca6ad43f2b9408e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actorStats: {fileID: 11400000, guid: 4d214185499db8f49aebb75da3196d32, type: 2}
+  _attackStats: {fileID: 11400000, guid: ed167f3979fb1c345ab9d9f27126a6ca, type: 2}
+  canvas: {fileID: 704804450802718308}
+  reward:
+  - {fileID: 4643241683810020395, guid: f44bf3e25cf69b146a39e41087952271, type: 3}
+  - {fileID: 4643241683810020395, guid: a52a3bdb83f5a5a418d8a2c68e49d6ff, type: 3}
+--- !u!114 &5709792334529164907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4142080222102873628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9525689cc72f2d04e97bac9089bbaa85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8071289532150503107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4142080222102873628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cef2e6af29ea1e4d8919d409cb6e906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootingPoint: {fileID: 411608985099943562}
 --- !u!1 &4142080222777733394
 GameObject:
   m_ObjectHideFlags: 0

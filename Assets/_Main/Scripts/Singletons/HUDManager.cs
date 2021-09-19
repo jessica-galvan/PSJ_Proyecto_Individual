@@ -8,10 +8,13 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private UIBarController manaBar;
     [SerializeField] private GameObject score;
     [SerializeField] private Text scoreText;
+    [SerializeField] private GameObject victoryScreen;
+    [SerializeField] private GameOver gameOverScreen;
+    private bool isCollectableVisible;
 
     public static HUDManager instance;
-
-    private bool isCollectableVisible;
+    public GameOver GameOverScreen => gameOverScreen;
+    public GameObject VictoryScreen => victoryScreen;
 
     public void Awake()
     {
@@ -26,6 +29,7 @@ public class HUDManager : MonoBehaviour
         }
 
         IsScoreVisible(false);
+        victoryScreen.SetActive(false);
     }
 
     public void UpdateMana(int currentMana, int maxMana)
@@ -44,5 +48,10 @@ public class HUDManager : MonoBehaviour
     {
         isCollectableVisible = value;
         score.SetActive(value);
+    }
+
+    public void IsParticleSystemVisible(bool value)
+    {
+        manaBar.PlayParticles(value);
     }
 }

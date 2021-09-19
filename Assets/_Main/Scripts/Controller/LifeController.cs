@@ -6,14 +6,14 @@ using UnityEngine;
 public class LifeController : MonoBehaviour
 {
     //PRIVADOS
-    [SerializeField] private int currentLife;
+    private int currentLife;
     private ActorStats stats;
     private int lifeOnRespawn = 2;
-    private bool isDead;
-    
+
     //PROPIEDADES
     public int MaxLife => stats.MaxLife;
     public int CurrentLife => currentLife;
+    public bool IsDead { get; private set; }
 
     //EVENTOS
     public Action OnDie;
@@ -59,7 +59,7 @@ public class LifeController : MonoBehaviour
 
     private void CheckLife()
     {
-        if (currentLife <= 0 && !isDead)
+        if (currentLife <= 0 && !IsDead)
         {
             Die();
         }
@@ -68,14 +68,14 @@ public class LifeController : MonoBehaviour
     public void Respawn()
     {
         currentLife = lifeOnRespawn;
-        isDead = false;
+        IsDead = false;
         UpdateLifeBar?.Invoke(CurrentLife, MaxLife);
         OnRespawn?.Invoke();
     }
 
     private void Die()
     {
-        isDead = true;
+        IsDead = true;
         OnDie?.Invoke();
     }
 }

@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private GameObject victoryScreen = null;
-    [SerializeField] private GameObject gameOverScreen = null;
-    [SerializeField] private float restartTimer = 2f;
+    //[SerializeField] private float restartTimer = 2f;
+    //private float restartCooldown;
 
     public static LevelManager instance;
     public PlayerController Player { get; private set; }
@@ -17,9 +16,10 @@ public class LevelManager : MonoBehaviour
     private Vector2 playerCurrentCheckpoint;
 
     //GAME CONDITIONS
-    private float restartCooldown;
+
+    private GameObject victoryScreen = null;
+    private GameOver gameOverEffect;
     private int enemyCounter;
-    private Animator gameOverAnimator;
 
     //EVENTS
     public Action OnChangeCurrentEnemies;
@@ -38,18 +38,22 @@ public class LevelManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
 
-        victoryScreen.SetActive(false);
-        gameOverScreen.SetActive(false);
-        gameOverAnimator = gameOverScreen.GetComponent<Animator>();
+    public void Start()
+    {
+        victoryScreen = HUDManager.instance.VictoryScreen;
+        gameOverEffect = HUDManager.instance.GameOverScreen;
+        gameOverEffect.SetGameOver(false);
+        AudioManager.instance.EnviromentMusic(EnviromentSoundClip.LevelMusic);
     }
 
     private void Update()
     {
-        if (GameManager.instance.IsGameFreeze && gameOverScreen.activeInHierarchy && restartCooldown < Time.deltaTime)
-        {
-            RestartLastCheckpoint();
-        }
+        //if (GameManager.instance.IsGameFreeze && gameOverScreen.activeInHierarchy && restartCooldown < Time.deltaTime)
+        //{
+        //    RestartLastCheckpoint();
+        //}
     }
 
     public void AssingCharacter(PlayerController newCharacter)
@@ -63,7 +67,7 @@ public class LevelManager : MonoBehaviour
 
     private void CheckGameConditions()
     {
-        if (enemyCounter == 0 && !gameOverScreen.activeInHierarchy)
+        if (enemyCounter == 0 && !gameOverEffect.IsGameOverActive)
         {
             Victory();
         }
@@ -83,9 +87,9 @@ public class LevelManager : MonoBehaviour
         if (!GameManager.instance.IsGameFreeze)
         {
             GameManager.instance.Pause(true);
-            gameOverScreen.SetActive(true);
-            gameOverAnimator.SetBool("isDead", true);
-            restartCooldown = Time.deltaTime + restartTimer;
+            HUDManager.instance.IsParticleSystemVisible(false);
+            gameOverEffect.SetGameOver(true);
+            //restartCooldown = Time.deltaTime + restartTimer;
         }
     }
 
@@ -103,12 +107,12 @@ public class LevelManager : MonoBehaviour
     public void RestartLastCheckpoint()
     {
         GameManager.instance.Pause(false);
-        OnPlayerRespawn.Invoke();
+        gameOverEffect.SetGameOver(false);
+        HUDManager.instance.IsParticleSystemVisible(true);
+        OnPlayerRespawn?.Invoke();
         //playerCurrentCheckpoint.y += 1; //para que tenga un offset de cuando vuelve, pero 1 en int es muuy grande la caida
         Player.SetCurrentPosition(playerCurrentCheckpoint);
         Player.LifeController.Respawn();
-        gameOverScreen.SetActive(false);
-        gameOverAnimator.SetBool("isDead", false);
     }
 
     #endregion

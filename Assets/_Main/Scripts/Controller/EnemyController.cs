@@ -8,7 +8,6 @@ public class EnemyController : Actor
     [Header("Prefabs Settings")]
     [SerializeField] protected GameObject canvas = null;
     [SerializeField] protected GameObject[] reward = new GameObject[2];
-    [SerializeField] protected Collider2D detectionZone;
 
     protected UIBarController lifeBar;
     protected bool canShoot;

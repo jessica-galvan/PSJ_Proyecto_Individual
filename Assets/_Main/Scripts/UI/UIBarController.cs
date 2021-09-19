@@ -7,6 +7,7 @@ public class UIBarController : MonoBehaviour
 {
     [SerializeField] private GameObject bar;
     [SerializeField] private Image barImage;
+    [SerializeField] private ParticleSystem particles;
 
     public bool IsVisible { get; private set; }
 
@@ -20,5 +21,11 @@ public class UIBarController : MonoBehaviour
     {
         bar.SetActive(value);
         IsVisible = value;
+    }
+
+    public void PlayParticles(bool value)
+    {
+        if (particles != null)
+            particles.gameObject.SetActive(value);
     }
 }

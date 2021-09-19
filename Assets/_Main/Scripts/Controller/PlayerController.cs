@@ -57,10 +57,10 @@ public class PlayerController : Actor
         {
             ShooterController.Shoot();
             _animatorController.SetTrigger("IsShooting");
-            AudioManager.instance.PlayPlayerSound(SoundClips.MagicalAttack);
+            AudioManager.instance.PlayPlayerSound(PlayerSoundClips.MagicalAttack);
         } else
         {
-            AudioManager.instance.PlayPlayerSound(SoundClips.Negative);
+            AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Negative);
         }
     }
 
@@ -69,12 +69,12 @@ public class PlayerController : Actor
         if (!PhysicalAttackController.IsAttacking)
         {
             PhysicalAttackController.Attack();
-            AudioManager.instance.PlayPlayerSound(SoundClips.PhysicalAttack);
+            AudioManager.instance.PlayPlayerSound(PlayerSoundClips.PhysicalAttack);
             _animatorController.SetTrigger("IsPhisicalAttacking");
         }
         else
         {
-            AudioManager.instance.PlayPlayerSound(SoundClips.Negative);
+            AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Negative);
         }
     }
 
@@ -96,13 +96,14 @@ public class PlayerController : Actor
     protected override void OnTakeDamage()
     {
         base.OnTakeDamage();
-        AudioManager.instance.PlayPlayerSound(SoundClips.Damage);
+        AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Damage);
     }
 
     protected override void DieAnimation()
     {
         base.DieAnimation();
-        AudioManager.instance.PlayPlayerSound(SoundClips.Dead);
+        AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Dead);
+        OnDie?.Invoke(); //TODO: Fix Bug DeathAnimationOver invoke on player.
     }
     #endregion
 

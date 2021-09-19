@@ -20,15 +20,15 @@ public class PatrolMovementController : MonoBehaviour
 
     [Header("Prefab Settings")]
     [SerializeField] private GameObject invisibleBarrierPrefab;
-    [SerializeField] private Transform groundDetectionPoint;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform playerDetectionPoint;
 
-    private float currentSpeed;
+
     private Vector2 spawnPoint;
     private GameObject barrierLeft;
     private GameObject barrierRight;
     private PlayerController player;
+    private float playerDetectionDistance;
 
     //Timers
     private float checkPlayerTimer;
@@ -39,28 +39,22 @@ public class PatrolMovementController : MonoBehaviour
     private bool isBarrierActive;
     private bool checkDirection;
     private bool canReturnToSpawnPoint;
-    private bool canMove;
 
     [Header("Attack Settings")]
     [SerializeField] private float attackRadius = 1f;
     [SerializeField] private float cooldown = 5f;
     [SerializeField] private float moveCooldown = 0.8f;
-    private float playerDetectionDistance;
+
+    public float CurrentSpeed { get; private set; }
+    public bool CanMove { get; set; }
 
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         enemyController = GetComponent<EnemyController>();
-
-        isBarrierActive = true;
-        currentSpeed = _actorStats.OriginalSpeed;
-
-        barrierLeft = Instantiate(invisibleBarrierPrefab, leftX.transform.position, transform.rotation);
-        barrierLeft.GetComponent<PatrolEnemyFlip>().SetIsPatrol(true);
-        barrierRight = Instantiate(invisibleBarrierPrefab, rightX.transform.position, transform.rotation);
-        barrierRight.GetComponent<PatrolEnemyFlip>().SetIsPatrol(true);
         spawnPoint = transform.position;
         playerDetectionDistance = Vector2.Distance(transform.position, playerDetectionPoint.position);  //Con esto sacamos a cuanta distancia puede ver. 
+        CreateBarriers();
     }
 
     void Update()
@@ -86,10 +80,19 @@ public class PatrolMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove && !GameManager.instance.IsGameFreeze)
+        if (CanMove && !GameManager.instance.IsGameFreeze)
         {
-            _rigidBody.velocity = transform.right * currentSpeed;
+            _rigidBody.velocity = transform.right * CurrentSpeed;
         }
+    }
+
+    private void CreateBarriers()
+    {
+        isBarrierActive = true;
+        barrierLeft = Instantiate(invisibleBarrierPrefab, leftX.transform.position, transform.rotation);
+        barrierLeft.GetComponent<PatrolEnemyFlip>().SetIsPatrol(true);
+        barrierRight = Instantiate(invisibleBarrierPrefab, rightX.transform.position, transform.rotation);
+        barrierRight.GetComponent<PatrolEnemyFlip>().SetIsPatrol(true);
     }
 
     private void GoAttackPlayer(RaycastHit2D hit)
@@ -100,19 +103,19 @@ public class PatrolMovementController : MonoBehaviour
             followingPlayer = true;
             checkDirection = true;
             canReturnToSpawnPoint = false;
-            currentSpeed = _actorStats.BuffedSpeed;
+            CurrentSpeed = _actorStats.BuffedSpeed;
         }
 
         float distance = Vector2.Distance(hit.collider.transform.position, attackPoint.position);
         if (distance <= attackRadius) //Y si esta a una distancia menor o igual al radio de ataque, dejate de mover. 
         {
-            canMove = false;
+            CanMove = false;
             enemyController.TargetDetected(true);
         }
         else
         {
-            if (!canMove && Time.time > moveTimer) //Termino animación ataque? Se puede mover
-                canMove = true;
+            if (!CanMove && Time.time > moveTimer) //Termino animación ataque? Se puede mover
+                CanMove = true;
         }
     }
 
@@ -121,15 +124,15 @@ public class PatrolMovementController : MonoBehaviour
         if (followingPlayer) //Si estabas siguiendo al player
         {
             checkPlayerTimer = checkPlayerTimeDuration + Time.time;
-            canMove = false;
-            currentSpeed = _actorStats.OriginalSpeed;
+            CanMove = false;
+            CurrentSpeed = _actorStats.OriginalSpeed;
             followingPlayer = false;
         }
 
         if (!canReturnToSpawnPoint && Time.time > checkPlayerTimer) //PERO espera unos segundos para al spawnPoint
         {
             canReturnToSpawnPoint = true;
-            canMove = true;
+            CanMove = true;
         }
 
         if (canReturnToSpawnPoint && !isBarrierActive) //Ahora podes volver al punto de spawn
@@ -148,7 +151,7 @@ public class PatrolMovementController : MonoBehaviour
 
     private void CheckGroundDetection()
     {
-        RaycastHit2D hitPatrol = Physics2D.Raycast(groundDetectionPoint.position, Vector2.down, groundDetectionDistance, groundDetectionList);
+        RaycastHit2D hitPatrol = Physics2D.Raycast(transform.position, Vector2.down, groundDetectionDistance, groundDetectionList);
         if (!hitPatrol)
             enemyController.BackFlip();
     }
@@ -160,6 +163,13 @@ public class PatrolMovementController : MonoBehaviour
         barrierRight.SetActive(isBarrierActive);
     }
 
+    public void SetStats(ActorStats actor, AttackStats attacks)
+    {
+        _actorStats = actor;
+        _attackStats = attacks;
+        CurrentSpeed = _actorStats.OriginalSpeed;
+    }
+
     private void checkSpawnPointDirection()
     {
         checkDirection = false;
@@ -169,7 +179,7 @@ public class PatrolMovementController : MonoBehaviour
             enemyController.BackFlip();
     }
 
-    public void OnDestroy() //Para que destruya las barreras cuando se destruye el objeto. 
+    public void OnDestroy() 
     {
         Destroy(barrierLeft);
         Destroy(barrierRight);

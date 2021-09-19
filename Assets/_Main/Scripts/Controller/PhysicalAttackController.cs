@@ -6,11 +6,12 @@ public class PhysicalAttackController : MonoBehaviour
 {
     [Header("Attack Physical Settings")]
     [SerializeField] private Transform attackPoint;
-    [SerializeField] private LayerMask enemyDetectionList;
     [SerializeField] private float attackRadius = 1f;
 
     private float slashCooldownTimer;
     private AttackStats attackStats;
+
+    public float AttackRadius => attackRadius;
 
     public bool IsAttacking { get; private set; }
 
@@ -22,15 +23,15 @@ public class PhysicalAttackController : MonoBehaviour
             if (slashCooldownTimer <= 0)
             {
                 IsAttacking = false;
-                print("canAttackAgain");
             }
         }
     }
+
     public void Attack()
     {
         if (!IsAttacking)
         {
-            Collider2D collider = Physics2D.OverlapCircle((Vector2)attackPoint.position, attackRadius, enemyDetectionList);
+            Collider2D collider = Physics2D.OverlapCircle((Vector2)attackPoint.position, attackRadius, attackStats.TargetList);
             if (collider != null)
             {
                 LifeController life = collider.GetComponent<LifeController>();

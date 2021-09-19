@@ -3,148 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PatrolMovementController))]
+[RequireComponent(typeof(PhysicalAttackController))]
 public class EnemyPatrolController : EnemyController
 {
-    [Header("Patrol Settings")]
-    [SerializeField] private float normalSpeed = 5f;
-    [SerializeField] private float followingSpeed = 15f;
-    [SerializeField] private GameObject leftX;
-    [SerializeField] private GameObject rightX;
-    [SerializeField] private LayerMask groundDetectionList;
-    [SerializeField] private float groundDetectionDistance = 1f;
-    [SerializeField] private float checkPlayerTimeDuration = 5f;
-    private float currentSpeed;
-    private float checkPlayerTimer = 0f;
-    private Vector2 spawnPoint;
-    private GameObject barrierLeft;
-    private GameObject barrierRight;
-    private bool followingPlayer;
-    private bool isBarrierActive;
-    private bool checkDirection;
-    private bool canReturnToSpawnPoint;
-
-    [Header("Prefab Settings")]
-    //[SerializeField] private Transform groundDetectionPoint;
-    [SerializeField] private Transform attackPoint;
-    [SerializeField] private Transform playerDetectionPoint;
-    [SerializeField] private GameObject invisibleBarrierPrefab;
-
-    [Header("Attack Settings")]
-    [SerializeField] private LayerMask playerDetectionList;
-    [SerializeField] private float attackRadius = 1f;
-    [SerializeField] private int damage = 5;
-    [SerializeField] private float attackTimeDuration = 1f;
-    [SerializeField] private float cooldown = 5f;
-    [SerializeField] private float moveCooldown = 0.8f;
-    private float playerDetectionDistance;
-
-    //Extras
-    private bool canMove;
-    private float moveTimer = 0f;
     private Rigidbody2D _rigidBody;
+    private PhysicalAttackController physicalAttackController;
+    private PatrolMovementController patrolMovementController;
 
     protected override void Start()
     {
-        //_rigidBody = GetComponent<Rigidbody2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
+        physicalAttackController = GetComponent<PhysicalAttackController>();
+        patrolMovementController = GetComponent<PatrolMovementController>();
+        physicalAttackController.SetStats(_attackStats);
+        patrolMovementController.SetStats(_actorStats, _attackStats);
 
-        canMove = true;
         CanAttack = true;
-        isBarrierActive = true;
-        currentSpeed = normalSpeed;
-        barrierLeft = Instantiate(invisibleBarrierPrefab, leftX.transform.position, transform.rotation);
-        barrierLeft.GetComponent<PatrolEnemyFlip>().SetIsPatrol(true);
-        barrierRight = Instantiate(invisibleBarrierPrefab, rightX.transform.position, transform.rotation);
-        barrierRight.GetComponent<PatrolEnemyFlip>().SetIsPatrol(true);
-        spawnPoint = transform.position;
-        playerDetectionDistance = Vector2.Distance(transform.position, playerDetectionPoint.position);  //Con esto sacamos a cuanta distancia puede ver. 
     }
 
     void Update()
     {
         if (!GameManager.instance.IsGameFreeze)
         {
-            RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, transform.right, playerDetectionDistance, playerDetectionList);
-            if (hitPlayer) //CUANDO VEAS AL PLAYER
+            if(_animatorController != null)
+                _animatorController.SetBool("Walk", patrolMovementController.CanMove); //Mientras canMove sea true, vas a caminar
+
+            //if (patrolMovementController.CanMove)
+            //    _animatorController.SetFloat("Speed", patrolMovementController.CurrentSpeed);
+
+
+            if (!CanAttack && !physicalAttackController.IsAttacking && Time.time > cooldownTimer) //Cooldown Attack Timer
             {
-                var playerController = hitPlayer.collider.GetComponent<PlayerController>();
-                if (!followingPlayer && playerController)  //Desactiva las barreras de patruyar para perseguirlo
-                {
-                    statusBarriers(false);
-                    followingPlayer = true;
-                    checkDirection = true;
-                    canReturnToSpawnPoint = false;
-                    currentSpeed = followingSpeed;
-                }
-
-                float distance = Vector2.Distance(hitPlayer.collider.transform.position, attackPoint.position);
-                if (distance <= attackRadius) //Y si esta a una distancia menor o igual al radio de ataque, dejate de mover. 
-                {
-                    canMove = false;
-                    if (CanAttack && Time.time > cooldownTimer)
-                    {
-                        Attack();
-                    }
-                }
-
-                if (!canMove && Time.time > moveTimer && distance > attackRadius) //Termino animación ataque? Se puede mover
-                {
-                    canMove = true;
-                }
-            }
-            else   //Si dejaste de ver al player, espera un rato y patrulla
-            {
-                if (followingPlayer) //Si estabas siguiendo al player
-                {
-                    checkPlayerTimer = checkPlayerTimeDuration + Time.time;
-                    canMove = false;
-                    currentSpeed = normalSpeed;
-                    followingPlayer = false;
-                }
-
-                if (!canReturnToSpawnPoint && Time.time > checkPlayerTimer) //PERO espera unos segundos para al spawnPoint
-                {
-                    canReturnToSpawnPoint = true;
-                    canMove = true;
-                }
-
-                if (canReturnToSpawnPoint && !isBarrierActive) //Ahora podes volver al punto de spawn
-                {
-                    if (checkDirection) //hace un check de la direcion del spawnpoint
-                    {
-                        checkDirection = false; //pero solo una vez
-                        checkSpawnPointDirection();
-                    }
-
-                    float difMax = Vector2.Distance(transform.position, spawnPoint);  //cuando estes cerca, activa las barreras asi patruyas
-                    if (difMax < 1f)
-                    {
-                        canReturnToSpawnPoint = false;
-                        statusBarriers(true);
-                    }
-                }
-            }
-
-           // _animatorController.SetBool("Walk", canMove); //Mientras canMove sea true, vas a caminar
-
-            //if (canMove)
-            //    _animatorController.SetFloat("Speed", currentSpeed);
-            
-
-            if (!CanAttack && Time.time > cooldownTimer) //Cooldown Attack Timer
-            {
-                CanAttack = true;
+                CanAttack = true;            
+                DoAttack();
             }
         }
     }
 
     private void FixedUpdate()
     {
-        if (canMove && !GameManager.instance.IsGameFreeze)
+        if (patrolMovementController.CanMove && !GameManager.instance.IsGameFreeze)
         {
-            _rigidBody.velocity = transform.right * currentSpeed;
+            _rigidBody.velocity = transform.right * patrolMovementController.CurrentSpeed;
         }
     }
-
 
     protected override void OnTakeDamage()
     {
@@ -158,50 +60,15 @@ public class EnemyPatrolController : EnemyController
         AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDead);
     }
 
-    private void statusBarriers(bool status)
+    private void DoAttack()
     {
-        isBarrierActive = status;
-        barrierLeft.SetActive(isBarrierActive);
-        barrierRight.SetActive(isBarrierActive);
-    }
-
-    private void Attack()
-    {
-        canMove = false; //mientras hace la animación de ataque, no deberia moverse
-        CanAttack = false;
-
-        moveTimer = moveCooldown + Time.time;
-
-        AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolAttack);
-        _animatorController.SetTrigger("IsAttacking");
-
-        Collider2D collider = Physics2D.OverlapCircle((Vector2)attackPoint.position, attackRadius, playerDetectionList);
-        if (collider != null)
+        if (!physicalAttackController.IsAttacking && CanAttack)
         {
-            LifeController life = collider.gameObject.GetComponent<LifeController>();
-            if (life != null)
-            {
-                life.TakeDamage(damage);
-            }
+            CanAttack = false;
+            patrolMovementController.CanMove = false;
+            _animatorController.SetTrigger("IsAttacking");
+            AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolAttack);
+            cooldownTimer = _attackStats.CooldownPhysical + Time.deltaTime;
         }
-       
-        cooldownTimer = cooldown + Time.time;  //Comienza el attack cooldown
-    }
-
-    private void checkSpawnPointDirection()     //Aca chequeamos en que sentido esta mirando el enemigo y en que sentido esta el spawn point. 
-    {
-        if (spawnPoint.x > transform.position.x && !FacingRight) //Si el spawnpint es mayor a la posicion del enemigo, y no esta mirando a la derecha...
-        {
-            BackFlip();
-        } else if(spawnPoint.x < transform.position.x && FacingRight) //si o si esta este else if porque solo tiene que flipear si esta mirando en la direccion contraria, sino ni flipea. 
-        {
-            BackFlip();
-        }
-    }
-
-    public void OnDestroy() //Para que destruya las barreras cuando se destruye el objeto. 
-    {
-        Destroy(barrierLeft);
-        Destroy(barrierRight);
     }
 }
