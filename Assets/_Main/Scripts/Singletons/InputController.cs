@@ -61,8 +61,6 @@ public class InputController : MonoBehaviour
     private void CheckMovement()
     {
         float horizontal = Input.GetAxisRaw(horizontalAxis);
-
-        //if( horizontal != 0)
         OnMove?.Invoke(horizontal);
     }
     private void CheckShoot()

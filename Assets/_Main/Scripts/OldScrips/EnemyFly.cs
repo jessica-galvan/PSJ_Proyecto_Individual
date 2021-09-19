@@ -74,6 +74,18 @@ public class EnemyFly : EnemyController
         }
     }
 
+    protected override void OnTakeDamage()
+    {
+        base.OnTakeDamage();
+        AudioManager.instance.PlayEnemySound(EnemySoundClips.FlyDamage);
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        AudioManager.instance.PlayEnemySound(EnemySoundClips.FlyDead);
+    }
+
     private void Attack()
     {
         canShoot = false;

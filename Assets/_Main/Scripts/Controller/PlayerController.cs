@@ -4,11 +4,11 @@ using UnityEngine;
 
 [RequireComponent(typeof(MagicalShooterController))]
 [RequireComponent(typeof(MovementController))]
-public class PlayerController : Actor, IDamagable
+public class PlayerController : Actor
 {
-    [SerializeField] private int collectableCount = 0;
+    private int collectableCount;
 
-    public int Coins => collectableCount;
+    public int Collectables => collectableCount;
     public MovementController MovementController { get; private set; }
     public MagicalShooterController ShooterController { get; private set; }
     public PhysicalAttackController PhysicalAttackController { get; private set; }
@@ -51,13 +51,14 @@ public class PlayerController : Actor, IDamagable
 
     private void OnShoot()
     {
-        if(ShooterController.GetCurrentMana() > 0)
+        if(!ShooterController.IsAttacking && ShooterController.GetCurrentMana() > 0)
         {
             ShooterController.Shoot();
             _animatorController.SetTrigger("IsShooting");
+            AudioManager.instance.PlayPlayerSound(SoundClips.MagicalAttack);
         } else
         {
-            //Invoke Negative sound;
+            AudioManager.instance.PlayPlayerSound(SoundClips.Negative);
         }
     }
 
@@ -66,7 +67,7 @@ public class PlayerController : Actor, IDamagable
         if (!PhysicalAttackController.IsAttacking)
         {
             PhysicalAttackController.Attack();
-            //attackSound.Play();
+            AudioManager.instance.PlayPlayerSound(SoundClips.PhysicalAttack);
             _animatorController.SetTrigger("IsPhisicalAttacking");
         }
         else

@@ -3,53 +3,80 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ManaManager))]
-[RequireComponent(typeof(BaseMagicalAttack))]
-public class MagicalShooterController : MonoBehaviour, IOwner
+public class MagicalShooterController : MonoBehaviour
 {
     [SerializeField] private Transform shootingPoint;
-    private BaseMagicalAttack currentTypeOfAttack;
-    private float cdTimer;
 
-    public Transform ShootingPoint => shootingPoint;
+    private ManaManager manaManager;
+    private AttackStats _attackStats;
+
+    private int currentMana;
+    protected float timerCD;
+    protected bool canShoot;
+
+    public bool IsAttacking { get; private set; }
 
     void Start()
     {
-        ChangeAttack(GetComponent<BaseMagicalAttack>());
+        manaManager = GetComponent<ManaManager>();
+        _attackStats = GetComponent<Actor>().AttackStats;
+
+        manaManager.Initializer(_attackStats.MagicalAttackPrefab, _attackStats.MaxMana);
+        currentMana = _attackStats.MaxMana;
+        print(currentMana);
     }
 
     void Update()
     {
-        if (cdTimer < Time.deltaTime)
-            currentTypeOfAttack.CanAttack = true;
+        if (IsAttacking)
+        {
+            timerCD -= Time.deltaTime;
+            if(timerCD <= 0)
+                IsAttacking = false;
+        }
+            
     }
 
     public int GetCurrentMana()
     {
-        return currentTypeOfAttack.CurrentMana;
+        return currentMana;
     }
 
     public void RechargeAmmo(int mana)
     {
-        currentTypeOfAttack.Reload(mana);
+        if (currentMana < _attackStats.MaxMana)
+        {
+            if (currentMana < (_attackStats.MaxMana - mana))
+                currentMana += mana;
+            else
+                currentMana = _attackStats.MaxMana;
+
+            HUDManager.instance.UpdateMana(currentMana, _attackStats.MaxMana);
+        }
     }
     
     public bool CanRechargeMana()
     {
-        return currentTypeOfAttack.CurrentMana < currentTypeOfAttack.MaxMana;
+        return currentMana < _attackStats.MaxMana;
     }
 
     public void Shoot()
     {
-        if (currentTypeOfAttack.CanAttack)
-        {
-            currentTypeOfAttack.Attack();
-        }
+            if (!IsAttacking && currentMana >= 1)
+            {
+                IsAttacking = true;
+                timerCD = _attackStats.CooldownMana;
+                print("set timer");
+                currentMana--;
+
+                InstantiateBullets(shootingPoint);
+                HUDManager.instance.UpdateMana(currentMana, _attackStats.MaxMana);
+            }
     }
 
-    public void ChangeAttack(BaseMagicalAttack newGun)
+    private void InstantiateBullets(Transform shootingPoint) //Aca es donde variaria si el arma es un Pistol, Shotgun, etc. 
     {
-        currentTypeOfAttack = newGun;
-        currentTypeOfAttack.SetOwner(this);
-        cdTimer = 0f;
+        var bullet = manaManager.GetBullet();
+        bullet.Initialize(shootingPoint, _attackStats, true);
     }
 }

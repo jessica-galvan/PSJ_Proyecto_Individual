@@ -28,9 +28,6 @@ public class EnemyPatrol2 : EnemyController
     [SerializeField] private Transform playerDetectionPoint;
     [SerializeField] private GameObject invisibleBarrierPrefab;
 
-    [Header("Audio Sources")]
-    [SerializeField] private AudioSource attackSound = null;
-
     [Header("Attack Settings")]
     [SerializeField] private LayerMask playerDetectionList;
     [SerializeField] private float attackRadius = 1f;
@@ -126,8 +123,8 @@ public class EnemyPatrol2 : EnemyController
 
            // _animatorController.SetBool("Walk", canMove); //Mientras canMove sea true, vas a caminar
 
-            if (canMove)
-                _animatorController.SetFloat("Speed", currentSpeed);
+            //if (canMove)
+            //    _animatorController.SetFloat("Speed", currentSpeed);
             
 
             RaycastHit2D hitPatrol = Physics2D.Raycast(groundDetectionPoint.position, Vector2.down, groundDetectionDistance, groundDetectionList);
@@ -151,6 +148,20 @@ public class EnemyPatrol2 : EnemyController
         }
     }
 
+
+    protected override void OnTakeDamage()
+    {
+        base.OnTakeDamage();
+        AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDamage);
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDead);
+    }
+
+
     private void statusBarriers(bool status)
     {
         isBarrierActive = status;
@@ -164,7 +175,8 @@ public class EnemyPatrol2 : EnemyController
         canAttack = false;
 
         moveTimer = moveCooldown + Time.time;
-        attackSound.Play();
+
+        AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolAttack);
         _animatorController.SetTrigger("IsAttacking");
 
         Collider2D collider = Physics2D.OverlapCircle((Vector2)attackPoint.position, attackRadius, playerDetectionList);

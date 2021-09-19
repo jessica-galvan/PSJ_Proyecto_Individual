@@ -61,7 +61,7 @@ public class PauseMenu : MonoBehaviour
         buttonQuit.onClick.AddListener(OnClickQuitHandler);
         goBackButton.onClick.AddListener(OnClickGoBackHandler);
         buttonMainMenu.onClick.AddListener(OnClickMenuHandler);
-        returnMenuButton.onClick.AddListener(OnClickMenuHandler);
+        //returnMenuButton.onClick.AddListener(OnClickMenuHandler);
     }
 
     private void Pause()

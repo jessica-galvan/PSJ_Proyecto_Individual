@@ -12,15 +12,15 @@ public class HeartManager : MonoBehaviour
 
     void Start()
     {
-        lifeController = LevelManager.instance.Player.GetComponent<LifeController>();
-        lifeController.UpdateLifeBar += UpdateLifeBar;
-        lifeController.OnDie += OnRespawn;
-
-        Initialize();
+        LevelManager.instance.OnPlayerAssing += Initialize;
     }
 
     private void Initialize()
     {
+        LevelManager.instance.OnPlayerAssing -= Initialize;
+        lifeController = LevelManager.instance.Player.GetComponent<LifeController>();
+        lifeController.UpdateLifeBar += UpdateLifeBar;
+        lifeController.OnDie += OnRespawn;
         for (int i = 0; i < lifeController.MaxLife; i++)
         {
             GameObject newHeart = Instantiate(heart);

@@ -7,9 +7,24 @@ public enum SoundClips
     MouseClick,
     Win,
     Gameover,
-    Shoot,
-    Absorb,
-    Explosion
+    MagicalAttack,
+    PhysicalAttack,
+    Dead,
+    Negative,
+    ReloadMana
+}
+
+public enum EnemySoundClips
+{
+    FlyAttack,
+    FlyDamage,
+    FlyDead,
+    StaticAttack,
+    StaticDamage,
+    StaticDead,
+    PatrolAttack,
+    PatrolDamage,
+    PatrolDead
 }
 
 public class AudioManager : MonoBehaviour
@@ -18,7 +33,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("AudioSources")]
     [SerializeField] private AudioSource musicAudioSource;
-    [SerializeField] private AudioSource movementAudioSource;
+    [SerializeField] private AudioSource playerAudioSource;
     [SerializeField] private AudioSource sfxAudioSource;
     [SerializeField, Range(0, 1)] private float musicInitialVolumen;
 
@@ -31,36 +46,36 @@ public class AudioManager : MonoBehaviour
     [Header("SFX Sounds")]
     [SerializeField] private AudioClip clickSound;
     [SerializeField] private AudioClip checkPointSound;
-    [SerializeField] private AudioClip deadSound;
     [SerializeField] private AudioClip rewardSound;
     [SerializeField] private AudioClip powerUpSound;
 
     [Header("Player Sounds")]
-    [SerializeField] private AudioClip shootSound;
-    [SerializeField] private AudioClip attackSound;
-    [SerializeField] private AudioClip reloadAmmoLeftSound;
+    [SerializeField] private AudioClip magicalAttackSound;
+    [SerializeField] private AudioClip physicalAttackSound;
+    [SerializeField] private AudioClip reloadManaSound;
     [SerializeField] private AudioClip negativeSound;
     [SerializeField] private AudioClip damageSound;
+    [SerializeField] private AudioClip deathSound;
 
     [Header("Enemy Patrol Sounds")]
-    [SerializeField] private AudioClip attackEnemyPatrolSound;
-    [SerializeField] private AudioClip hitEnemyPatrolSound;
-    [SerializeField] private AudioClip deathEnemyPatrolSound;
+    [SerializeField] private AudioClip enemyPatrolAttackSound;
+    [SerializeField] private AudioClip enemyPatrolDamageSound;
+    [SerializeField] private AudioClip enemyPatrolDeathSound;
 
     [Header("Enemy Static Sounds")]
-    [SerializeField] private AudioClip attackEnemyStaticSound;
-    [SerializeField] private AudioClip hitEnemyStaticSound;
-    [SerializeField] private AudioClip deathEnemyStaticSound;
+    [SerializeField] private AudioClip enemyStaticAttackSound;
+    [SerializeField] private AudioClip enemyStaticDamageSound;
+    [SerializeField] private AudioClip enemyStaticDeathSound;
 
     [Header("Enemy Fly Sounds")]
-    [SerializeField] private AudioClip attackEnemyFlySound;
-    [SerializeField] private AudioClip hitEnemyFlySound;
-    [SerializeField] private AudioClip deathEnemyFlySound;
+    [SerializeField] private AudioClip enemyFlyAttackSound;
+    [SerializeField] private AudioClip enemyFlyDamageSound;
+    [SerializeField] private AudioClip enemyFlyDeathSound;
 
     [Header("Boss Sounds")]
-    [SerializeField] private AudioClip attackBossSound;
-    [SerializeField] private AudioClip hitBossSound;
-    [SerializeField] private AudioClip deathBossSound;
+    [SerializeField] private AudioClip bossAttackSound;
+    [SerializeField] private AudioClip bossDamageSound;
+    [SerializeField] private AudioClip bossDeathSound;
 
     public void Awake()
     {
@@ -87,38 +102,72 @@ public class AudioManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        //TODO: Subscribirse al input o a los eventos de todos.
+        //TODO: Subscribirse a la victoria, game over.
     }
 
-    public void PlaySound(SoundClips soundClip)
+    public void PlayPlayerSound(SoundClips soundClip)
     {
+        playerAudioSource.volume = 1f;
         switch (soundClip)
         {
             case SoundClips.MouseClick:
-                sfxAudioSource.volume = 1f;
-                sfxAudioSource.PlayOneShot(deadSound);
+                playerAudioSource.PlayOneShot(clickSound);
                 break;
             case SoundClips.Win:
-                sfxAudioSource.volume = 1f;
-                sfxAudioSource.PlayOneShot(rewardSound);
+                playerAudioSource.PlayOneShot(victorySound);
                 break;
             case SoundClips.Gameover:
-                sfxAudioSource.volume = 1f;
-                sfxAudioSource.PlayOneShot(clickSound);
+                playerAudioSource.PlayOneShot(gameOverSound);
                 break;
-            case SoundClips.Shoot:
-                sfxAudioSource.volume = 1f;
-                sfxAudioSource.PlayOneShot(victorySound);
+            case SoundClips.MagicalAttack:
+                playerAudioSource.PlayOneShot(magicalAttackSound);
                 break;
-            case SoundClips.Absorb:
-                sfxAudioSource.volume = 1f;
-                sfxAudioSource.PlayOneShot(gameOverSound);
+            case SoundClips.PhysicalAttack:
+                playerAudioSource.PlayOneShot(physicalAttackSound);
                 break;
-            case SoundClips.Explosion:
-                sfxAudioSource.volume = 1f;
-                sfxAudioSource.PlayOneShot(powerUpSound);
+            case SoundClips.Dead:
+                playerAudioSource.PlayOneShot(deathSound);
                 break;
-            default:
+            case SoundClips.Negative:
+                playerAudioSource.PlayOneShot(negativeSound);
+                break;
+            case SoundClips.ReloadMana:
+                playerAudioSource.PlayOneShot(reloadManaSound);
+                break;
+        }
+    }
+
+    public void PlayEnemySound(EnemySoundClips soundClip)
+    {
+        sfxAudioSource.volume = 1f;
+        switch (soundClip)
+        {
+            case EnemySoundClips.FlyAttack:
+                sfxAudioSource.PlayOneShot(enemyFlyAttackSound);
+                break;
+            case EnemySoundClips.FlyDamage:
+                sfxAudioSource.PlayOneShot(enemyFlyDamageSound);
+                break;
+            case EnemySoundClips.FlyDead:
+                sfxAudioSource.PlayOneShot(enemyFlyDeathSound);
+                break;
+            case EnemySoundClips.StaticAttack:
+                sfxAudioSource.PlayOneShot(enemyStaticAttackSound);
+                break;
+            case EnemySoundClips.StaticDamage:
+                sfxAudioSource.PlayOneShot(enemyStaticDamageSound);
+                break;
+            case EnemySoundClips.StaticDead:
+                sfxAudioSource.PlayOneShot(enemyStaticDeathSound);
+                break;
+            case EnemySoundClips.PatrolAttack:
+                sfxAudioSource.PlayOneShot(enemyPatrolAttackSound);
+                break;
+            case EnemySoundClips.PatrolDamage:
+                sfxAudioSource.PlayOneShot(enemyPatrolDamageSound);
+                break;
+            case EnemySoundClips.PatrolDead:
+                sfxAudioSource.PlayOneShot(enemyPatrolDeathSound);
                 break;
         }
     }

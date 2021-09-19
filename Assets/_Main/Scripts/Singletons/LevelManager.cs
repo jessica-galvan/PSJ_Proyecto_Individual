@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
     public Action OnChangeCurrentEnemies;
     public Action OnChangeCollectable;
     public Action OnPlayerRespawn;
+    public Action OnPlayerAssing;
 
     public void Awake()
     {
@@ -49,6 +50,7 @@ public class LevelManager : MonoBehaviour
         Player.LifeController.OnDie += GameOver;
         playerSpawnPosition = Player.transform.position;
         playerCurrentCheckpoint = playerSpawnPosition;
+        OnPlayerAssing?.Invoke();
     }
 
     private void CheckGameConditions()

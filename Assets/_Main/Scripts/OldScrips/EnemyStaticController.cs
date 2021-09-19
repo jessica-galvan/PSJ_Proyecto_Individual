@@ -36,6 +36,19 @@ public class EnemyStaticController : EnemyController
         }
     }
 
+    protected override void OnTakeDamage()
+    {
+        base.OnTakeDamage();
+        AudioManager.instance.PlayEnemySound(EnemySoundClips.StaticDamage);
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        AudioManager.instance.PlayEnemySound(EnemySoundClips.StaticDead);
+    }
+
+
     private void CheckPlayerLocation()
     {
         ////con esto chequea el sentido del player antes de atacar

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ActorStats_FlyEnemy
   m_EditorClassIdentifier: 
   _maxLife: 15
-  _speed: 10
+  _speed: 5
   _buffedSpeed: 10
   canJump: 0
   jumpForce: 0

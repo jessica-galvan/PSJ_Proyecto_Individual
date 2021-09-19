@@ -15,7 +15,6 @@ public class EnemyController : Actor
     [SerializeField] private GameObject canvas = null;
 
     [Header("Audio Sources")]
-    [SerializeField] protected AudioSource shootingSound = null;
     [SerializeField] private AudioSource damageSound = null;
 
     protected override void Start()
@@ -43,6 +42,12 @@ public class EnemyController : Actor
     protected virtual void OnPlayerRespawnListener()
     {
 
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        //TODO: Apagar collider? agregar death animation, etc. etc. olvidarse de los prefabs. Configurar el drop post muerte.
     }
 
 
