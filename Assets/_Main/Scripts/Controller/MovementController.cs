@@ -8,7 +8,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private LayerMask groundDetectionList;
 
     //PRIVATE VARIABLES
-    private readonly float distance = 1.1f;
+    private readonly float groundDistance = 1.1f;
     private ActorStats _actorStats;
     private Rigidbody2D rbody;
     private bool isSprinting;
@@ -56,7 +56,7 @@ public class MovementController : MonoBehaviour
 
     public bool CheckIfGrounded()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distance, groundDetectionList);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundDistance, groundDetectionList);
         if(hit.collider != null)
             return true;
         else

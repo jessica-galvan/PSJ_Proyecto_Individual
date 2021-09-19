@@ -12,7 +12,7 @@ public class PatrolMovementController : MonoBehaviour
     [SerializeField] private GameObject leftX;
     [SerializeField] private GameObject rightX;
     [SerializeField] private LayerMask groundDetectionList;
-    [SerializeField] private float groundDetectionDistance = 1f;
+    [SerializeField] private float groundDistance = 1f;
     [SerializeField] private float checkPlayerTimeDuration = 5f;
 
     [Header("Prefab Settings")]
@@ -147,7 +147,7 @@ public class PatrolMovementController : MonoBehaviour
 
     private void CheckGroundDetection()
     {
-        RaycastHit2D hitPatrol = Physics2D.Raycast(transform.position, Vector2.down, groundDetectionDistance, groundDetectionList);
+        RaycastHit2D hitPatrol = Physics2D.Raycast(transform.position, Vector2.down, groundDistance, groundDetectionList);
         if (!hitPatrol)
             enemyController.BackFlip();
     }
