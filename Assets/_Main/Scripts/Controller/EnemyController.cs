@@ -7,7 +7,6 @@ public class EnemyController : Actor
 {
     [Header("Prefabs Settings")]
     [SerializeField] protected GameObject canvas = null;
-    [SerializeField] protected GameObject[] reward = new GameObject[2];
 
     protected UIBarController lifeBar;
     protected bool canShoot;
@@ -48,8 +47,14 @@ public class EnemyController : Actor
     protected override void DeathAnimationOver()
     {
         base.DeathAnimationOver();
-        Instantiate(reward[Random.Range(0, reward.Length)], transform.position, transform.rotation);
+        RewardDrop();
         Destroy(gameObject);
+    }
+
+    protected void RewardDrop()
+    {
+        var item = InteractablesManager.instance.GetItem((InteractableType)Random.Range(0, 2));
+        item.transform.position = transform.position;
     }
 
     public void TargetDetected(bool value, PlayerController player = null)

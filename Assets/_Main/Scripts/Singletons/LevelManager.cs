@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour
 
     private GameObject victoryScreen = null;
     private GameOver gameOverEffect;
-    private int enemyCounter;
+    public int EnemyCounter { get; private set; }
 
     //EVENTS
     public Action OnChangeCurrentEnemies;
@@ -44,14 +44,6 @@ public class LevelManager : MonoBehaviour
         AudioManager.instance.EnviromentMusic(EnviromentSoundClip.LevelMusic);
     }
 
-    private void Update()
-    {
-        //if (GameManager.instance.IsGameFreeze && gameOverScreen.activeInHierarchy && restartCooldown < Time.deltaTime)
-        //{
-        //    RestartLastCheckpoint();
-        //}
-    }
-
     public void AssingCharacter(PlayerController newCharacter)
     {
         this.Player = newCharacter;
@@ -63,7 +55,7 @@ public class LevelManager : MonoBehaviour
 
     private void CheckGameConditions()
     {
-        if (enemyCounter == 0 && !gameOverEffect.IsGameOverActive)
+        if (EnemyCounter == 0 && !gameOverEffect.IsGameOverActive)
         {
             Victory();
         }
@@ -106,7 +98,6 @@ public class LevelManager : MonoBehaviour
         gameOverEffect.SetGameOver(false);
         HUDManager.instance.IsParticleSystemVisible(true);
         OnPlayerRespawn?.Invoke();
-        //playerCurrentCheckpoint.y += 1; //para que tenga un offset de cuando vuelve, pero 1 en int es muuy grande la caida
         Player.SetCurrentPosition(playerCurrentCheckpoint);
         Player.LifeController.Respawn();
     }
@@ -116,19 +107,19 @@ public class LevelManager : MonoBehaviour
     #region Enemy Related
     public void AddEnemyToList(EnemyController newEnemy)
     {
-        enemyCounter++;
+        EnemyCounter++;
         //newEnemy.lifeController.OnDie += OnEnemyDead;
     }
     private void OnEnemyDead(EnemyController enemy)
     {
         //enemy.lifeController.OnDie -= OnEnemyDead; 
-        enemyCounter--;
+        EnemyCounter--;
         CheckGameConditions();
     }
 
     public bool CheckIfTheyAreEnemies()
     {
-        return enemyCounter > 0;
+        return EnemyCounter > 0;
     }
     #endregion  
 }

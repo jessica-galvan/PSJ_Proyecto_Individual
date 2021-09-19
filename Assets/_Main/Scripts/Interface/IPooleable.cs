@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPooleable
 {
-
+    public bool CanReturn { get; set; }
 }

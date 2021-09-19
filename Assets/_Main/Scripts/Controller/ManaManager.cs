@@ -8,6 +8,8 @@ public class ManaManager : MonoBehaviour
     private MagicalAttackBullet magicalAttackPrefab;
     private Pool<MagicalAttackBullet> magicalAttackList; //Si hay más bullets, hacer una clase base de bullets para que hereden, no usar interface.
 
+
+
     public ManaManager(MagicalAttackBullet prefab, int quantity)
     {
         Initializer(prefab, quantity);
@@ -21,7 +23,7 @@ public class ManaManager : MonoBehaviour
         var list = new List<MagicalAttackBullet>();
         for (int i = 0; i < manaQuantity; i++)
         {
-            var bullet = ManaFactory.instance.CreateMagicalAttack(magicalAttackPrefab);
+            var bullet = AssetsFactory.instance.CreateMagicalAttack(magicalAttackPrefab);
             list.Add(bullet);
         }
 
@@ -47,6 +49,5 @@ public class ManaManager : MonoBehaviour
     {
         bullet.CanReturn = false;
         magicalAttackList.Store(bullet);
-        //Maybe move position;
     }
 }

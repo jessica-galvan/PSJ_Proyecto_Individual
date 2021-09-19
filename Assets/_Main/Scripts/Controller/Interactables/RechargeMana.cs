@@ -17,4 +17,9 @@ public class RechargeMana : InteractableController
             Destroy();
         }
     }
+
+    protected override void Destroy()
+    {
+        InteractablesManager.instance.StoreInteractable(this);
+    }
 }

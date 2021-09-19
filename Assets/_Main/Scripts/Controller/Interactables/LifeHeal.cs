@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LifeHeal : InteractableController
 {
+
     protected override void Interact()
     {
         if (player.LifeController.CanHeal())
@@ -12,5 +13,10 @@ public class LifeHeal : InteractableController
             AudioManager.instance.PlayPlayerSound(PlayerSoundClips.ReloadMana);
             Destroy();
         }
+    }
+
+    protected override void Destroy()
+    {
+        InteractablesManager.instance.StoreInteractable(this);
     }
 }
