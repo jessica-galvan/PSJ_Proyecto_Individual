@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2738a71c0ffdf1941800bc816ec63f88, type: 3}
   m_Name: InteractableStats
   m_EditorClassIdentifier: 
-  _heal: 20
+  _heal: 2
   _coinValue: 1
-  _rechargeAmmo: 5
-  _damage: 10
+  _rechargeMana: 2
+  _damage: 1
+  _damageCooldown: 2

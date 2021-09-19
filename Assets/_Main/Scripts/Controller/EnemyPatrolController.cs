@@ -6,11 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(PhysicalAttackController))]
 public class EnemyPatrolController : EnemyController
 {
+    private bool isInCooldown;
     public PhysicalAttackController PhysicalAttackController { get; private set; }
     public PatrolMovementController PatrolMovementController { get; private set; }
-
-    private bool isInCooldown;
-    
 
     protected override void Start()
     {
@@ -18,9 +16,6 @@ public class EnemyPatrolController : EnemyController
         PhysicalAttackController = GetComponent<PhysicalAttackController>();
         PatrolMovementController = GetComponent<PatrolMovementController>();
         PatrolMovementController.SetStats(_actorStats);
-
-        CanAttack = true;
-
     }
 
     void Update()

@@ -12,13 +12,13 @@ public class PlayerController : Actor
 
     public int Collectables => collectableCount;
     public MovementController MovementController { get; private set; }
-    public MagicalShooterController ShooterController { get; private set; }
+    public MagicalShooterController MagicController { get; private set; }
     public PhysicalAttackController PhysicalAttackController { get; private set; }
 
     #region Unity
     void Awake()
     {
-        ShooterController = GetComponent<MagicalShooterController>();
+        MagicController = GetComponent<MagicalShooterController>();
         PhysicalAttackController = GetComponent<PhysicalAttackController>();
         MovementController = GetComponent<MovementController>();
     }
@@ -52,9 +52,9 @@ public class PlayerController : Actor
 
     private void OnShoot()
     {
-        if(!ShooterController.IsAttacking && ShooterController.GetCurrentMana() > 0)
+        if(!MagicController.IsAttacking && MagicController.GetCurrentMana() > 0)
         {
-            ShooterController.Shoot();
+            MagicController.Shoot();
             _animatorController.SetTrigger("IsShooting");
             AudioManager.instance.PlayPlayerSound(PlayerSoundClips.MagicalAttack);
         } else

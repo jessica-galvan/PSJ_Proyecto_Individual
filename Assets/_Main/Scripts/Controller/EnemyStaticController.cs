@@ -5,12 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(MagicalShooterController))]
 public class EnemyStaticController : EnemyController
 {
-    public MagicalShooterController ShooterController { get; private set; }
+    public MagicalShooterController MagicController { get; private set; }
 
     protected override void Start()
     {
         base.Start();
-        ShooterController = GetComponent<MagicalShooterController>();
+        MagicController = GetComponent<MagicalShooterController>();
     }
 
     void Update()
@@ -51,7 +51,7 @@ public class EnemyStaticController : EnemyController
 
     private void Attack()
     {
-        if (canShoot && !ShooterController.IsAttacking && ShooterController.GetCurrentMana() > 0)
+        if (canShoot && !MagicController.IsAttacking && MagicController.GetCurrentMana() > 0)
         {
             canShoot = false;
             cooldownTimer = _attackStats.CooldownMana + Time.time;

@@ -12,7 +12,8 @@ public enum PlayerSoundClips
     Dead,
     Damage,
     Negative,
-    ReloadMana
+    ReloadMana, 
+    CheckPoint
 }
 
 public enum EnviromentSoundClip
@@ -143,6 +144,9 @@ public class AudioManager : MonoBehaviour
                 break;
             case PlayerSoundClips.Damage:
                 playerAudioSource.PlayOneShot(reloadManaSound);
+                break;
+            case PlayerSoundClips.CheckPoint:
+                playerAudioSource.PlayOneShot(checkPointSound);
                 break;
         }
     }

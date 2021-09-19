@@ -2,17 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trap : MonoBehaviour, IInteractable
+public class Trap : InteractableController
 {
-    [SerializeField] protected InteractableStats _interactableStats;
+    private float timer;
+    private bool canDamage;
 
-    void Start()
+    private void Update()
     {
-        GetComponent<InteractableController>().interactable = this;
+        timer -= Time.deltaTime;
+        if (canDamage && timer <= 0)
+        {
+            player.LifeController.TakeDamage(_interactableStats.Damage);
+            timer = _interactableStats.DamageTimer;
+        }
     }
 
-    public void Interact(PlayerController character)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        character.LifeController.TakeDamage(_interactableStats.Damage);
+        if (player == collision.GetComponent<PlayerController>())
+        {
+            player = null;
+            canDamage = false;
+            timer = 0;
+        }
+    }
+
+    protected override void Interact()
+    {
+        canDamage = true;
     }
 }

@@ -2,18 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectableItemScript : MonoBehaviour,IInteractable
+public class CollectableItemScript : InteractableController
 {
-    [SerializeField] protected InteractableStats _interactableStats;
-
-    void Start()
+    protected override void Interact()
     {
-        GetComponent<InteractableController>().interactable = this;
-    }
-
-    public void Interact(PlayerController character)
-    {
-        character.PickUpCollectable(_interactableStats.Coin);
-        Destroy(gameObject);
+        player.PickUpCollectable(_interactableStats.Coin);
+        Destroy();
     }
 }

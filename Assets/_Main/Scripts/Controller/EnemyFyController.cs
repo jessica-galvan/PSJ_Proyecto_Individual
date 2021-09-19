@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PatrolMovementController))]
-public class EnemyFly : EnemyController
+public class EnemyFyController : EnemyController
 {
     [Header("Patrol Settings")]
     [SerializeField] private float speed = 5f;
@@ -36,7 +36,6 @@ public class EnemyFly : EnemyController
     {
         base.Start();
         
-
         canMove = true;
         canShoot = true;
         spawnPoint = transform.position;

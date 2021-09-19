@@ -2,16 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableController : MonoBehaviour
+public abstract class InteractableController : MonoBehaviour
 {
-    public IInteractable interactable;
+    [SerializeField] protected InteractableStats _interactableStats;
+    protected PlayerController player;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerController player = other.gameObject.GetComponent<PlayerController>();
+        player = collision.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
-            interactable.Interact(player);
+            Interact();
         }
+    }
+
+    protected abstract void Interact();
+
+    protected virtual void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

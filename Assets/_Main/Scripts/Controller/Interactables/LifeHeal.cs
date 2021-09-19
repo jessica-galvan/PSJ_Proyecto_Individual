@@ -2,20 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LifeHeal : MonoBehaviour, IInteractable
+public class LifeHeal : InteractableController
 {
-    [SerializeField] protected InteractableStats _interactableStats;
-    void Start()
+    protected override void Interact()
     {
-        GetComponent<InteractableController>().interactable = this;
-    }
-
-    public void Interact(PlayerController character)
-    {
-        if (character.LifeController.CanHeal())
+        if (player.LifeController.CanHeal())
         {
-            character.LifeController.Heal(_interactableStats.Heal);
-            Destroy(gameObject);
+            player.LifeController.Heal(_interactableStats.Heal);
+            AudioManager.instance.PlayPlayerSound(PlayerSoundClips.ReloadMana);
+            Destroy();
         }
     }
 }

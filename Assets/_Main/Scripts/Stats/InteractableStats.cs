@@ -6,15 +6,18 @@ using UnityEngine;
 public class InteractableStats : ScriptableObject
 {
     public int Heal => _heal;
-    [SerializeField] private int _heal = 20;
+    [SerializeField] private int _heal = 2;
 
     public int Coin => _coinValue;
     [SerializeField] private int _coinValue = 1;
 
-    public int RechargeAmmo => _rechargeAmmo;
-    [SerializeField] private int _rechargeAmmo = 5;
+    public int RechargeMana => _rechargeMana;
+    [SerializeField] private int _rechargeMana = 2;
 
     public int Damage => _damage;
-    [SerializeField] private int _damage = 10;
+    [SerializeField] private int _damage = 1;
+
+    public float DamageTimer => _damageCooldown;
+    [SerializeField] private float _damageCooldown = 2f;
 }
 

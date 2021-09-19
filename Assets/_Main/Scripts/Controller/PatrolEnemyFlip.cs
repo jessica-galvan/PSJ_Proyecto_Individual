@@ -17,7 +17,7 @@ public class PatrolEnemyFlip : MonoBehaviour
             }
         } else
         {
-            EnemyFly enemy = collision.GetComponent<EnemyFly>();
+            EnemyFyController enemy = collision.GetComponent<EnemyFyController>();
             if (enemy != null)
             {
                 enemy.BackFlip();
