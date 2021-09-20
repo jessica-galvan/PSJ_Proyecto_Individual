@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ManaManager))]
 public class MagicalShooterController : MonoBehaviour
 {
     [SerializeField] private Transform shootingPoint;
 
-    private ManaManager manaManager;
     private AttackStats _attackStats;
-
     private int currentMana;
     protected float timerCD;
     protected bool canShoot;
@@ -18,10 +15,7 @@ public class MagicalShooterController : MonoBehaviour
 
     void Start()
     {
-        manaManager = GetComponent<ManaManager>();
         _attackStats = GetComponent<Actor>().AttackStats;
-
-        manaManager.Initializer(_attackStats.MagicalAttackPrefab, _attackStats.MaxMana);
         currentMana = _attackStats.MaxMana;
     }
 
@@ -72,9 +66,9 @@ public class MagicalShooterController : MonoBehaviour
             }
     }
 
-    private void InstantiateBullets(Transform shootingPoint) //Aca es donde variaria si el arma es un Pistol, Shotgun, etc. 
+    private void InstantiateBullets(Transform shootingPoint) 
     {
-        var bullet = manaManager.GetBullet();
+        var bullet = PoolManager.instance.GetBullet(_attackStats.BulletType);
         bullet.Initialize(shootingPoint, _attackStats, true);
     }
 }

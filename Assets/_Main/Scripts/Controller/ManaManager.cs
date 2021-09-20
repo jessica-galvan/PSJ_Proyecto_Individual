@@ -8,8 +8,6 @@ public class ManaManager : MonoBehaviour
     private MagicalAttackBullet magicalAttackPrefab;
     private Pool<MagicalAttackBullet> magicalAttackList; //Si hay más bullets, hacer una clase base de bullets para que hereden, no usar interface.
 
-
-
     public ManaManager(MagicalAttackBullet prefab, int quantity)
     {
         Initializer(prefab, quantity);

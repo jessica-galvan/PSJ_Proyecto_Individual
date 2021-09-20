@@ -53,7 +53,7 @@ public class EnemyController : Actor
 
     protected void RewardDrop()
     {
-        var item = InteractablesManager.instance.GetItem((InteractableType)Random.Range(0, 2));
+        var item = PoolManager.instance.GetItem((PooleableType)Random.Range(0, 2));
         item.transform.position = transform.position;
     }
 

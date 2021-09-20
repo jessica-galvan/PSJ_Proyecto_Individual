@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ManaManager))]
 public abstract class BaseMagicalAttack : MonoBehaviour
 {
-    //Serializados
-    [SerializeField] protected int spellsPerAttack = 1;
-
     //Privados
-    protected ManaManager manaManager;
+    protected int spellsPerAttack = 1;
     protected float timerCD;
     protected bool canShoot;
     protected AttackStats _attackStats;
@@ -25,10 +21,8 @@ public abstract class BaseMagicalAttack : MonoBehaviour
     //METODOS
     private void Start()
     {
-        manaManager = GetComponent<ManaManager>();
         _attackStats = GetComponent<Actor>().AttackStats;
         CurrentMana = _attackStats.MaxMana;
-        manaManager.Initializer(_attackStats.MagicalAttackPrefab, _attackStats.MaxMana);
     }
 
     void Update()

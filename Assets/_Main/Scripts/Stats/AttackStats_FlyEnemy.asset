@@ -18,8 +18,7 @@ MonoBehaviour:
   _damageMagical: 1
   _damagePhysical: 1
   _physicalAttackRadious: 1
-  _magicalAttackPrefab: {fileID: 1020362333111516470, guid: abcf110299afb8a42bfef5fcb797690e,
-    type: 3}
+  _bulletType: 2
   _cooldownPhysical: 1
   _cooldownMana: 2
   _maxMana: 10

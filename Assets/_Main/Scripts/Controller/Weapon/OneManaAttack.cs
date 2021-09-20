@@ -9,7 +9,7 @@ public class OneManaAttack : BaseMagicalAttack
 
         for (int i = 0; i < spellsPerAttack; i++)
         {
-            var bullet = manaManager.GetBullet();
+            var bullet = PoolManager.instance.GetBullet(_attackStats.BulletType);
             bullet.Initialize(shootingPoint, _attackStats, true);
         }
     }

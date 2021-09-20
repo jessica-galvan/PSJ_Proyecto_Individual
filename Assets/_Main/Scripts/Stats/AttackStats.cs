@@ -17,8 +17,8 @@ public class AttackStats : ScriptableObject
     public float PhysicalAttackRadious => _physicalAttackRadious;
     [SerializeField] private float _physicalAttackRadious = 1f;
 
-    public MagicalAttackBullet MagicalAttackPrefab => _magicalAttackPrefab;
-    [SerializeField] private MagicalAttackBullet _magicalAttackPrefab;
+    public  BulletType BulletType => _bulletType;
+    [SerializeField] private BulletType _bulletType;
 
     public float CooldownPhysical => _cooldownPhysical;
     [SerializeField] private float _cooldownPhysical = 1f;

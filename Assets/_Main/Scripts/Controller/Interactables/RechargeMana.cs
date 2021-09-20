@@ -20,6 +20,6 @@ public class RechargeMana : InteractableController
 
     protected override void Destroy()
     {
-        InteractablesManager.instance.StoreInteractable(this);
+        PoolManager.instance.StoreInteractable(this);
     }
 }

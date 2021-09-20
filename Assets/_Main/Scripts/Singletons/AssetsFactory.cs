@@ -9,6 +9,8 @@ public class AssetsFactory : MonoBehaviour
     private readonly Factory<RechargeMana> manaFactory = new Factory<RechargeMana>();
     private readonly Factory<LifeHeal> lifeHealFactory = new Factory<LifeHeal>();
 
+    private readonly Factory<InteractableController> interactableFactory = new Factory<InteractableController>();
+
     public void Awake()
     {
         if (instance != null)
@@ -27,9 +29,9 @@ public class AssetsFactory : MonoBehaviour
         return ammoFactory.Create(prefab);
     }
 
-    public LifeHeal CreateLifeHeal(LifeHeal prefab)
+    public InteractableController CreateInteractable(InteractableController prefab)
     {
-        return lifeHealFactory.Create(prefab);
+        return interactableFactory.Create(prefab);
     }
 
     public RechargeMana CreateMana(RechargeMana prefab)

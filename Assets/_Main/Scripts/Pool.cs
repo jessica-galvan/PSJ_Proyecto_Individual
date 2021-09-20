@@ -6,9 +6,11 @@ using UnityEngine;
 { 
     private List<T> inUse = new List<T>();
     private List<T> available = new List<T>();
+    private T prefab;
 
     public Pool(List<T> values)
     {
+        prefab = values[0];
         foreach (var item in values)
         {
             Store(item);
