@@ -39,10 +39,10 @@ public class EnemyFyController : EnemyController
         canMove = true;
         canShoot = true;
         spawnPoint = transform.position;
-        barrierLeft = Instantiate(invisibleBarrierPrefab, leftX.transform.position, transform.rotation);
-        barrierLeft.GetComponent<PatrolEnemyFlip>().SetIsPatrol(false);
-        barrierRight = Instantiate(invisibleBarrierPrefab, rightX.transform.position, transform.rotation);
-        barrierRight.GetComponent<PatrolEnemyFlip>().SetIsPatrol(false);
+        //barrierLeft = Instantiate(invisibleBarrierPrefab, leftX.transform.position, transform.rotation);
+        //barrierLeft.GetComponent<PatrolEnemyFlip>().SetIsPatrol(false);
+        //barrierRight = Instantiate(invisibleBarrierPrefab, rightX.transform.position, transform.rotation);
+        //barrierRight.GetComponent<PatrolEnemyFlip>().SetIsPatrol(false);
     }
 
     void Update()

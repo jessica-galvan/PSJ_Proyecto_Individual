@@ -27,6 +27,10 @@ using UnityEngine;
             temp.gameObject.SetActive(true);
             return temp;
         }
+        else
+        {
+            inUse.Add(prefab);
+        }
         return default(T);
     }
 

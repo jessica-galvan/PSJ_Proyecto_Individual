@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrolMovementController : MonoBehaviour
+public class PatrolMovementController1: MonoBehaviour
 {
     private EnemyController enemyController;
     protected ActorStats _actorStats;
@@ -82,11 +82,11 @@ public class PatrolMovementController : MonoBehaviour
 
     private void CreateBarriers()
     {
-        isBarrierActive = true;
-        barrierLeft = Instantiate(invisibleBarrierPrefab, leftX.transform.position, transform.rotation);
-        barrierLeft.GetComponent<PatrolEnemyFlip>().SetIsPatrol(true);
-        barrierRight = Instantiate(invisibleBarrierPrefab, rightX.transform.position, transform.rotation);
-        barrierRight.GetComponent<PatrolEnemyFlip>().SetIsPatrol(true);
+        //isBarrierActive = true;
+        //barrierLeft = Instantiate(invisibleBarrierPrefab, leftX.transform.position, transform.rotation);
+        //barrierLeft.GetComponent<PatrolEnemyFlip>().SetIsPatrol(true);
+        //barrierRight = Instantiate(invisibleBarrierPrefab, rightX.transform.position, transform.rotation);
+        //barrierRight.GetComponent<PatrolEnemyFlip>().SetIsPatrol(true);
     }
 
     private void GoAttackPlayer(RaycastHit2D hit)

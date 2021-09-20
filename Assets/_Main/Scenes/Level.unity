@@ -3591,7 +3591,7 @@ PrefabInstance:
     - target: {fileID: 5787261840049859411, guid: 91602b89efc374c4d82f99b78f052d96,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5787261840049859416, guid: 91602b89efc374c4d82f99b78f052d96,
         type: 3}
@@ -6566,7 +6566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableQuantity: 5
   enemyBulletsQuantity: 10
-  playerBulletsQuantity: 6
+  playerBulletsQuantity: 4
   rechargeManaPrefab: {fileID: 608373773, guid: f44bf3e25cf69b146a39e41087952271,
     type: 3}
   lifeHealPrefab: {fileID: 149139338, guid: a52a3bdb83f5a5a418d8a2c68e49d6ff, type: 3}
@@ -11944,10 +11944,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 548623189, guid: fb1557be7a5dc1c48b3521dbbcc9882d, type: 3}
-      propertyPath: groundDetectionList.m_Bits
-      value: 5120
-      objectReference: {fileID: 0}
     - target: {fileID: 435619329345401612, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
         type: 3}
       propertyPath: m_RootOrder
@@ -12003,51 +11999,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 435619329345401613, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 0.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 435619329345401613, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 1.355
-      objectReference: {fileID: 0}
-    - target: {fileID: 435619329345401614, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
-        type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 435619329345401615, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
-        type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 435619329345401714, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
         type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 435619329345401715, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 435619329345401715, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1.355
-      objectReference: {fileID: 0}
-    - target: {fileID: 435619329345401715, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 435619329345401615, guid: fb1557be7a5dc1c48b3521dbbcc9882d, type: 3}
-    - {fileID: 435619329345401614, guid: fb1557be7a5dc1c48b3521dbbcc9882d, type: 3}
-    - {fileID: 548623195, guid: fb1557be7a5dc1c48b3521dbbcc9882d, type: 3}
-    - {fileID: 548623196, guid: fb1557be7a5dc1c48b3521dbbcc9882d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb1557be7a5dc1c48b3521dbbcc9882d, type: 3}
 --- !u!1001 &460267335008383263
 PrefabInstance:
@@ -13072,7 +13029,7 @@ PrefabInstance:
     - target: {fileID: 4142080222102873628, guid: 826d6455ce50812488b29fe275c41279,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4142080222102873626, guid: 826d6455ce50812488b29fe275c41279, type: 3}
@@ -13478,7 +13435,7 @@ PrefabInstance:
     - target: {fileID: 5787261840049859411, guid: 91602b89efc374c4d82f99b78f052d96,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5787261840049859416, guid: 91602b89efc374c4d82f99b78f052d96,
         type: 3}

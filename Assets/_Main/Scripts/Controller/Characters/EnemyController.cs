@@ -68,14 +68,10 @@ public class EnemyController : Actor
 
     }
 
-    /*private void OnCollisionEnter2D(Collision2D collision)
-    {
-        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-        LifeController life = collision.gameObject.GetComponent<LifeController>();
-        if (life != null && !player.CanHeadKill())
-        {
-            life.TakeDamage(bodyDamage);
-        }
-    }*/
-
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+    //    if (player != null && !player.CanHeadKill()&& !player.PhysicalAttackController.IsAttacking)
+    //        player.LifeController.TakeDamage(_attackStats.PhysicalDamage);
+    //}
 }
