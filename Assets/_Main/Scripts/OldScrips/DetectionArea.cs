@@ -14,15 +14,15 @@ public class DetectionArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerController player = collision.GetComponent<PlayerController>();
-        if (player != null)
-            enemyController.TargetDetected(true, player);
+        //PlayerController player = collision.GetComponent<PlayerController>();
+        //if (player != null)
+        //    enemyController.TargetDetected(true, player);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        PlayerController player = collision.GetComponent<PlayerController>();
-        if (player != null)
-            enemyController.TargetDetected(false);
+        //PlayerController player = collision.GetComponent<PlayerController>();
+        //if (player != null)
+        //    enemyController.TargetDetected(false);
     }
 }

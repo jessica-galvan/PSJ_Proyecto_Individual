@@ -50,6 +50,7 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(gameSceneName);
     }
+
     private void OnClickHelpHandler() //Si apretan HELP
     {
         mainMenu.SetActive(false);

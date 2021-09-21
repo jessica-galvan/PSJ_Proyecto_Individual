@@ -17,7 +17,7 @@ public class UIBarController : MonoBehaviour
             barImage.fillAmount = (float)currentHealth / maxHealth;
     }
 
-    public void IsBarVisible(bool value)
+    public void SetBarVisible(bool value)
     {
         bar.SetActive(value);
         IsVisible = value;

@@ -20,6 +20,7 @@ public class EnemyController : Actor
     {
         base.Start();
         lifeBar = GetComponent<UIBarController>();
+        lifeBar.SetBarVisible(false);
         LifeController.UpdateLifeBar += UpdateLifeBar;
         LevelManager.instance.AddEnemyToList(this);
         LevelManager.instance.OnPlayerRespawn += OnPlayerRespawnListener;
@@ -29,6 +30,8 @@ public class EnemyController : Actor
     protected void UpdateLifeBar(int currentLife, int maxLife)
     {
         lifeBar.UpdateLifeBar(currentLife, maxLife);
+        if (!lifeBar.IsVisible)
+            lifeBar.SetBarVisible(true);
     }
 
     public void BackFlip()
