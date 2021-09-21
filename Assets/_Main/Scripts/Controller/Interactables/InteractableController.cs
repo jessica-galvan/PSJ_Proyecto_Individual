@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class InteractableController : MonoBehaviour, IPooleable
+public abstract class InteractableController : MonoBehaviour
 {
     [SerializeField] protected InteractableStats _interactableStats;
     protected PlayerController player;
-
-    public bool CanReturn { get; set; }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

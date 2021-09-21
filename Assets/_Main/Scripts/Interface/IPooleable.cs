@@ -4,5 +4,9 @@ using UnityEngine;
 
 public interface IPooleable
 {
-    public bool CanReturn { get; set; }
+    PooleableType Type { get; }
+
+    GameObject gameObject {get; }
+
+    Transform transform { get; }
 }

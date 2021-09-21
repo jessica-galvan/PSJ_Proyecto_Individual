@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicalAttackBullet : MonoBehaviour
+public class MagicalAttackBullet : MonoBehaviour, IPooleable
 {
-    [SerializeField] private BulletType type;
-
+    [SerializeField] private PooleableType type;
     private AttackStats _attackStats;
     private bool canMove;
     private float timer;
-    public bool CanReturn { get; set; }
-    public BulletType BulletType => type;
+    public PooleableType Type => type;
 
     public void Initialize(Transform firePoint, AttackStats attackStats, bool boolean)
     {
@@ -46,6 +44,6 @@ public class MagicalAttackBullet : MonoBehaviour
 
     private void OnCollision()
     {
-        CanReturn = true;
+        PoolManager.instance.Store(this);
     }
 }

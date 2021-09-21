@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableStats: {fileID: 11400000, guid: a23cccb15cde48943980199e17a884dd, type: 2}
+  type: 1
 --- !u!1 &7755945751448523942
 GameObject:
   m_ObjectHideFlags: 0

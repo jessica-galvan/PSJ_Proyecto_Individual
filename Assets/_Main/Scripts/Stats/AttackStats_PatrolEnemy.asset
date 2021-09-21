@@ -18,7 +18,7 @@ MonoBehaviour:
   _damageMagical: 1
   _damagePhysical: 1
   _physicalAttackRadious: 1
-  _bulletType: 1
+  _bulletType: 3
   _cooldownPhysical: 1
   _cooldownMana: 0
   _maxMana: 0

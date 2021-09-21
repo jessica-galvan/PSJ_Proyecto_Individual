@@ -6,5 +6,6 @@ public interface IPool<T>
 {
     void Store(T item);
     T GetInstance();
-    int IsAvailable();
+
+    T CreateInstance();
 }

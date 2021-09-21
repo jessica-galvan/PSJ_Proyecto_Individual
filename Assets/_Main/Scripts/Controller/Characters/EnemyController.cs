@@ -53,8 +53,19 @@ public class EnemyController : Actor
 
     protected void RewardDrop()
     {
-        var item = PoolManager.instance.GetItem((PooleableType)Random.Range(0, 2));
-        item.transform.position = transform.position;
+        var random = Random.Range(0, 2);
+
+        switch (random)
+        {
+            case 0:
+                var item = PoolManager.instance.GetItem(PooleableType.Heal);
+                item.transform.position = transform.position;
+                break;
+            default:
+                item = PoolManager.instance.GetItem(PooleableType.Mana);
+                item.transform.position = transform.position;
+                break;
+        }
     }
 
     public void TargetDetected(bool value, PlayerController player = null)

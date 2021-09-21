@@ -5,7 +5,10 @@ using UnityEngine;
 public enum PooleableType
 {
     Mana,
-    Heal
+    Heal,
+    PlayerBullet,
+    EnemyBullet,
+    FlyBullet
 }
 public enum BulletType
 {
@@ -16,10 +19,6 @@ public enum BulletType
 
 public class PoolManager : MonoBehaviour
 {
-    [SerializeField] private int interactableQuantity = 5;
-    [SerializeField] private int enemyBulletsQuantity = 10;
-    [SerializeField] private int playerBulletsQuantity = 6;
-
     [Header("Prefabs")]
     [SerializeField] private RechargeMana rechargeManaPrefab;
     [SerializeField] private LifeHeal lifeHealPrefab;
@@ -28,11 +27,11 @@ public class PoolManager : MonoBehaviour
     [SerializeField] private MagicalAttackBullet playerBulletPrefab;
 
     //Private Pools
-    private Pool<InteractableController> lifeHealPool;
-    private Pool<InteractableController> manaPool;
-    private Pool<MagicalAttackBullet> enemyFlyBulletPool;
-    private Pool<MagicalAttackBullet> enemyBaseBulletPool;
-    private Pool<MagicalAttackBullet> playerBulletPool;
+    private Pool<MonoBehaviour> lifeHealPool;
+    private Pool<MonoBehaviour> manaPool;
+    private Pool<MonoBehaviour> enemyFlyBulletPool;
+    private Pool<MonoBehaviour> enemyBaseBulletPool;
+    private Pool<MonoBehaviour> playerBulletPool;
 
     public static PoolManager instance;
 
@@ -50,123 +49,60 @@ public class PoolManager : MonoBehaviour
 
     private void Start()
     {
-        interactableQuantity = LevelManager.instance.EnemyCounter > 0 ? LevelManager.instance.EnemyCounter : interactableQuantity;
-        Initializer();
+        lifeHealPool = CreatePool(lifeHealPrefab);
+        manaPool = CreatePool(rechargeManaPrefab);
+        enemyFlyBulletPool = CreatePool(enemyFlyBulletPrefab);
+        enemyBaseBulletPool = CreatePool(enemyBaseBulletPrefab);
+        playerBulletPool = CreatePool(playerBulletPrefab);
     }
 
-    public void Initializer()
+    private Pool<MonoBehaviour> CreatePool(MonoBehaviour item)
     {
-        lifeHealPool = CreateInteractableList(lifeHealPrefab);
-        manaPool = CreateInteractableList(rechargeManaPrefab);
-        enemyFlyBulletPool = CreateBulletList(enemyFlyBulletPrefab, enemyBulletsQuantity);
-        enemyBaseBulletPool = CreateBulletList(enemyBaseBulletPrefab, enemyBulletsQuantity);
-        playerBulletPool = CreateBulletList(playerBulletPrefab, playerBulletsQuantity);
+        return new Pool<MonoBehaviour>(item);
     }
-
-    void Update()
-    {
-        CheckItemsList(manaPool.GetInUseItems());
-        CheckItemsList(lifeHealPool.GetInUseItems());
-        CheckBulletList(enemyBaseBulletPool.GetInUseItems());
-        CheckBulletList(enemyFlyBulletPool.GetInUseItems());
-        CheckBulletList(playerBulletPool.GetInUseItems());
-    }
-
-    #region InteractablesManager
-    private void CheckItemsList(List<InteractableController> list)
-    {
-        for (int i = list.Count - 1; i >= 0; i--)
-        {
-            if (list[i].CanReturn)
-                StoreInteractable(list[i]);
-        }
-    }
-
-    public InteractableController GetItem(PooleableType type)
+    public MonoBehaviour GetItem(PooleableType type)
     {
         switch (type)
         {
             case PooleableType.Mana:
-                return  manaPool.GetInstance() as InteractableController;
+                return manaPool.GetInstance();
             case PooleableType.Heal:
-                return lifeHealPool.GetInstance() as InteractableController;
-            default:
-                return null;
-        }
-    }
-
-    public void StoreInteractable(IPooleable item)
-    {
-        item.CanReturn = false;
-        if (item is LifeHeal)
-            lifeHealPool.Store(item as LifeHeal);
-        else if (item is RechargeMana)
-            manaPool.Store(item as RechargeMana);
-    }
-
-    private Pool<InteractableController> CreateInteractableList(InteractableController item)
-    {
-        var list = new List<InteractableController>();
-        for (int i = 0; i < interactableQuantity; i++)
-        {
-            var aux = AssetsFactory.instance.CreateInteractable(item);
-            list.Add(aux);
-        }
-
-        return new Pool<InteractableController>(list);
-    }
-    #endregion
-
-    #region BulletManager
-    private void CheckBulletList(List<MagicalAttackBullet> list)
-    {
-        for (int i = list.Count - 1; i >= 0; i--)
-        {
-            if (list[i].CanReturn)
-                StoreBullet(list[i]);
-        }
-    }
-    public MagicalAttackBullet GetBullet(BulletType type)
-    {
-        switch (type)
-        {
-            case BulletType.PlayerBullet:
+                return lifeHealPool.GetInstance();
+            case PooleableType.PlayerBullet:
                 return playerBulletPool.GetInstance();
-            case BulletType.EnemyBullet:
-                return enemyBaseBulletPool.GetInstance();
-            case BulletType.FlyBullet:
+            case PooleableType.FlyBullet:
                 return enemyFlyBulletPool.GetInstance();
+            case PooleableType.EnemyBullet:
+                return enemyBaseBulletPool.GetInstance() ;
             default:
                 return null;
         }
     }
-    public void StoreBullet(MagicalAttackBullet bullet)
+    public void Store(MonoBehaviour item)
     {
-        bullet.CanReturn = false;
-        switch (bullet.BulletType)
+        if(item is IPooleable)
         {
-            case BulletType.PlayerBullet:
-                playerBulletPool.Store(bullet);
-                break;
-            case BulletType.EnemyBullet:
-                enemyBaseBulletPool.Store(bullet);
-                break;
-            case BulletType.FlyBullet:
-                enemyFlyBulletPool.Store(bullet);
-                break;
-        }
+            var pool = item as IPooleable;
+            switch (pool.Type)
+            {
+                case PooleableType.Mana:
+                    manaPool.Store(item);
+                    break;
+                case PooleableType.Heal:
+                    lifeHealPool.Store(item);
+                    break;
+                case PooleableType.PlayerBullet:
+                    playerBulletPool.Store(item);
+                    break;
+                case PooleableType.EnemyBullet:
+                    enemyBaseBulletPool.Store(item);
+                    break;
+                case PooleableType.FlyBullet:
+                    playerBulletPool.Store(item);
+                    break;
+                default:
+                    break;
+            }
+        }    
     }
-    private Pool<MagicalAttackBullet> CreateBulletList(MagicalAttackBullet item, int quantity)
-    {
-        var list = new List<MagicalAttackBullet>();
-        for (int i = 0; i < quantity; i++)
-        {
-            var aux = AssetsFactory.instance.CreateMagicalAttack(item);
-            list.Add(aux);
-        }
-
-        return new Pool<MagicalAttackBullet>(list);
-    }
-
-    #endregion
 }

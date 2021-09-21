@@ -8,7 +8,6 @@ using UnityEngine;
 public class EnemyPatrolController : EnemyController
 {
     private bool isInCooldown;
-
     private float currentSpeed;
 
     public PhysicalAttackController PhysicalAttackController { get; private set; }

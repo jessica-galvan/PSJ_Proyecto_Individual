@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LifeHeal : InteractableController
+public class LifeHeal : InteractableController, IPooleable
 {
+    [SerializeField] private PooleableType type;
+    public PooleableType Type => type;
 
     protected override void Interact()
     {
@@ -17,6 +19,6 @@ public class LifeHeal : InteractableController
 
     protected override void Destroy()
     {
-        PoolManager.instance.StoreInteractable(this);
+        PoolManager.instance.Store(this);
     }
 }
