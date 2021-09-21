@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VictoryTrigger : MonoBehaviour
 {
-    private bool canCheckpoint = true;
+    //private bool hasChecked;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -12,13 +12,12 @@ public class VictoryTrigger : MonoBehaviour
         if (player != null)
         {
             LevelManager.instance.Victory();
-            Time.timeScale = 0;
 
-            if (canCheckpoint)
-            {
-                canCheckpoint = false;
-                //gameManager.ChangeSpawnPosition(transform.position);
-            }     
+            //if (!hasChecked)
+            //{
+            //    hasChecked = true;
+            //    //gameManager.ChangeSpawnPosition(transform.position);
+            //}
         }
     }
 }

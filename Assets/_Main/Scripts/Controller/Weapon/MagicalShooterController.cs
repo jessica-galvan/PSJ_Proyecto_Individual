@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class MagicalShooterController : MonoBehaviour
     protected bool canShoot;
 
     public bool IsAttacking { get; private set; }
+
+    public Action<int, int> UpdateMana;
 
     void Start()
     {
@@ -44,7 +47,7 @@ public class MagicalShooterController : MonoBehaviour
             else
                 currentMana = _attackStats.MaxMana;
 
-            HUDManager.instance.UpdateMana(currentMana, _attackStats.MaxMana);
+            UpdateMana?.Invoke(currentMana, _attackStats.MaxMana);
         }
     }
     
@@ -62,7 +65,7 @@ public class MagicalShooterController : MonoBehaviour
                 currentMana--;
 
                 InstantiateBullets(shootingPoint);
-                HUDManager.instance.UpdateMana(currentMana, _attackStats.MaxMana);
+                UpdateMana?.Invoke(currentMana, _attackStats.MaxMana);
             }
     }
 

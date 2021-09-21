@@ -104,6 +104,7 @@ public class PlayerController : Actor
         AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Dead);
         OnDie?.Invoke(); //TODO: Fix Bug DeathAnimationOver invoke on player.
     }
+
     #endregion
 
     #region Publicos

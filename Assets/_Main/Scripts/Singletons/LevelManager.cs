@@ -5,18 +5,21 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager instance;
-    public PlayerController Player { get; private set; }
 
     //PLAYER POSITION
     private Vector2 playerSpawnPosition;
     private Vector2 playerCurrentCheckpoint;
 
     //GAME CONDITIONS
-
     private GameObject victoryScreen = null;
     private GameOver gameOverEffect;
-    public int EnemyCounter { get; private set; }
+
+    //Enemies
+    private int enemyCounter;
+
+    //Public & Propierties
+    public static LevelManager instance;
+    public PlayerController Player { get; private set; }
 
     //EVENTS
     public Action OnChangeCurrentEnemies;
@@ -24,6 +27,7 @@ public class LevelManager : MonoBehaviour
     public Action OnPlayerRespawn;
     public Action OnPlayerAssing;
 
+    #region Unity
     public void Awake()
     {
         if (instance != null)
@@ -43,30 +47,15 @@ public class LevelManager : MonoBehaviour
         gameOverEffect = HUDManager.instance.GameOverScreen;
         AudioManager.instance.EnviromentMusic(EnviromentSoundClip.LevelMusic);
     }
+    #endregion
 
-    public void AssingCharacter(PlayerController newCharacter)
-    {
-        this.Player = newCharacter;
-        Player.OnDie += GameOver;
-        playerSpawnPosition = Player.transform.position;
-        playerCurrentCheckpoint = playerSpawnPosition;
-        OnPlayerAssing?.Invoke();
-    }
+    #region Private
 
     private void CheckGameConditions()
     {
-        if (EnemyCounter == 0 && !gameOverEffect.IsGameOverActive)
+        if (enemyCounter == 0 && !gameOverEffect.IsGameOverActive)
         {
             Victory();
-        }
-    }
-
-    public void Victory()
-    {
-        if (!GameManager.instance.IsGameFreeze)
-        {
-            GameManager.instance.Pause(true);
-            victoryScreen.SetActive(true);
         }
     }
 
@@ -80,6 +69,37 @@ public class LevelManager : MonoBehaviour
             //restartCooldown = Time.deltaTime + restartTimer;
         }
     }
+
+    private void OnEnemyDead(EnemyController enemy)
+    {
+        enemyCounter--;
+        CheckGameConditions();
+    }
+    #endregion
+
+    #region Public
+    public void AddEnemyToList(EnemyController newEnemy)
+    {
+        enemyCounter++;
+    }
+
+    public void AssingCharacter(PlayerController newCharacter)
+    {
+        this.Player = newCharacter;
+        Player.OnDie += GameOver;
+        playerSpawnPosition = Player.transform.position;
+        playerCurrentCheckpoint = playerSpawnPosition;
+        OnPlayerAssing?.Invoke();
+    }
+    public void Victory()
+    {
+        if (!GameManager.instance.IsGameFreeze)
+        {
+            GameManager.instance.Pause(true);
+            victoryScreen.SetActive(true);
+        }
+    }
+    #endregion
 
     #region SpawnPosition
     public void ChangeSpawnPosition(Vector2 checkpoint)
@@ -101,25 +121,5 @@ public class LevelManager : MonoBehaviour
         Player.SetCurrentPosition(playerCurrentCheckpoint);
         Player.LifeController.Respawn();
     }
-
     #endregion
-
-    #region Enemy Related
-    public void AddEnemyToList(EnemyController newEnemy)
-    {
-        EnemyCounter++;
-        //newEnemy.lifeController.OnDie += OnEnemyDead;
-    }
-    private void OnEnemyDead(EnemyController enemy)
-    {
-        //enemy.lifeController.OnDie -= OnEnemyDead; 
-        EnemyCounter--;
-        CheckGameConditions();
-    }
-
-    public bool CheckIfTheyAreEnemies()
-    {
-        return EnemyCounter > 0;
-    }
-    #endregion  
 }

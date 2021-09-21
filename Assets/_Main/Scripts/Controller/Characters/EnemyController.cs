@@ -44,6 +44,7 @@ public class EnemyController : Actor
     protected override void DieAnimation()
     {
         base.DieAnimation();
+        lifeBar.SetBarVisible(false);
         gameObject.GetComponent<Collider2D>().enabled = false;
     }
 

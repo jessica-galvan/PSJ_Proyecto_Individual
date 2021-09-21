@@ -31,6 +31,10 @@ public class HUDManager : MonoBehaviour
         IsScoreVisible(false);
         victoryScreen.SetActive(false);
     }
+    private void Start()
+    {
+        LevelManager.instance.OnPlayerAssing += PlayerAssing;
+    }
 
     public void UpdateMana(int currentMana, int maxMana)
     {
@@ -53,5 +57,11 @@ public class HUDManager : MonoBehaviour
     public void IsParticleSystemVisible(bool value)
     {
         manaBar.PlayParticles(value);
+    }
+
+    public void PlayerAssing()
+    {
+        LevelManager.instance.Player.MagicController.UpdateMana += UpdateMana;
+        LevelManager.instance.OnPlayerAssing -= PlayerAssing;
     }
 }
