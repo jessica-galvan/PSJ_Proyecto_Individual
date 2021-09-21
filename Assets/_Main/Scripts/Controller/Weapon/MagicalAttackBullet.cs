@@ -11,6 +11,7 @@ public class MagicalAttackBullet : MonoBehaviour
     private float timer;
     public bool CanReturn { get; set; }
     public BulletType BulletType => type;
+
     public void Initialize(Transform firePoint, AttackStats attackStats, bool boolean)
     {
         transform.position = firePoint.position;
@@ -41,7 +42,6 @@ public class MagicalAttackBullet : MonoBehaviour
 
         if (collision.gameObject.layer == 10) //Si collisiona con ground layer...
             OnCollision();
-       
     }
 
     private void OnCollision()

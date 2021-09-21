@@ -3591,7 +3591,7 @@ PrefabInstance:
     - target: {fileID: 5787261840049859411, guid: 91602b89efc374c4d82f99b78f052d96,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5787261840049859416, guid: 91602b89efc374c4d82f99b78f052d96,
         type: 3}
@@ -6566,7 +6566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableQuantity: 5
   enemyBulletsQuantity: 10
-  playerBulletsQuantity: 4
+  playerBulletsQuantity: 2
   rechargeManaPrefab: {fileID: 608373773, guid: f44bf3e25cf69b146a39e41087952271,
     type: 3}
   lifeHealPrefab: {fileID: 149139338, guid: a52a3bdb83f5a5a418d8a2c68e49d6ff, type: 3}
@@ -13029,7 +13029,7 @@ PrefabInstance:
     - target: {fileID: 4142080222102873628, guid: 826d6455ce50812488b29fe275c41279,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4142080222102873626, guid: 826d6455ce50812488b29fe275c41279, type: 3}

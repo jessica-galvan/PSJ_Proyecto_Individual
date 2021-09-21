@@ -29,9 +29,10 @@ using UnityEngine;
         }
         else
         {
-            inUse.Add(prefab);
+            var aux = GameObject.Instantiate(prefab);
+            inUse.Add(aux);
+            return aux;
         }
-        return default(T);
     }
 
     public int IsAvailable()

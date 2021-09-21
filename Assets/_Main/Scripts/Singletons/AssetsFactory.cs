@@ -6,9 +6,6 @@ public class AssetsFactory : MonoBehaviour
 {
     public static AssetsFactory instance;
     private readonly Factory<MagicalAttackBullet> ammoFactory = new Factory<MagicalAttackBullet>();
-    private readonly Factory<RechargeMana> manaFactory = new Factory<RechargeMana>();
-    private readonly Factory<LifeHeal> lifeHealFactory = new Factory<LifeHeal>();
-
     private readonly Factory<InteractableController> interactableFactory = new Factory<InteractableController>();
 
     public void Awake()
@@ -32,10 +29,5 @@ public class AssetsFactory : MonoBehaviour
     public InteractableController CreateInteractable(InteractableController prefab)
     {
         return interactableFactory.Create(prefab);
-    }
-
-    public RechargeMana CreateMana(RechargeMana prefab)
-    {
-        return manaFactory.Create(prefab);
     }
 }
