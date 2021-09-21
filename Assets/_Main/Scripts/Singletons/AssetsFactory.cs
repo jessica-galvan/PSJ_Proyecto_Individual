@@ -5,8 +5,6 @@ using UnityEngine;
 public class AssetsFactory : MonoBehaviour
 {
     public static AssetsFactory instance;
-    private readonly Factory<MagicalAttackBullet> ammoFactory = new Factory<MagicalAttackBullet>();
-    private readonly Factory<InteractableController> interactableFactory = new Factory<InteractableController>();
     private readonly Factory<MonoBehaviour> poolFactory = new Factory<MonoBehaviour>();
 
     public void Awake()
