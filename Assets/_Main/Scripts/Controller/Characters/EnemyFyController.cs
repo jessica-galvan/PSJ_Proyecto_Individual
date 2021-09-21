@@ -80,9 +80,9 @@ public class EnemyFyController : EnemyController
         AudioManager.instance.PlayEnemySound(EnemySoundClips.FlyDamage);
     }
 
-    protected override void DieAnimation()
+    protected override void OnDeath()
     {
-        base.DieAnimation();
+        base.OnDeath();
         AudioManager.instance.PlayEnemySound(EnemySoundClips.FlyDead);
     }
 

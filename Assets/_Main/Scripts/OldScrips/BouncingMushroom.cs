@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BouncingMushroom : MonoBehaviour
 {
-    [SerializeField] bool canBounce = true;
     [SerializeField] float jumpForce = 1f;
     [SerializeField] private AudioSource bounceSound;
     private Animator animatorController;

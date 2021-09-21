@@ -5,7 +5,7 @@ public class DetectTargetArea : MonoBehaviour
 {
     [SerializeField] private Transform detectionCenterPoint = null; // Marcamos el Centro en torno al que va a Detectar
     [SerializeField] private Vector2 detectionArea = new Vector2(2, 2);
-    [SerializeField] private LayerMask targetsLayerMask = 8; // Que LayerMasks tiene que Detectar
+    [SerializeField] private LayerMask targetsLayerMask = 8; // 8 es la del player
     private Collider2D target = null;
 
     public PlayerController Player { get; private set; }
@@ -18,7 +18,7 @@ public class DetectTargetArea : MonoBehaviour
 
     public void CheckArea()
     {
-        target = Physics2D.OverlapBox(detectionCenterPoint.position, detectionArea, 0f, targetsLayerMask);
+        target = Physics2D.OverlapBox(detectionCenterPoint.position, detectionArea, 0f, targetsLayerMask); //Si fueran varios posibles targets, deberia ser un OverlapBoxAll
         if (target != null) 
             Player = target.gameObject.GetComponent<PlayerController>();
         else

@@ -41,9 +41,10 @@ public class EnemyController : Actor
         FacingRight = !FacingRight;
     }
 
-    protected override void DieAnimation()
+    protected override void OnDeath()
     {
-        base.DieAnimation();
+        base.OnDeath();
+        GetComponent<Collider2D>().enabled = false;
         lifeBar.SetBarVisible(false);
         gameObject.GetComponent<Collider2D>().enabled = false;
     }

@@ -5,20 +5,17 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-
-    //PLAYER POSITION
+    //Private
     private Vector2 playerSpawnPosition;
     private Vector2 playerCurrentCheckpoint;
-
-    //GAME CONDITIONS
     private GameObject victoryScreen = null;
     private GameOver gameOverEffect;
-
-    //Enemies
     private int enemyCounter;
 
-    //Public & Propierties
+    //Public
     public static LevelManager instance;
+
+    // Propierties
     public PlayerController Player { get; private set; }
 
     //EVENTS
@@ -118,7 +115,7 @@ public class LevelManager : MonoBehaviour
         gameOverEffect.SetGameOver(false);
         HUDManager.instance.IsParticleSystemVisible(true);
         OnPlayerRespawn?.Invoke();
-        Player.SetCurrentPosition(playerCurrentCheckpoint);
+        Player.transform.position = playerCurrentCheckpoint;
         Player.LifeController.Respawn();
     }
     #endregion

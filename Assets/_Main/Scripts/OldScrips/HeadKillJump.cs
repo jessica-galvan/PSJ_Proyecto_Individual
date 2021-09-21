@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HeadKillJump : MonoBehaviour
 {
-    [SerializeField] private bool canBeKilled = true;
     private LifeController life = null;
     
     void Start()

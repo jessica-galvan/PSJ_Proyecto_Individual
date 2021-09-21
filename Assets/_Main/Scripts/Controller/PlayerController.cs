@@ -4,11 +4,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(MagicalShooterController))]
 [RequireComponent(typeof(MovementController))]
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : Actor
 {
     private int collectableCount;
-    protected Rigidbody2D _rigidBody;
 
     public int Collectables => collectableCount;
     public MovementController MovementController { get; private set; }
@@ -40,8 +38,6 @@ public class PlayerController : Actor
         InputController.instance.OnJump += OnJump;
         InputController.instance.OnSprint += OnSprint;
         InputController.instance.OnPhysicalAttack += OnPhysicalAttack;
-
-        LifeController.OnHeal += OnHeal;
     }
 
     private void OnMove(float horizontal)
@@ -58,9 +54,7 @@ public class PlayerController : Actor
             _animatorController.SetTrigger("IsShooting");
             AudioManager.instance.PlayPlayerSound(PlayerSoundClips.MagicalAttack);
         } else
-        {
             AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Negative);
-        }
     }
 
     private void OnPhysicalAttack()
@@ -72,9 +66,7 @@ public class PlayerController : Actor
             _animatorController.SetTrigger("IsPhisicalAttacking");
         }
         else
-        {
             AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Negative);
-        }
     }
 
     private void OnSprint()
@@ -87,24 +79,18 @@ public class PlayerController : Actor
         MovementController.Jump();
     }
 
-    private void OnHeal()
-    {
-        //TODO: Heal effect?
-    }
-
     protected override void OnTakeDamage()
     {
         base.OnTakeDamage();
         AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Damage);
     }
 
-    protected override void DieAnimation()
+    protected override void OnDeath()
     {
-        base.DieAnimation();
+        base.OnDeath();
         AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Dead);
         OnDie?.Invoke(); //TODO: Fix Bug DeathAnimationOver invoke on player.
     }
-
     #endregion
 
     #region Publicos
@@ -112,11 +98,6 @@ public class PlayerController : Actor
     {
         collectableCount += value;
         HUDManager.instance.UpdateScore(value);
-    }
-
-    public void SetCurrentPosition(Vector2 spawnPosition)
-    {
-        transform.position = spawnPosition;
     }
 
     public bool CanHeadKill()

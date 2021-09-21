@@ -58,9 +58,9 @@ public class EnemyStaticController : EnemyController
         AudioManager.instance.PlayEnemySound(EnemySoundClips.StaticDamage);
     }
 
-    protected override void DieAnimation()
+    protected override void OnDeath()
     {
-        base.DieAnimation();
+        base.OnDeath();
         AudioManager.instance.PlayEnemySound(EnemySoundClips.StaticDead);
     }
 

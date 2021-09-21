@@ -29,7 +29,7 @@ public class Actor : MonoBehaviour, IDamagable
     {
         LifeController.SetStats(_actorStats);
         LifeController.OnTakeDamage += OnTakeDamage;
-        LifeController.OnDie += DieAnimation;
+        LifeController.OnDie += OnDeath;
     }
 
     protected virtual void OnTakeDamage()
@@ -37,7 +37,7 @@ public class Actor : MonoBehaviour, IDamagable
         _animatorController.SetTrigger("TakeDamage");
     }
 
-    protected virtual void DieAnimation()
+    protected virtual void OnDeath()
     {
         _animatorController.SetTrigger("IsDead");
     }

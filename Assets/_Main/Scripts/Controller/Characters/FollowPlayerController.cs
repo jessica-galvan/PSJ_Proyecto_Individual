@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class FollowPlayerController : MonoBehaviour
 {
-    private EnemyController enemyController;
-    protected ActorStats _actorStats;
-
     [Header("Patrol Settings")]
     [SerializeField] private float checkPlayerTimeDuration = 5f;
-    [SerializeField] private float moveCooldown = 0.8f;
 
     [Header("Prefab Settings")]
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Transform playerDetectionPoint;
 
+    private EnemyController enemyController;
+    private ActorStats _actorStats;
     private Vector2 spawnPoint;
     private float playerDetectionDistance;
     private float checkPlayerTimer;
-    private float moveTimer;
+    private float moveTimer = 0f;
     private bool canReturnToSpawnPoint;
     private bool checkDirection;
 

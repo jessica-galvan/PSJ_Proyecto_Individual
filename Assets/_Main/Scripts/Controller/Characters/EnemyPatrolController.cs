@@ -63,9 +63,9 @@ public class EnemyPatrolController : EnemyController
         AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDamage);
     }
 
-    protected override void DieAnimation()
+    protected override void OnDeath()
     {
-        base.DieAnimation();
+        base.OnDeath();
         AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDead);
     }
 

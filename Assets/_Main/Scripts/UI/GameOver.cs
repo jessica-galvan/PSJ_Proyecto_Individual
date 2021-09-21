@@ -23,5 +23,6 @@ public class GameOver : MonoBehaviour
     private void EndAnimation()
     {
         LevelManager.instance.RestartLastCheckpoint();
+        print("end");
     }
 }
