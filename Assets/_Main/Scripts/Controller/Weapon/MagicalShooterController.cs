@@ -60,6 +60,7 @@ public class MagicalShooterController : MonoBehaviour
     {
             if (!IsAttacking && currentMana >= 1)
             {
+                print("hola");
                 IsAttacking = true;
                 timerCD = _attackStats.CooldownMana;
                 currentMana--;

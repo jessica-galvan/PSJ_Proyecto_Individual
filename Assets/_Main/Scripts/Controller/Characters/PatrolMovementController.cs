@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PatrolMovementController : MonoBehaviour
 {
-    [Header("Patrol Settings")]
-    [SerializeField] private bool IsGroundEnemy;
     [SerializeField] private Transform[] patrolPoints;
+
+    [Header("Ground Patrol Settings")]
+    [SerializeField] private bool IsGroundEnemy;
     [SerializeField] private LayerMask groundDetectionList;
     [SerializeField] private float groundDistance = 1f;
 
