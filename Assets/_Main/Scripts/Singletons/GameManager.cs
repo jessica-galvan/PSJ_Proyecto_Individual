@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private List<ICommand> _events = new List<ICommand>();
+
     //SINGLETON
     public static GameManager instance;
 
@@ -26,6 +28,18 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        if(_events.Count > 0)
+        {
+            for (int i = _events.Count - 1; i >= 0; i++) //EVENT QUEUE
+            {
+                _events[i].Do();
+                _events.RemoveAt(i);
+            }
         }
     }
 

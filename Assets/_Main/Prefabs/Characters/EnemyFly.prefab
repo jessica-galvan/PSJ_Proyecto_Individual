@@ -597,7 +597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionCenterPoint: {fileID: 5787261840049859416}
-  detectionArea: {x: 3, y: 5}
+  detectionArea: {x: 3, y: 6}
   targetsLayerMask:
     serializedVersion: 2
     m_Bits: 256

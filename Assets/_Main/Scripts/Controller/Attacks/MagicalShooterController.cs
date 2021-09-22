@@ -56,27 +56,26 @@ public class MagicalShooterController : MonoBehaviour
         return currentMana < _attackStats.MaxMana;
     }
 
-    public void Shoot()
+    public void Shoot(Transform target = null)
     {
             if (!IsAttacking && currentMana >= 1)
             {
-                print("hola");
                 IsAttacking = true;
                 timerCD = _attackStats.CooldownMana;
                 currentMana--;
 
-                InstantiateBullets(shootingPoint);
+                InstantiateBullets(shootingPoint, target);
                 UpdateMana?.Invoke(currentMana, _attackStats.MaxMana);
             }
     }
 
-    private void InstantiateBullets(Transform shootingPoint) 
+    private void InstantiateBullets(Transform shootingPoint, Transform target) 
     {
         var bullet = PoolManager.instance.GetItem(_attackStats.BulletType);
         if(bullet is MagicalAttackBullet)
         {
             var aux = (MagicalAttackBullet)bullet;
-            aux.Initialize(shootingPoint, _attackStats, true);
+            aux.Initialize(shootingPoint, _attackStats, target);
         }
     }
 }

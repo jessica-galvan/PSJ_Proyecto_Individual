@@ -28,7 +28,8 @@ public class MovementController : MonoBehaviour
 
     public void Move(Vector3 direction)
     {
-        transform.position += (direction * (currentSpeed * Time.deltaTime));
+        //transform.position += (direction * (currentSpeed * Time.deltaTime));
+        rbody.velocity += (Vector2)direction * currentSpeed * Time.deltaTime;
     }
 
     public void OnMove2D(float horizontal)

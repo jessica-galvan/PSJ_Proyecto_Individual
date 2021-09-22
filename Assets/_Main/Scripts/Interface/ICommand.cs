@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGun
+public interface ICommand
 {
-    void Attack();
-
-    void Reload();
-
+    void Do();
 }

@@ -30,9 +30,9 @@ public class EnemyFyController : EnemyController
         {
             CheckArea();
 
-            PatrolMovementController.Patrol();
-            if(!isAttacking)
-                PatrolMovementController.Move(_actorStats.OriginalSpeed);
+            //PatrolMovementController.Patrol();
+            //if(!isAttacking)
+            //    PatrolMovementController.Move(_actorStats.OriginalSpeed);
 
             if (CanAttack && canShoot && !isAttacking)
             {
@@ -61,10 +61,14 @@ public class EnemyFyController : EnemyController
         cooldownTimer = _attackStats.CooldownMana;
     }
 
+    private void DoShoot()
+    {
+        MagicController.Shoot(player.transform);
+    }
+
     private void CanMoveAgain()
     {
         isAttacking = false;
-        //TODO: when stops attack animation, it can move again. 
     }
 
     protected override void OnTakeDamage()

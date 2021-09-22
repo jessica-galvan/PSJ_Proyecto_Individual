@@ -17,10 +17,10 @@ MonoBehaviour:
     m_Bits: 256
   _damageMagical: 1
   _damagePhysical: 1
-  _physicalAttackRadious: 1
-  _bulletType: 4
+  _physicalAttackRadious: 0
+  _bulletType: 3
   _cooldownPhysical: 1
-  _cooldownMana: 2
+  _cooldownMana: 3
   _maxMana: 10
   _spellSpeed: 5
   lifeTimerMagicalAttack: 5
