@@ -2,38 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicalFlyBullet : MonoBehaviour
+public class MagicalBullet : MonoBehaviour, IPooleable
 {
     [SerializeField] private PooleableType type;
     private AttackStats _attackStats;
     private bool canMove;
     private float timer;
-
-    private Vector2 movement;
     private Vector2 direction;
-    private Vector2 spawnPosition;
 
     public PooleableType Type => type;
 
-    public void Initialize(Transform firePoint, AttackStats attackStats, Transform objective = null)
+    public void Initialize(Transform shootingPoint, AttackStats attackStats, Transform target = null)
     {
         _attackStats = attackStats;
         canMove = true;
         timer = _attackStats.LifeMagicalAttack;
 
-        transform.position = firePoint.position;
-        transform.rotation = firePoint.rotation;
+        transform.position = shootingPoint.position;
+        transform.rotation = shootingPoint.rotation;
+        direction = transform.right;
 
-        spawnPosition = transform.position;
-        direction = objective.transform.position - (Vector3)spawnPosition;
-        direction.Normalize();
-
+        if (target != null) //Si le paso un objetivo, reescribimos la direccion
+        {
+            print("hola");
+            direction = target.position - shootingPoint.position;
+            var rotation = direction.normalized;
+            transform.right = rotation; 
+        }
     }
 
     void Update()
     {
         if (canMove)
             transform.position += (Vector3) direction * _attackStats.SpellSpeed * Time.deltaTime;
+
+
 
         timer -= Time.deltaTime;
         if (timer <= 0)
@@ -42,7 +45,7 @@ public class MagicalFlyBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        LifeController life = collision.GetComponent<LifeController>();
+        LifeController life = collision.GetComponent<LifeController>(); 
         if (life != null)
         {
             life.TakeDamage(_attackStats.MagicalDamage);

@@ -22,5 +22,5 @@ MonoBehaviour:
   _cooldownPhysical: 1
   _cooldownMana: 3
   _maxMana: 10
-  _spellSpeed: 5
+  _spellSpeed: 1
   lifeTimerMagicalAttack: 5

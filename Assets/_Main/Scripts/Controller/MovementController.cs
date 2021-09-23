@@ -26,10 +26,10 @@ public class MovementController : MonoBehaviour
         currentSpeed = _actorStats.OriginalSpeed;
     }
 
-    public void Move(Vector3 direction)
+    public void Move(Vector2 direction)
     {
         //transform.position += (direction * (currentSpeed * Time.deltaTime));
-        rbody.velocity += (Vector2)direction * currentSpeed * Time.deltaTime;
+        rbody.velocity += (direction * currentSpeed * Time.deltaTime);
     }
 
     public void OnMove2D(float horizontal)

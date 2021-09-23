@@ -15,8 +15,8 @@ public class PoolManager : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private RechargeMana rechargeManaPrefab;
     [SerializeField] private LifeHeal lifeHealPrefab;
-    [SerializeField] private MagicalAttackBullet enemyBaseBulletPrefab;
-    [SerializeField] private MagicalAttackBullet playerBulletPrefab;
+    [SerializeField] private MagicalBullet enemyBaseBulletPrefab;
+    [SerializeField] private MagicalBullet playerBulletPrefab;
 
     //Private Pools
     private Pool<MonoBehaviour> lifeHealPool;

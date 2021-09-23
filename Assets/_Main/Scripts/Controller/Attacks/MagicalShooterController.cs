@@ -72,9 +72,9 @@ public class MagicalShooterController : MonoBehaviour
     private void InstantiateBullets(Transform shootingPoint, Transform target) 
     {
         var bullet = PoolManager.instance.GetItem(_attackStats.BulletType);
-        if(bullet is MagicalAttackBullet)
+        if(bullet is MagicalBullet)
         {
-            var aux = (MagicalAttackBullet)bullet;
+            var aux = (MagicalBullet)bullet;
             aux.Initialize(shootingPoint, _attackStats, target);
         }
     }

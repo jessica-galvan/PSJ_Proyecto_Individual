@@ -19,7 +19,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button buttonHelp;
     [SerializeField] private Button buttonCredits;
     [SerializeField] private Button buttonQuit;
-    [SerializeField] private string gameSceneName = "Level1";
+    [SerializeField] private string gameSceneName = "Level";
 
     [Header("Help Settings")]
     [SerializeField] private Button buttonHelpGoBack;
