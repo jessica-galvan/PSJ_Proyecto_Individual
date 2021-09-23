@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectableItemScript : InteractableController
+public class CollectableItemScript : BaseInteractable
 {
-    protected override void Interact()
+    public override void Interact()
     {
         player.PickUpCollectable(_interactableStats.Coin);
         Destroy();

@@ -2,22 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VictoryTrigger : MonoBehaviour
+public class VictoryTrigger : BaseInteractable
 {
-    //private bool hasChecked;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void Interact()
     {
-        PlayerController player = collision.GetComponent<PlayerController>();
-        if (player != null)
-        {
-            LevelManager.instance.Victory();
-
-            //if (!hasChecked)
-            //{
-            //    hasChecked = true;
-            //    //gameManager.ChangeSpawnPosition(transform.position);
-            //}
-        }
+        LevelManager.instance.Victory();
     }
 }

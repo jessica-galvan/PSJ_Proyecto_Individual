@@ -16,7 +16,7 @@ public class HeadKillJump : MonoBehaviour
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         if (player != null && player.CanHeadKill())
         {
-            //life.Die();
+            life.TakeDamage(life.CurrentLife);
         }
     }
 }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathArea : InteractableController
+public class DeathArea : BaseInteractable
 {
-    protected override void Interact()
+    public override void Interact()
     {
         if (player != null)
             player.LifeController.TakeDamage(player.LifeController.CurrentLife);

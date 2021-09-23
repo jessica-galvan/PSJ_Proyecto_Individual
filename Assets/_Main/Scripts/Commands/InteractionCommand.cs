@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class InteractionCommand : ICommand
 {
-    private InteractableController _interactable;
-    public InteractionCommand(InteractableController interactable)
+    private BaseInteractable _interactable;
+    public InteractionCommand(BaseInteractable interactable)
     {
         _interactable = interactable;
     }
 
     public void Do()
     {
-        //_interactable.Interact();
+        _interactable.Interact();
     }
 }

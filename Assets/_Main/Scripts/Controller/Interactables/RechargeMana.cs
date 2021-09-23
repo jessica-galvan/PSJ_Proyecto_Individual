@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RechargeMana : InteractableController, IPooleable
+public class RechargeMana : BaseInteractable, IPooleable
 {
     [SerializeField] private PooleableType type;
     public PooleableType Type => type;
@@ -11,7 +11,7 @@ public class RechargeMana : InteractableController, IPooleable
     {
         GetComponent<SpriteRenderer>().enabled = false;
     }
-    protected override void Interact()
+    public override void Interact()
     {
         if (player.MagicController.CanRechargeMana())
         {

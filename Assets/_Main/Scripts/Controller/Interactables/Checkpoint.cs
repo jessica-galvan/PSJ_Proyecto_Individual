@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Checkpoint : InteractableController
+public class Checkpoint : BaseInteractable
 {
     [SerializeField] private Sprite[] flowerImages = new Sprite[2];
     private SpriteRenderer currentSprite = null;
@@ -13,7 +13,7 @@ public class Checkpoint : InteractableController
         currentSprite.sprite = flowerImages[0];
     }
 
-    protected override void Interact()
+    public override void Interact()
     {
         if (currentSprite.sprite != flowerImages[1])
         {

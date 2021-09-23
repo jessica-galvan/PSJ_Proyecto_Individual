@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MagicalShooterController))]
-[RequireComponent(typeof(MovementController))]
+[RequireComponent(typeof(PlayerMovementController))]
 public class PlayerController : Actor
 {
     private int collectableCount;
 
     public int Collectables => collectableCount;
-    public MovementController MovementController { get; private set; }
+    public PlayerMovementController MovementController { get; private set; }
     public MagicalShooterController MagicController { get; private set; }
     public PhysicalAttackController PhysicalAttackController { get; private set; }
 
@@ -18,7 +18,7 @@ public class PlayerController : Actor
     {
         MagicController = GetComponent<MagicalShooterController>();
         PhysicalAttackController = GetComponent<PhysicalAttackController>();
-        MovementController = GetComponent<MovementController>();
+        MovementController = GetComponent<PlayerMovementController>();
     }
 
     protected override void Start()
