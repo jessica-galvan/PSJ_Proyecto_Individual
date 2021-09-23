@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class BouncingMushroom : MonoBehaviour
 {
-    [SerializeField] float jumpForce = 1f;
+    //[SerializeField] float jumpForce = 1f;
     [SerializeField] private AudioSource bounceSound;
     private Animator animatorController;
-    
 
     private void Awake() {
         animatorController = GetComponentInParent<Animator>();
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-        if (player)
+        if(player != null)
         {
-            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            player.OnJump();
             bounceSound.Play();
             animatorController.SetTrigger("IsJumping");
         }

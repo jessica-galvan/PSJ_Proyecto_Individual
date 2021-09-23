@@ -13,7 +13,7 @@ public enum PlayerSoundClips
     Damage,
     Negative,
     ReloadMana, 
-    CheckPoint
+    CheckPoint,
 }
 
 public enum EnviromentSoundClip
@@ -56,6 +56,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip checkPointSound;
     [SerializeField] private AudioClip rewardSound;
     [SerializeField] private AudioClip powerUpSound;
+    //[SerializeField] private AudioClip bounceSound;
 
     [Header("Player Sounds")]
     [SerializeField] private AudioClip magicalAttackSound;
@@ -148,6 +149,9 @@ public class AudioManager : MonoBehaviour
             case PlayerSoundClips.CheckPoint:
                 playerAudioSource.PlayOneShot(checkPointSound);
                 break;
+            //case PlayerSoundClips.BounceMushroom:
+            //    playerAudioSource.PlayOneShot(bounceSound);
+            //    break;
         }
     }
 

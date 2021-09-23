@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathArea : MonoBehaviour
+public class DeathArea : InteractableController
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void Interact()
     {
-        PlayerController player = collision.GetComponent<PlayerController>();
         if (player != null)
             player.LifeController.TakeDamage(player.LifeController.CurrentLife);
     }

@@ -12,6 +12,7 @@ public class EnemyFyController : EnemyController
 
     //Extras
     private DetectTargetArea detectionArea;
+    private Transform target;
     private bool isAttacking;
 
     protected override void Start()
@@ -51,16 +52,21 @@ public class EnemyFyController : EnemyController
 
     private void Attack()
     {
-        canShoot = false;
-        isAttacking = true;
-        _animatorController.SetTrigger("IsAttacking");
-        AudioManager.instance.PlayEnemySound(EnemySoundClips.FlyAttack);
-        cooldownTimer = _attackStats.CooldownMana;
+        if(player != null)
+        {
+            target = player.transform;
+            canShoot = false;
+            isAttacking = true;
+            _animatorController.SetTrigger("IsAttacking");
+            AudioManager.instance.PlayEnemySound(EnemySoundClips.FlyAttack);
+            cooldownTimer = _attackStats.CooldownMana;
+        }
+
     }
 
     private void DoShoot()
     {
-        MagicController.Shoot(player.transform);
+        MagicController.Shoot(target);
     }
 
     private void CanMoveAgain()

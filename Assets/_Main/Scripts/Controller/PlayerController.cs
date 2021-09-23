@@ -74,10 +74,6 @@ public class PlayerController : Actor
         MovementController.Sprint();
     }
 
-    private void OnJump()
-    {
-        MovementController.Jump();
-    }
 
     protected override void OnTakeDamage()
     {
@@ -104,6 +100,9 @@ public class PlayerController : Actor
     {
         return !MovementController.CheckIfGrounded();
     }
-
+    public void OnJump()
+    {
+        MovementController.Jump();
+    }
     #endregion
 }
