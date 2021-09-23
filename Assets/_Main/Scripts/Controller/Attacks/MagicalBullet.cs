@@ -24,7 +24,6 @@ public class MagicalBullet : MonoBehaviour, IPooleable
 
         if (target != null) //Si le paso un objetivo, reescribimos la direccion
         {
-            print("hola");
             direction = target.position - shootingPoint.position;
             var rotation = direction.normalized;
             transform.right = rotation; 

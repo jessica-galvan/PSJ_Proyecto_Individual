@@ -11,6 +11,7 @@ public class MagicalShooterController : MonoBehaviour
     private int currentMana;
     protected float timerCD;
     protected bool canShoot;
+    private bool infiniteBullets;
 
     public bool IsAttacking { get; private set; }
 
@@ -20,6 +21,8 @@ public class MagicalShooterController : MonoBehaviour
     {
         _attackStats = GetComponent<Actor>().AttackStats;
         currentMana = _attackStats.MaxMana;
+        if (_attackStats.BulletType == PooleableType.EnemyBullet)
+            infiniteBullets = true;
     }
 
     void Update()
@@ -62,7 +65,9 @@ public class MagicalShooterController : MonoBehaviour
             {
                 IsAttacking = true;
                 timerCD = _attackStats.CooldownMana;
-                currentMana--;
+                
+                if(!infiniteBullets)
+                    currentMana--;
 
                 InstantiateBullets(shootingPoint, target);
                 UpdateMana?.Invoke(currentMana, _attackStats.MaxMana);

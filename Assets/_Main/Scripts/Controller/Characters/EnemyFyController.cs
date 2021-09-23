@@ -12,7 +12,6 @@ public class EnemyFyController : EnemyController
 
     //Extras
     private DetectTargetArea detectionArea;
-    private Vector2 spawnPoint;
     private bool isAttacking;
 
     protected override void Start()
@@ -21,7 +20,6 @@ public class EnemyFyController : EnemyController
         PatrolMovementController = GetComponent<PatrolMovementController>();
         MagicController = GetComponent<MagicalShooterController>();
         detectionArea = GetComponent<DetectTargetArea>();
-        spawnPoint = transform.position;
     }
 
     void Update()
@@ -30,11 +28,11 @@ public class EnemyFyController : EnemyController
         {
             CheckArea();
 
-            //PatrolMovementController.Patrol();
-            //if(!isAttacking)
-            //    PatrolMovementController.Move(_actorStats.OriginalSpeed);
+            PatrolMovementController.Patrol();
+            if (!isAttacking)
+                PatrolMovementController.Move(_actorStats.OriginalSpeed);
 
-            if (CanAttack && canShoot && !isAttacking)
+            if (CanAttack && canShoot && !isAttacking && !MagicController.IsAttacking)
             {
                 Attack();
             }
@@ -57,7 +55,6 @@ public class EnemyFyController : EnemyController
         isAttacking = true;
         _animatorController.SetTrigger("IsAttacking");
         AudioManager.instance.PlayEnemySound(EnemySoundClips.FlyAttack);
-        //Instantiate(bullet, transform.position + offset, Quaternion.identity);
         cooldownTimer = _attackStats.CooldownMana;
     }
 
@@ -81,10 +78,5 @@ public class EnemyFyController : EnemyController
     {
         base.OnDeath();
         AudioManager.instance.PlayEnemySound(EnemySoundClips.FlyDead);
-    }
-
-    protected override void OnPlayerRespawnListener()
-    {
-        transform.position = spawnPoint;
     }
 }
