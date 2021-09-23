@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
         if(_events.Count > 0)
         {
-            for (int i = _events.Count - 1; i >= 0; i++) //EVENT QUEUE
+            for (int i = _events.Count - 1; i >= 0; i--) //EVENT QUEUE
             {
                 _events[i].Do();
                 _events.RemoveAt(i);
@@ -56,5 +56,10 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             //TODO: subir musica
         }         
+    }
+
+    public void AddEvent(ICommand command)
+    {
+        _events.Add(command);
     }
 }

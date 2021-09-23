@@ -240,8 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59bfdbc148326e49b62c226eae68ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1791990250}
-  player: {fileID: 548623185}
 --- !u!4 &11964987
 Transform:
   m_ObjectHideFlags: 0
@@ -14130,12 +14128,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2022585730}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &548623185 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 435619329345401714, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
-    type: 3}
-  m_PrefabInstance: {fileID: 435619328558984396}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &574143445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14316,7 +14308,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126166bf6bfa3384ab45270b2c75b00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
 --- !u!1 &619412891
 GameObject:
   m_ObjectHideFlags: 0
@@ -21721,7 +21712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &1037399680
 Animator:
   serializedVersion: 3
@@ -25223,7 +25214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicAudioSource: {fileID: 943060393}
-  movementAudioSource: {fileID: 2106686133}
+  playerAudioSource: {fileID: 0}
   sfxAudioSource: {fileID: 42015446}
   musicInitialVolumen: 0
   mainMenuMusic: {fileID: 8300000, guid: 1e74350aec565354e9ea3a95143cbfec, type: 3}
@@ -25232,30 +25223,26 @@ MonoBehaviour:
   gameOverSound: {fileID: 0}
   clickSound: {fileID: 0}
   checkPointSound: {fileID: 8300000, guid: 64c361cfc694ea241b278fe9d4336d02, type: 3}
-  deadSound: {fileID: 0}
   rewardSound: {fileID: 8300000, guid: f42a1568b12195e43993008173b6ef3d, type: 3}
   powerUpSound: {fileID: 8300000, guid: d8bde2bdc148976438b64674aea88f8b, type: 3}
-  shootSound: {fileID: 8300000, guid: 586ae48fbbc37264f96891db1432f61c, type: 3}
-  attackSound: {fileID: 8300000, guid: 3fd56afec6907904da3eef3137ba0b7c, type: 3}
-  reloadAmmoLeftSound: {fileID: 8300000, guid: 1b12b68a7bd45e7408a28dd33fe63fef, type: 3}
+  magicalAttackSound: {fileID: 0}
+  physicalAttackSound: {fileID: 0}
+  reloadManaSound: {fileID: 0}
   negativeSound: {fileID: 0}
   damageSound: {fileID: 8300000, guid: 167530b1fcc05de47b950b69fc83807a, type: 3}
-  attackEnemyPatrolSound: {fileID: 8300000, guid: 731c61e5c5d94134a89376ca7778fb17,
-    type: 3}
-  hitEnemyPatrolSound: {fileID: 8300000, guid: 517924ec82f19c44aa0acd90bbb486c7, type: 3}
-  deathEnemyPatrolSound: {fileID: 8300000, guid: 9b88d3e9736969241912f865d2ca6025,
-    type: 3}
-  attackEnemyStaticSound: {fileID: 8300000, guid: 23a2607b14f9d0949ae72608cac0c269,
-    type: 3}
-  hitEnemyStaticSound: {fileID: 8300000, guid: e2f3f80456643bd4ab19953191943692, type: 3}
-  deathEnemyStaticSound: {fileID: 8300000, guid: 1db763ca9967f134583406ea38112cc9,
-    type: 3}
-  attackEnemyFlySound: {fileID: 8300000, guid: 952bfa92baa8a9041bc5e33fe8a1444d, type: 3}
-  hitEnemyFlySound: {fileID: 8300000, guid: 378a3e02b6577f74ba9b21a96d9abe48, type: 3}
-  deathEnemyFlySound: {fileID: 8300000, guid: b629a9f00b7e46d47afc7215c89ea8e6, type: 3}
-  attackBossSound: {fileID: 0}
-  hitBossSound: {fileID: 0}
-  deathBossSound: {fileID: 0}
+  deathSound: {fileID: 0}
+  enemyPatrolAttackSound: {fileID: 0}
+  enemyPatrolDamageSound: {fileID: 0}
+  enemyPatrolDeathSound: {fileID: 0}
+  enemyStaticAttackSound: {fileID: 0}
+  enemyStaticDamageSound: {fileID: 0}
+  enemyStaticDeathSound: {fileID: 0}
+  enemyFlyAttackSound: {fileID: 0}
+  enemyFlyDamageSound: {fileID: 0}
+  enemyFlyDeathSound: {fileID: 0}
+  bossAttackSound: {fileID: 0}
+  bossDamageSound: {fileID: 0}
+  bossDeathSound: {fileID: 0}
 --- !u!4 &1609691095 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2603224402527902211, guid: 482675030efc3b2419ad9798d352cc64,
@@ -25513,8 +25500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf834ddee90fd643b248bf644a8c3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 548623185}
-  lifeController: {fileID: 0}
   hearts: []
   heart: {fileID: 8306274332959031846, guid: d5548b40b7a355a4f8103c4cab7ee328, type: 3}
 --- !u!114 &1648433331
@@ -25972,7 +25957,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23129571057f8745a3541aa472707aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1791990250}
 --- !u!61 &1713760544
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26070,7 +26054,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126166bf6bfa3384ab45270b2c75b00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
 --- !u!4 &1740582280 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 952511351819446281, guid: 2fd8f28db21a37e4ca5d51db4606b856,
@@ -26366,21 +26349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b590359352cb7499fb554f4a3f4f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1810434324}
-  victoryScreen: {fileID: 1037332651}
-  gameOverScreen: {fileID: 1037399679}
-  restartTimer: 2
-  lifesRespawn: 2
-  collectable: 0
-  OnChangeCurrentEnemies:
-    m_PersistentCalls:
-      m_Calls: []
-  OnChangeCollectable:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPlayerRespawn:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1791990251
 Transform:
   m_ObjectHideFlags: 0
@@ -26470,18 +26438,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 482675030efc3b2419ad9798d352cc64, type: 3}
---- !u!114 &1810434324 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 435619329345401615, guid: fb1557be7a5dc1c48b3521dbbcc9882d,
-    type: 3}
-  m_PrefabInstance: {fileID: 435619328558984396}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 548623185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c0c173e30cdfc48b6d97889b2d7817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1812018750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27120,9 +27076,6 @@ MonoBehaviour:
   pauseMenu: {fileID: 1410454466}
   mainMenu: {fileID: 413435680}
   helpMenu: {fileID: 277067873}
-  gameManager: {fileID: 1791990250}
-  musicLevel: {fileID: 1632973291}
-  lowerVolume: 0.5
   buttonResume: {fileID: 2006037224}
   buttonMainMenu: {fileID: 619412893}
   buttonHelp: {fileID: 1922059098}
@@ -27141,8 +27094,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290979d7f243d1f439864f05199de835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1810434324}
-  manaBar: {fileID: 130288510}
 --- !u!114 &1909655844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27155,9 +27106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a35fc03e4f994144ea69b5bcb51ec3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1791990250}
-  hudCollectable: {fileID: 2078192791}
-  textBox: {fileID: 2122585300}
 --- !u!1001 &1912279393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27958,7 +27906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8fefcb96bc69a345845db5d18d1940f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1791990250}
 --- !u!1001 &1997604059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28927,7 +28874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126166bf6bfa3384ab45270b2c75b00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
 --- !u!1 &2104580568
 GameObject:
   m_ObjectHideFlags: 0

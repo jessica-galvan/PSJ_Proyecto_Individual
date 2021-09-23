@@ -27,6 +27,9 @@ public class PauseMenu : MonoBehaviour
     private bool isActive;
     private bool mainMenuActive;
 
+    private ApplicationQuitCommand quitCommand;
+    private LoadSceneCommand loadCommand;
+
     void Start()
     {
         InputController.instance.OnPause += CheckIfPause;
@@ -103,7 +106,9 @@ public class PauseMenu : MonoBehaviour
 
     private void OnClickMenuHandler()
     {
-        SceneManager.LoadScene("MainMenu");
+        //SceneManager.LoadScene("MainMenu");
+        loadCommand = new LoadSceneCommand("MainMenu");
+        GameManager.instance.AddEvent(loadCommand);
     }
 
     private void OnClickGoBackHandler()
@@ -113,7 +118,9 @@ public class PauseMenu : MonoBehaviour
 
     private void OnClickQuitHandler()
     {
-        Application.Quit();
+        //Application.Quit();
+        quitCommand = new ApplicationQuitCommand();
+        GameManager.instance.AddEvent(quitCommand);
         Debug.Log("Se cierra el juego");
     }
 }
