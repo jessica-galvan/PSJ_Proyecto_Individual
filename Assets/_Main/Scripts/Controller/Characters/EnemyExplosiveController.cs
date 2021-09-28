@@ -1,16 +1,17 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PatrolMovementController))]
-[RequireComponent(typeof(PhysicalAttackController))]
 [RequireComponent(typeof(FollowPlayerController))]
-public class EnemyPatrolController : EnemyController
+[RequireComponent(typeof(PatrolMovementController))]
+[RequireComponent(typeof(ExplosiveAttack))]
+public class EnemyExplosiveController : EnemyController
 {
     private bool isInCooldown;
+    private bool hasExplode;
     private float currentSpeed;
 
-    public PhysicalAttackController PhysicalAttackController { get; private set; }
+    public ExplosiveAttack ExplosiveAttackController { get; private set; }
     public PatrolMovementController PatrolMovementController { get; private set; }
     public FollowPlayerController FollowPlayerController { get; private set; }
 
@@ -18,8 +19,7 @@ public class EnemyPatrolController : EnemyController
     {
         base.Start();
         FollowPlayerController = GetComponent<FollowPlayerController>();
-        PhysicalAttackController = GetComponent<PhysicalAttackController>();
-        PatrolMovementController = GetComponent<PatrolMovementController>();
+        ExplosiveAttackController = GetComponent<ExplosiveAttack>();
         FollowPlayerController.SetStats(_actorStats);
     }
 
@@ -36,22 +36,12 @@ public class EnemyPatrolController : EnemyController
                 PatrolMovementController.CheckGroundDetection();
             }
 
-            if (!FollowPlayerController.IsFollowingPlayer)
-                PatrolMovementController.Patrol();
-
             DoAttack();
 
-            if (!IsAttacking)
+            if (!IsAttacking && !hasExplode)
             {
                 _animatorController.SetBool("Walk", FollowPlayerController.CanMove);
                 _animatorController.SetFloat("Speed", currentSpeed);
-
-                if (isInCooldown)
-                {
-                    cooldownTimer -= Time.deltaTime;
-                    if (cooldownTimer <= 0)
-                        isInCooldown = false;
-                }
             }
         }
     }
@@ -64,18 +54,26 @@ public class EnemyPatrolController : EnemyController
 
     protected override void OnDeath()
     {
-        base.OnDeath();
-        AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDead);
+        if (!hasExplode)
+        {
+            base.OnDeath();
+            AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDead);
+        }
+    }
+
+    protected override void DeathAnimationOver()
+    {
+        if (!hasExplode)
+            base.DeathAnimationOver();
     }
 
     private void DoAttack()
     {
-        if (!IsAttacking && CanAttack && !isInCooldown && FollowPlayerController.IsPlayerInRange)
+        if (!hasExplode && FollowPlayerController.IsPlayerInRange)
         {
-            isInCooldown = true;
+            hasExplode = true;
             _animatorController.SetTrigger("IsAttacking");
             AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolAttack);
-            cooldownTimer = _attackStats.CooldownPhysical;
         }
     }
 }
