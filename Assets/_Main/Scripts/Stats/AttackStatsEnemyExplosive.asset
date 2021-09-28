@@ -16,8 +16,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _damageMagical: 0
-  _damagePhysical: 4
-  _physicalAttackRadious: 5
+  _damagePhysical: 3
+  _physicalAttackRadious: 1.5
   _bulletType: 0
   _cooldownPhysical: 1
   _cooldownMana: 0

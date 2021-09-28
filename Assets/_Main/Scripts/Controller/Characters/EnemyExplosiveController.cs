@@ -30,13 +30,15 @@ public class EnemyExplosiveController : EnemyController
         {
             FollowPlayerController.CheckIfPlayerIsInView();
 
-            print(FollowPlayerController.IsFollowingPlayer);
             if (FollowPlayerController.IsFollowingPlayer && FollowPlayerController.CanMove)
             {
-                _animatorController.SetBool("Walk", FollowPlayerController.CanMove);
                 _animatorController.SetFloat("Speed", _actorStats.BuffedSpeed);
+                _animatorController.SetBool("Walk", true);
                 PatrolMovementController.Move(_actorStats.BuffedSpeed);
                 PatrolMovementController.CheckGroundDetection();
+            } else
+            {
+                _animatorController.SetBool("Walk", false);
             }
 
             DoAttack();
@@ -68,13 +70,19 @@ public class EnemyExplosiveController : EnemyController
             Destroy(gameObject);
     }
 
+    private void Explosion()
+    {
+        AudioManager.instance.PlayEnemySound(EnemySoundClips.ExplosiveExplosion);
+        ExplosiveAttackController.Attack();
+    }
+
     private void DoAttack()
     {
         if (!hasExplode && FollowPlayerController.IsPlayerInRange)
         {
             hasExplode = true;
             _animatorController.SetTrigger("IsAttacking");
-            AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolAttack);
+            AudioManager.instance.PlayEnemySound(EnemySoundClips.ExplosiveAntipation);
         }
     }
 }

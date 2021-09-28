@@ -32,7 +32,9 @@ public enum EnemySoundClips
     StaticDead,
     PatrolAttack,
     PatrolDamage,
-    PatrolDead
+    PatrolDead,
+    ExplosiveAntipation,
+    ExplosiveExplosion
 }
 
 public class AudioManager : MonoBehaviour
@@ -80,6 +82,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip enemyFlyAttackSound;
     [SerializeField] private AudioClip enemyFlyDamageSound;
     [SerializeField] private AudioClip enemyFlyDeathSound;
+
+    [Header("Enemy Explosive Sounds")]
+    [SerializeField] private AudioClip enemyWickSound;
+    [SerializeField] private AudioClip enemyExplosion;
 
     [Header("Boss Sounds")]
     [SerializeField] private AudioClip bossAttackSound;
@@ -187,6 +193,13 @@ public class AudioManager : MonoBehaviour
             case EnemySoundClips.PatrolDead:
                 sfxAudioSource.PlayOneShot(enemyPatrolDeathSound);
                 break;
+            case EnemySoundClips.ExplosiveAntipation:
+                sfxAudioSource.PlayOneShot(enemyWickSound);
+                break;
+            case EnemySoundClips.ExplosiveExplosion:
+                sfxAudioSource.PlayOneShot(enemyExplosion);
+                break;
+
         }
     }
 }

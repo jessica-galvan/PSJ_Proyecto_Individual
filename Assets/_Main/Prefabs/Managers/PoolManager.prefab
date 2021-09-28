@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2396883760233550456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2396883760233550459}
+  - component: {fileID: 2396883760233550458}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2396883760233550459
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396883760233550456}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2396883760233550458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396883760233550456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a95f4c5cbec30a43942195ae5b6b399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rechargeManaPrefab: {fileID: 608373773, guid: f44bf3e25cf69b146a39e41087952271,
+    type: 3}
+  lifeHealPrefab: {fileID: 149139338, guid: a52a3bdb83f5a5a418d8a2c68e49d6ff, type: 3}
+  enemyBaseBulletPrefab: {fileID: -3403772859702390983, guid: c5e6a2ebe9975454598f61b2ecf794cd,
+    type: 3}
+  playerBulletPrefab: {fileID: 698531222225312903, guid: 703240003517a7548acfa66829f70e0c,
+    type: 3}

@@ -1058,6 +1058,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpeed
       objectReference: {fileID: 0}
+    - target: {fileID: 2199086702153931771, guid: 5d434068673d7e74b86c0f607eb93785,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 2199086702153931771, guid: 5d434068673d7e74b86c0f607eb93785,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2199086702153931771, guid: 5d434068673d7e74b86c0f607eb93785,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2199086702153931771, guid: 5d434068673d7e74b86c0f607eb93785,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2199086702153931771, guid: 5d434068673d7e74b86c0f607eb93785,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2357566424796339377, guid: 5d434068673d7e74b86c0f607eb93785,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2357566424796339377, guid: 5d434068673d7e74b86c0f607eb93785,
+        type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8003305562600658013, guid: 5d434068673d7e74b86c0f607eb93785,
         type: 3}
       propertyPath: m_RootOrder
@@ -1081,22 +1116,22 @@ PrefabInstance:
     - target: {fileID: 8003305562600658013, guid: 5d434068673d7e74b86c0f607eb93785,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8003305562600658013, guid: 5d434068673d7e74b86c0f607eb93785,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8003305562600658013, guid: 5d434068673d7e74b86c0f607eb93785,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8003305562600658013, guid: 5d434068673d7e74b86c0f607eb93785,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8003305562600658013, guid: 5d434068673d7e74b86c0f607eb93785,
         type: 3}
@@ -1106,7 +1141,7 @@ PrefabInstance:
     - target: {fileID: 8003305562600658013, guid: 5d434068673d7e74b86c0f607eb93785,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8003305562600658013, guid: 5d434068673d7e74b86c0f607eb93785,
         type: 3}
@@ -3343,6 +3378,8 @@ MonoBehaviour:
   enemyFlyAttackSound: {fileID: 8300000, guid: 952bfa92baa8a9041bc5e33fe8a1444d, type: 3}
   enemyFlyDamageSound: {fileID: 8300000, guid: 378a3e02b6577f74ba9b21a96d9abe48, type: 3}
   enemyFlyDeathSound: {fileID: 8300000, guid: b629a9f00b7e46d47afc7215c89ea8e6, type: 3}
+  enemyWickSound: {fileID: 8300000, guid: b5cbaffe509241049984cee058cd6040, type: 3}
+  enemyExplosion: {fileID: 8300000, guid: 38575e2dcfb883e4ab28a0a9d7715797, type: 3}
   bossAttackSound: {fileID: 0}
   bossDamageSound: {fileID: 0}
   bossDeathSound: {fileID: 0}
@@ -5918,7 +5955,7 @@ PrefabInstance:
     - target: {fileID: 5787261840049859411, guid: 91602b89efc374c4d82f99b78f052d96,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5787261840049859416, guid: 91602b89efc374c4d82f99b78f052d96,
         type: 3}
