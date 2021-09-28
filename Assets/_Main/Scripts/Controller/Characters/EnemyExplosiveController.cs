@@ -7,9 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(ExplosiveAttack))]
 public class EnemyExplosiveController : EnemyController
 {
-    private bool isInCooldown;
     private bool hasExplode;
-    private float currentSpeed;
 
     public ExplosiveAttack ExplosiveAttackController { get; private set; }
     public PatrolMovementController PatrolMovementController { get; private set; }
@@ -19,30 +17,29 @@ public class EnemyExplosiveController : EnemyController
     {
         base.Start();
         FollowPlayerController = GetComponent<FollowPlayerController>();
+        PatrolMovementController = GetComponent<PatrolMovementController>();
         ExplosiveAttackController = GetComponent<ExplosiveAttack>();
         FollowPlayerController.SetStats(_actorStats);
+        ExplosiveAttackController.SetAttackStats(_attackStats);
+
     }
 
     void Update()
     {
-        if (!GameManager.instance.IsGameFreeze && !LifeController.IsDead)
+        if (!GameManager.instance.IsGameFreeze && !LifeController.IsDead && !hasExplode)
         {
             FollowPlayerController.CheckIfPlayerIsInView();
-            currentSpeed = FollowPlayerController.IsFollowingPlayer ? _actorStats.BuffedSpeed : _actorStats.OriginalSpeed;
 
-            if (FollowPlayerController.CanMove)
+            print(FollowPlayerController.IsFollowingPlayer);
+            if (FollowPlayerController.IsFollowingPlayer && FollowPlayerController.CanMove)
             {
-                PatrolMovementController.Move(currentSpeed);
+                _animatorController.SetBool("Walk", FollowPlayerController.CanMove);
+                _animatorController.SetFloat("Speed", _actorStats.BuffedSpeed);
+                PatrolMovementController.Move(_actorStats.BuffedSpeed);
                 PatrolMovementController.CheckGroundDetection();
             }
 
             DoAttack();
-
-            if (!IsAttacking && !hasExplode)
-            {
-                _animatorController.SetBool("Walk", FollowPlayerController.CanMove);
-                _animatorController.SetFloat("Speed", currentSpeed);
-            }
         }
     }
 
@@ -50,6 +47,7 @@ public class EnemyExplosiveController : EnemyController
     {
         base.OnTakeDamage();
         AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDamage);
+        print(LifeController.CurrentLife);
     }
 
     protected override void OnDeath()
@@ -58,6 +56,7 @@ public class EnemyExplosiveController : EnemyController
         {
             base.OnDeath();
             AudioManager.instance.PlayEnemySound(EnemySoundClips.PatrolDead);
+            print("Has explode? " + hasExplode);
         }
     }
 
@@ -65,6 +64,8 @@ public class EnemyExplosiveController : EnemyController
     {
         if (!hasExplode)
             base.DeathAnimationOver();
+        else
+            Destroy(gameObject);
     }
 
     private void DoAttack()

@@ -115,7 +115,7 @@ GameObject:
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1776715997113159277
 Transform:
   m_ObjectHideFlags: 0
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 8828628365887008602}
   - component: {fileID: 1709774562195884489}
   - component: {fileID: 561046817075087751}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemySpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,9 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29f5462d58c916f41b617888f60306eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolPoints:
-  - {fileID: 1776715997113159277}
-  - {fileID: 6663717514761795138}
+  patrolPoints: []
   IsGroundEnemy: 1
   groundDetectionList:
     serializedVersion: 2
@@ -392,6 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 8122500918722708003}
+  ExplosionRadius: 5
 --- !u!1 &4140445395811946694
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +406,7 @@ GameObject:
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6663717514761795138
 Transform:
   m_ObjectHideFlags: 0
