@@ -38,6 +38,8 @@ public class PlayerController : Actor
         InputController.instance.OnJump += OnJump;
         InputController.instance.OnSprint += OnSprint;
         InputController.instance.OnPhysicalAttack += OnPhysicalAttack;
+
+        PhysicalAttackController.PhysicalAttack += OnDoingPhysicalDamage;
     }
 
     private void OnMove(float horizontal)
@@ -74,6 +76,13 @@ public class PlayerController : Actor
         MovementController.Sprint();
     }
 
+    private void OnDoingPhysicalDamage()
+    {
+        if (MagicController.CanRechargeMana())
+        {
+            MagicController.RechargeAmmo(1);
+        }
+    }
 
     protected override void OnTakeDamage()
     {

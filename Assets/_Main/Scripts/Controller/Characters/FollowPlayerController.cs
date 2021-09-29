@@ -19,6 +19,7 @@ public class FollowPlayerController : MonoBehaviour
     private float moveTimer = 0f;
     private bool canReturnToSpawnPoint;
     private bool checkDirection;
+    private Transform target;
 
     public float CurrentSpeed { get; private set; }
     public bool IsFollowingPlayer { get; private set; }
@@ -33,7 +34,7 @@ public class FollowPlayerController : MonoBehaviour
         playerDetectionDistance = Vector2.Distance(transform.position, playerDetectionPoint.position);  //Con esto sacamos a cuanta distancia puede ver. 
         CanMove = true;
     }
-    private void GoAttackPlayer(Transform target)
+    private void SetToFollow()
     {
         if (!IsFollowingPlayer)
         {
@@ -41,26 +42,15 @@ public class FollowPlayerController : MonoBehaviour
             canReturnToSpawnPoint = false;
             CurrentSpeed = _actorStats.BuffedSpeed;
         }
-
-        float distance = Vector2.Distance(target.position, attackPoint.position);
-        if (distance <= enemyController.AttackStats.PhysicalAttackRadious) //Y si esta a una distancia menor o igual al radio de ataque, dejate de mover. 
-        {
-            CanMove = false;
-            IsPlayerInRange = true;
-            enemyController.TargetDetected(true);
-        }
-        else
-        {
-            IsPlayerInRange = false;
-            enemyController.TargetDetected(false);
-            if (!CanMove && Time.time > moveTimer) //Termino animación ataque? Se puede mover
-                CanMove = true;
-        }
+        CheckIfPlayerInRange();
     }
+
     private void ReturnToSpawnPoint()
     {
-        if (CanMove) //Si estabas siguiendo al player
+        if (CanMove && target != null) //Si estabas siguiendo al player
         {
+            target = null;
+            IsPlayerInRange = false;
             CanMove = false;
             CurrentSpeed = _actorStats.OriginalSpeed;
             checkPlayerTimer = checkPlayerTimeDuration;
@@ -71,12 +61,14 @@ public class FollowPlayerController : MonoBehaviour
         {
             CanMove = true;
             canReturnToSpawnPoint = true;
+            checkDirection = true;
         }
 
         if (canReturnToSpawnPoint) //Ahora podes volver al punto de spawn
         {
             if (checkDirection) //hace un check de la direcion del spawnpoint
                 CheckSpawnPointDirection();
+
 
             float difMax = Vector2.Distance(transform.position, spawnPoint); //Si estas cerca del spawnPoint.. 
             if (difMax < 1f)
@@ -85,6 +77,7 @@ public class FollowPlayerController : MonoBehaviour
                 IsFollowingPlayer = false;
             }
         }
+        print("Can Move: " + CanMove);
     }
     private void CheckSpawnPointDirection()
     {
@@ -104,12 +97,41 @@ public class FollowPlayerController : MonoBehaviour
         {
             var player = hit.collider.GetComponent<PlayerController>();
             if (player != null)
-                GoAttackPlayer(hit.collider.transform); //Anda a atacarlo
+            {
+                target = hit.collider.transform;
+                SetToFollow(); //Anda a atacarlo
+            }
+                
         }
         else
         {
-            if (IsFollowingPlayer)
+            if (IsFollowingPlayer && !IsPlayerInRange)
                 ReturnToSpawnPoint(); //Si no lo ves, volve al spawnPoint
+        }
+    }
+
+    public void CheckIfPlayerInRange()
+    {
+        if (target != null)
+        {
+            float distance = Vector2.Distance(target.position, attackPoint.position);
+            if (distance <= enemyController.AttackStats.PhysicalAttackRadious) //Y si esta a una distancia menor o igual al radio de ataque, dejate de mover. 
+            {
+                CanMove = false;
+                IsPlayerInRange = true;
+                enemyController.TargetDetected(true);
+            }
+            else
+            {
+                IsPlayerInRange = false;
+                enemyController.TargetDetected(false);
+                if (!CanMove && Time.time > moveTimer) //Termino animación ataque? Se puede mover
+                    CanMove = true;
+            }
+        }
+        else
+        {
+            IsPlayerInRange = false;
         }
     }
     public void SetStats(ActorStats actor)

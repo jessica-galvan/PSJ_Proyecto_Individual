@@ -28,6 +28,8 @@ public class EnemyPatrolController : EnemyController
         if (!GameManager.instance.IsGameFreeze && !LifeController.IsDead)
         {
             FollowPlayerController.CheckIfPlayerIsInView();
+            FollowPlayerController.CheckIfPlayerInRange();
+
             currentSpeed = FollowPlayerController.IsFollowingPlayer ? _actorStats.BuffedSpeed : _actorStats.OriginalSpeed;
 
             if (FollowPlayerController.CanMove)
@@ -70,7 +72,7 @@ public class EnemyPatrolController : EnemyController
 
     private void DoAttack()
     {
-        if (!IsAttacking && CanAttack && !isInCooldown && FollowPlayerController.IsPlayerInRange)
+        if (!IsAttacking && !isInCooldown && FollowPlayerController.IsPlayerInRange)
         {
             isInCooldown = true;
             _animatorController.SetTrigger("IsAttacking");

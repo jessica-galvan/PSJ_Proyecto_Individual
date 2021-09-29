@@ -43,6 +43,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        GameManager.instance.SetCursorActive(true);
         InputController.instance.OnPause += OnEscape;
     }
 
