@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LifeHeal : InteractableController, IPooleable
+public class LifeHeal : BaseInteractable, IPooleable
 {
     [SerializeField] private PooleableType type;
     public PooleableType Type => type;
 
-    protected override void Interact()
+    public override void Interact()
     {
         if (player.LifeController.CanHeal())
         {

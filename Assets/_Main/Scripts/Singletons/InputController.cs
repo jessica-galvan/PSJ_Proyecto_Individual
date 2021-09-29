@@ -53,9 +53,6 @@ public class InputController : MonoBehaviour
             CheckSprint();
             CheckPhysicalAttack();
             //CheckDash();
-
-            if (Input.GetKeyDown(KeyCode.K))
-                LevelManager.instance.Player.LifeController.TakeDamage(4);
         }
     }
     #endregion

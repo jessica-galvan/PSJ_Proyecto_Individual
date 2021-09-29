@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private List<ICommand> _events = new List<ICommand>();
+
     //SINGLETON
     public static GameManager instance;
 
@@ -29,6 +31,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(_events.Count > 0)
+        {
+            for (int i = _events.Count - 1; i >= 0; i--) //EVENT QUEUE
+            {
+                _events[i].Do();
+                _events.RemoveAt(i);
+            }
+        }
+    }
+
     public void Pause(bool value)
     {
         IsGameFreeze = value;
@@ -42,5 +56,10 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             //TODO: subir musica
         }         
+    }
+
+    public void AddEvent(ICommand command)
+    {
+        _events.Add(command);
     }
 }

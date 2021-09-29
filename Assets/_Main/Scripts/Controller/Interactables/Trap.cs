@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trap : InteractableController
+public class Trap : BaseInteractable
 {
     private float timer;
     private bool canDamage;
@@ -16,8 +16,12 @@ public class Trap : InteractableController
             timer = _interactableStats.DamageTimer;
         }
     }
+    public override void Interact()
+    {
+        canDamage = true;
+    }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void OnTriggerExit2D(Collider2D collision) //When they leave...
     {
         if (player == collision.GetComponent<PlayerController>())
         {
@@ -27,8 +31,4 @@ public class Trap : InteractableController
         }
     }
 
-    protected override void Interact()
-    {
-        canDamage = true;
-    }
 }

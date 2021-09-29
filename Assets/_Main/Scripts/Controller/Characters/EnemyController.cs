@@ -23,7 +23,6 @@ public class EnemyController : Actor
         lifeBar.SetBarVisible(false);
         LifeController.UpdateLifeBar += UpdateLifeBar;
         LevelManager.instance.AddEnemyToList(this);
-        LevelManager.instance.OnPlayerRespawn += OnPlayerRespawnListener;
         TargetDetected(false);
     }
     
@@ -77,11 +76,6 @@ public class EnemyController : Actor
     {
         CanAttack = value;
         this.player = player;
-    }
-
-    protected virtual void OnPlayerRespawnListener()
-    {
-
     }
 
     //private void OnCollisionEnter2D(Collision2D collision)

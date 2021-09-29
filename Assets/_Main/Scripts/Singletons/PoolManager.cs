@@ -8,13 +8,6 @@ public enum PooleableType
     Heal,
     PlayerBullet,
     EnemyBullet,
-    FlyBullet
-}
-public enum BulletType
-{
-    PlayerBullet,
-    EnemyBullet,
-    FlyBullet
 }
 
 public class PoolManager : MonoBehaviour
@@ -22,14 +15,12 @@ public class PoolManager : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private RechargeMana rechargeManaPrefab;
     [SerializeField] private LifeHeal lifeHealPrefab;
-    [SerializeField] private MagicalAttackBullet enemyFlyBulletPrefab;
-    [SerializeField] private MagicalAttackBullet enemyBaseBulletPrefab;
-    [SerializeField] private MagicalAttackBullet playerBulletPrefab;
+    [SerializeField] private MagicalBullet enemyBaseBulletPrefab;
+    [SerializeField] private MagicalBullet playerBulletPrefab;
 
     //Private Pools
     private Pool<MonoBehaviour> lifeHealPool;
     private Pool<MonoBehaviour> manaPool;
-    private Pool<MonoBehaviour> enemyFlyBulletPool;
     private Pool<MonoBehaviour> enemyBaseBulletPool;
     private Pool<MonoBehaviour> playerBulletPool;
 
@@ -51,7 +42,6 @@ public class PoolManager : MonoBehaviour
     {
         lifeHealPool = CreatePool(lifeHealPrefab);
         manaPool = CreatePool(rechargeManaPrefab);
-        enemyFlyBulletPool = CreatePool(enemyFlyBulletPrefab);
         enemyBaseBulletPool = CreatePool(enemyBaseBulletPrefab);
         playerBulletPool = CreatePool(playerBulletPrefab);
     }
@@ -70,8 +60,6 @@ public class PoolManager : MonoBehaviour
                 return lifeHealPool.GetInstance();
             case PooleableType.PlayerBullet:
                 return playerBulletPool.GetInstance();
-            case PooleableType.FlyBullet:
-                return enemyFlyBulletPool.GetInstance();
             case PooleableType.EnemyBullet:
                 return enemyBaseBulletPool.GetInstance() ;
             default:
@@ -96,9 +84,6 @@ public class PoolManager : MonoBehaviour
                     break;
                 case PooleableType.EnemyBullet:
                     enemyBaseBulletPool.Store(item);
-                    break;
-                case PooleableType.FlyBullet:
-                    playerBulletPool.Store(item);
                     break;
                 default:
                     break;

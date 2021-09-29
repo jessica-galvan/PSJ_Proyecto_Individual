@@ -39,8 +39,7 @@ public class EnemyPatrolController : EnemyController
             if (!FollowPlayerController.IsFollowingPlayer)
                 PatrolMovementController.Patrol();
 
-            if (FollowPlayerController.IsPlayerInRange)
-                DoAttack();
+            DoAttack();
 
             if (!IsAttacking)
             {
@@ -71,7 +70,7 @@ public class EnemyPatrolController : EnemyController
 
     private void DoAttack()
     {
-        if (!IsAttacking && CanAttack && !isInCooldown )
+        if (!IsAttacking && CanAttack && !isInCooldown && FollowPlayerController.IsPlayerInRange)
         {
             isInCooldown = true;
             _animatorController.SetTrigger("IsAttacking");
