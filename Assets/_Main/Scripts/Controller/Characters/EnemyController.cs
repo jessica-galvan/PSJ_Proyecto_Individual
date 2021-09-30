@@ -12,6 +12,7 @@ public class EnemyController : Actor
     protected bool canShoot;
     protected PlayerController player;
     protected float cooldownTimer;
+    protected bool isBoss;
 
     public bool FacingRight { get; protected set; }
     public bool CanAttack { get; protected set; }
@@ -29,7 +30,7 @@ public class EnemyController : Actor
     protected void UpdateLifeBar(int currentLife, int maxLife)
     {
         lifeBar.UpdateLifeBar(currentLife, maxLife);
-        if (!lifeBar.IsVisible)
+        if (!lifeBar.IsVisible && !isBoss)
             lifeBar.SetBarVisible(true);
     }
 

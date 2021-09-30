@@ -20,7 +20,7 @@ public class BossFightHUD : MonoBehaviour
     public void AssingBoss(BossController boss)
     {
         _boss = boss;
-        text.text = _boss.name;
+        text.text = _boss.BossName;
         _boss.Enemy.LifeController.UpdateLifeBar += UpdateLife;
         _boss.Enemy.LifeController.OnDie += OnDie;
     }

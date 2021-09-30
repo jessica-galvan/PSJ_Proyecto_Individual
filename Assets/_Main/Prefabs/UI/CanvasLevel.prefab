@@ -157,7 +157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1183570214
 RectTransform:
   m_ObjectHideFlags: 0
@@ -590,7 +590,7 @@ PrefabInstance:
     - target: {fileID: 4362847946256105708, guid: a0cb05a93f6589d48ac80361fdd53b9e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 58
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5586581985565692992, guid: a0cb05a93f6589d48ac80361fdd53b9e,
         type: 3}
@@ -623,6 +623,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 8750020950760879102, guid: 62f6891b362a11c4191f7ecc7d8a47a9,
+        type: 3}
+      propertyPath: bossFightHud
+      value: 
+      objectReference: {fileID: 56420427}
     - target: {fileID: 8750020950760879102, guid: 62f6891b362a11c4191f7ecc7d8a47a9,
         type: 3}
       propertyPath: victoryScreen
