@@ -10,11 +10,14 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameOver gameOverScreen;
+    [SerializeField] private BossFightHUD bossFightHud;
     private bool isCollectableVisible;
 
     public static HUDManager instance;
     public GameOver GameOverScreen => gameOverScreen;
     public GameObject VictoryScreen => victoryScreen;
+
+    public BossFightHUD BossFightHud => bossFightHud;
 
     public void Awake()
     {

@@ -40,19 +40,22 @@ public class PauseMenu : MonoBehaviour
 
     private void CheckIfPause()
     {
-        if (!isActive)
+        if (!LevelManager.instance.IsEnding)
         {
-            Pause();
-        }
-        else
-        {
-            if (!mainMenuActive)
+            if (!isActive)
             {
-                GoBack();
+                Pause();
             }
             else
             {
-                ExitMenu();
+                if (!mainMenuActive)
+                {
+                    GoBack();
+                }
+                else
+                {
+                    ExitMenu();
+                }
             }
         }
     }

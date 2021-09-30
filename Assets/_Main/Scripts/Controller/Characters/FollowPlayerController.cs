@@ -77,8 +77,8 @@ public class FollowPlayerController : MonoBehaviour
                 IsFollowingPlayer = false;
             }
         }
-        print("Can Move: " + CanMove);
     }
+
     private void CheckSpawnPointDirection()
     {
         checkDirection = false;
