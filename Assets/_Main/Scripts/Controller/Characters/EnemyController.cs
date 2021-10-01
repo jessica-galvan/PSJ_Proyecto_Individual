@@ -12,8 +12,8 @@ public class EnemyController : Actor
     protected bool canShoot;
     protected PlayerController player;
     protected float cooldownTimer;
-    protected bool isBoss;
 
+    public bool IsBoss { get; set; }
     public bool FacingRight { get; protected set; }
     public bool CanAttack { get; protected set; }
 
@@ -30,7 +30,7 @@ public class EnemyController : Actor
     protected void UpdateLifeBar(int currentLife, int maxLife)
     {
         lifeBar.UpdateLifeBar(currentLife, maxLife);
-        if (!lifeBar.IsVisible && !isBoss)
+        if (!lifeBar.IsVisible && !IsBoss)
             lifeBar.SetBarVisible(true);
     }
 
@@ -44,7 +44,7 @@ public class EnemyController : Actor
     protected override void OnDeath()
     {
         base.OnDeath();
-        GetComponent<Collider2D>().enabled = false;
+        OnDie?.Invoke();
         lifeBar.SetBarVisible(false);
         gameObject.GetComponent<Collider2D>().enabled = false;
     }
@@ -52,7 +52,8 @@ public class EnemyController : Actor
     protected override void DeathAnimationOver()
     {
         base.DeathAnimationOver();
-        RewardDrop();
+        if(!IsBoss)
+            RewardDrop();
         Destroy(gameObject);
     }
 

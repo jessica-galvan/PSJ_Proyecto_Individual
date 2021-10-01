@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf983fe08eaf7c43b2167e07b3d1fc5, type: 3}
   m_Name: ActorStats_FlyEnemy
   m_EditorClassIdentifier: 
-  _maxLife: 10
+  _maxLife: 2
   _speed: 2
   _buffedSpeed: 5
   canJump: 0

@@ -14,7 +14,6 @@ public class BossFightHUD : MonoBehaviour
     private void Awake()
     {
         lifeBar = GetComponent<UIBarController>();
-        SetHUDActive(false);
     }
 
     public void AssingBoss(BossController boss)
@@ -32,10 +31,9 @@ public class BossFightHUD : MonoBehaviour
 
     public void OnDie()
     {
-        SetHUDActive(false);
-        _boss = null;
         _boss.Enemy.LifeController.UpdateLifeBar -= UpdateLife;
         _boss.Enemy.LifeController.OnDie -= OnDie;
+        _boss = null;
     }
 
     public void SetHUDActive(bool value)

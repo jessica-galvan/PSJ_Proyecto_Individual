@@ -30,7 +30,7 @@ public class EnemyFyController : EnemyController
             CheckArea();
 
             PatrolMovementController.Patrol();
-            if (!isAttacking)
+            if (!isAttacking && !LifeController.IsDead)
                 PatrolMovementController.Move(_actorStats.OriginalSpeed);
 
             if (CanAttack && canShoot && !isAttacking && !MagicController.IsAttacking)

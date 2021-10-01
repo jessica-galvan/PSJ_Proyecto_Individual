@@ -8,14 +8,17 @@ public class BossController : MonoBehaviour
     [SerializeField] private string _name;
     private DetectTargetArea detectionArea;
     private bool canAttack;
+    private bool isDead;
 
     public EnemyController Enemy { get; private set; }
     public string BossName => _name;
 
     private void Awake()
     {
-        Enemy = GetComponentInChildren<EnemyController>();
         detectionArea = GetComponent<DetectTargetArea>();
+        Enemy = GetComponentInChildren<EnemyController>();
+        Enemy.IsBoss = true;
+        Enemy.OnDie += OnDie;
     }
 
     void Start()
@@ -28,18 +31,23 @@ public class BossController : MonoBehaviour
     private void Update()
     {
         CheckArea();
-    }
 
-    public void Reset()
-    {
-        
+        if (canAttack && !isDead)
+        {
+            print("visible");
+            ActivateBossHUD(true);
+        }
+        else
+        {
+            print("no visible");
+            ActivateBossHUD(false);
+        }
     }
 
     private void CheckArea()
     {
         detectionArea.CheckArea();
         canAttack = detectionArea.DetectTarget();
-        ActivateBossHUD(canAttack);
     }
 
     public void ActivateBossHUD(bool value)
@@ -47,4 +55,9 @@ public class BossController : MonoBehaviour
         HUDManager.instance.BossFightHud.SetHUDActive(value);
     }
 
+    private void OnDie()
+    {
+        isDead = true;
+        Enemy.OnDie -= OnDie;
+    }
 }
