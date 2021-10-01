@@ -91,4 +91,9 @@ public class MainMenu : MonoBehaviour
         GameManager.instance.AddEvent(quitCommand);
         Debug.Log("Cerramos el juego");
     }
+
+    private void OnDestroy()
+    {
+        InputController.instance.OnPause -= OnEscape;
+    }
 }

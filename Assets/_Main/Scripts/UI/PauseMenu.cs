@@ -126,4 +126,9 @@ public class PauseMenu : MonoBehaviour
         GameManager.instance.AddEvent(quitCommand);
         Debug.Log("Se cierra el juego");
     }
+
+    private void OnDestroy()
+    {
+        InputController.instance.OnPause -= CheckIfPause;
+    }
 }

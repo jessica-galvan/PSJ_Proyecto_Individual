@@ -67,4 +67,9 @@ public class HUDManager : MonoBehaviour
         LevelManager.instance.Player.MagicController.UpdateMana += UpdateMana;
         LevelManager.instance.OnPlayerAssing -= PlayerAssing;
     }
+
+    public void OnDestroy()
+    {
+        LevelManager.instance.Player.MagicController.UpdateMana -= UpdateMana;
+    }
 }

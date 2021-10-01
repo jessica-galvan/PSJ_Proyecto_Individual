@@ -21,8 +21,8 @@ public class LevelManager : MonoBehaviour
     public bool IsEnding { get; private set; }
 
     //EVENTS
-    public Action OnChangeCurrentEnemies;
-    public Action OnChangeCollectable;
+    //public Action OnChangeCurrentEnemies;
+    //public Action OnChangeCollectable;
     public Action OnPlayerRespawn;
     public Action OnPlayerAssing;
 
@@ -66,7 +66,6 @@ public class LevelManager : MonoBehaviour
             GameManager.instance.Pause(true);
             HUDManager.instance.IsParticleSystemVisible(false);
             gameOverEffect.SetGameOver(true);
-            //restartCooldown = Time.deltaTime + restartTimer;
         }
     }
 
