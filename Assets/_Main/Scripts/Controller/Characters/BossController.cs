@@ -6,6 +6,8 @@ using UnityEngine;
 public class BossController : MonoBehaviour
 {
     [SerializeField] private string _name;
+    [SerializeField] private Transform collectableSpawnPoint;
+    [SerializeField] private GameObject collectablePrefab;
     private DetectTargetArea detectionArea;
     private bool canAttack;
     private bool isDead;
@@ -59,5 +61,6 @@ public class BossController : MonoBehaviour
     {
         isDead = true;
         Enemy.OnDie -= OnDie;
+        Instantiate(collectablePrefab, collectableSpawnPoint);
     }
 }
