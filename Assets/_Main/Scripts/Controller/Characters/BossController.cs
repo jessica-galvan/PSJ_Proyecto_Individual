@@ -2,26 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(DetectTargetArea))]
 public class BossController : MonoBehaviour
 {
     [SerializeField] private string _name;
     [SerializeField] private Transform collectableSpawnPoint;
     [SerializeField] private GameObject collectablePrefab;
     [SerializeField] private GameObject exit;
-    private DetectTargetArea detectionArea;
-    private bool canAttack;
     private bool isDead;
+    private bool isInBattle;
 
     public EnemyController Enemy { get; private set; }
     public string BossName => _name;
 
     private void Awake()
     {
-        detectionArea = GetComponent<DetectTargetArea>();
         Enemy = GetComponentInChildren<EnemyController>();
         Enemy.IsBoss = true;
-        Enemy.OnDie += OnDie;
+        Enemy.OnDeathAnimation += OnDie;
         exit.SetActive(false);
     }
 
@@ -32,39 +29,33 @@ public class BossController : MonoBehaviour
         ActivateBossHUD(false);
     }
 
-    private void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        CheckArea();
-
-        if (canAttack && !isDead)
+        var player = collision.GetComponent<PlayerController>();
+        if (player != null && !isDead && !isInBattle)
             ActivateBossHUD(true);
-        else
-            ActivateBossHUD(false);
-    }
-
-    private void CheckArea()
-    {
-        detectionArea.CheckArea();
-        canAttack = detectionArea.DetectTarget();
     }
 
     public void ActivateBossHUD(bool value)
     {
+        isInBattle = value;
         HUDManager.instance.BossFightHud.SetHUDActive(value);
     }
 
     private void OnDie()
     {
+        ActivateBossHUD(false);
         isDead = true;
-        Enemy.OnDie -= OnDie;
+        Enemy.OnDeathAnimation -= OnDie;
         LevelManager.instance.OnPlayerRespawn -= ResetStats;
-        exit.SetActive(false);
+        exit.SetActive(true);
         var collectable = Instantiate(collectablePrefab, collectableSpawnPoint);
         collectable.transform.position = collectableSpawnPoint.position;
     }
 
     private void ResetStats()
     {
+        ActivateBossHUD(false);
         Enemy.LifeController.Heal(Enemy.LifeController.MaxLife);
     }
 }

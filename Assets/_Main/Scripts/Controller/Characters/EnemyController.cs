@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class EnemyController : Actor
     public bool IsBoss { get; set; }
     public bool FacingRight { get; protected set; }
     public bool CanAttack { get; protected set; }
+
+    public Action OnDeathAnimation;
 
     protected override void Start()
     {
@@ -52,6 +55,7 @@ public class EnemyController : Actor
     protected override void DeathAnimationOver()
     {
         base.DeathAnimationOver();
+        OnDeathAnimation?.Invoke();
         if(!IsBoss)
             RewardDrop();
         Destroy(gameObject);
@@ -59,7 +63,7 @@ public class EnemyController : Actor
 
     protected void RewardDrop()
     {
-        var random = Random.Range(0, 2);
+        var random = UnityEngine.Random.Range(0, 2);
 
         switch (random)
         {
