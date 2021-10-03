@@ -931,46 +931,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpeed
       objectReference: {fileID: 0}
-    - target: {fileID: 782132442157637181, guid: 5d434068673d7e74b86c0f607eb93785,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2199086702153931771, guid: 5d434068673d7e74b86c0f607eb93785,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 2199086702153931771, guid: 5d434068673d7e74b86c0f607eb93785,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2199086702153931771, guid: 5d434068673d7e74b86c0f607eb93785,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2199086702153931771, guid: 5d434068673d7e74b86c0f607eb93785,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2199086702153931771, guid: 5d434068673d7e74b86c0f607eb93785,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2357566424796339377, guid: 5d434068673d7e74b86c0f607eb93785,
-        type: 3}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2357566424796339377, guid: 5d434068673d7e74b86c0f607eb93785,
-        type: 3}
-      propertyPath: m_FlipY
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8003305562600658013, guid: 5d434068673d7e74b86c0f607eb93785,
         type: 3}
       propertyPath: m_RootOrder

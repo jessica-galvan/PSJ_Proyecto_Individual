@@ -50,3 +50,5 @@ MonoBehaviour:
     type: 3}
   playerBulletPrefab: {fileID: 698531222225312903, guid: 703240003517a7548acfa66829f70e0c,
     type: 3}
+  bossBulletPrefab: {fileID: -1521665182290022033, guid: eeff9aa35fd5c874399028f46c3dbcbf,
+    type: 3}

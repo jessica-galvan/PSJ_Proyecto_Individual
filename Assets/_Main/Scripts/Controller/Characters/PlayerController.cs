@@ -30,6 +30,12 @@ public class PlayerController : Actor
     }
     #endregion
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+            OnTakeDamage();
+    }
+
     #region Privados
     private void SubscribeEvents()
     {
@@ -81,6 +87,7 @@ public class PlayerController : Actor
         if (MagicController.CanRechargeMana())
         {
             MagicController.RechargeAmmo(1);
+            AudioManager.instance.PlayPlayerSound(PlayerSoundClips.ReloadMana);
         }
     }
 
