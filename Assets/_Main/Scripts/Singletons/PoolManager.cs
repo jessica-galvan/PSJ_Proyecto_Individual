@@ -8,6 +8,7 @@ public enum PooleableType
     Heal,
     PlayerBullet,
     EnemyBullet,
+    BossBullet
 }
 
 public class PoolManager : MonoBehaviour
@@ -17,12 +18,14 @@ public class PoolManager : MonoBehaviour
     [SerializeField] private LifeHeal lifeHealPrefab;
     [SerializeField] private MagicalBullet enemyBaseBulletPrefab;
     [SerializeField] private MagicalBullet playerBulletPrefab;
+    [SerializeField] private MagicalBossBullet bossBulletPrefab;
 
     //Private Pools
     private Pool<MonoBehaviour> lifeHealPool;
     private Pool<MonoBehaviour> manaPool;
     private Pool<MonoBehaviour> enemyBaseBulletPool;
     private Pool<MonoBehaviour> playerBulletPool;
+    private Pool<MonoBehaviour> bossBulletPool;
 
     public static PoolManager instance;
 
@@ -44,6 +47,7 @@ public class PoolManager : MonoBehaviour
         manaPool = CreatePool(rechargeManaPrefab);
         enemyBaseBulletPool = CreatePool(enemyBaseBulletPrefab);
         playerBulletPool = CreatePool(playerBulletPrefab);
+        bossBulletPool = CreatePool(bossBulletPrefab);
     }
 
     private Pool<MonoBehaviour> CreatePool(MonoBehaviour item)
@@ -61,7 +65,9 @@ public class PoolManager : MonoBehaviour
             case PooleableType.PlayerBullet:
                 return playerBulletPool.GetInstance();
             case PooleableType.EnemyBullet:
-                return enemyBaseBulletPool.GetInstance() ;
+                return enemyBaseBulletPool.GetInstance();
+            case PooleableType.BossBullet:
+                return bossBulletPool.GetInstance();
             default:
                 return null;
         }
@@ -84,6 +90,9 @@ public class PoolManager : MonoBehaviour
                     break;
                 case PooleableType.EnemyBullet:
                     enemyBaseBulletPool.Store(item);
+                    break;
+                case PooleableType.BossBullet:
+                    bossBulletPool.Store(item);
                     break;
                 default:
                     break;

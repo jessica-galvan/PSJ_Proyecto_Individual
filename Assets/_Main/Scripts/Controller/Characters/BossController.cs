@@ -8,6 +8,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private string _name;
     [SerializeField] private Transform collectableSpawnPoint;
     [SerializeField] private GameObject collectablePrefab;
+    [SerializeField] private GameObject exit;
     private DetectTargetArea detectionArea;
     private bool canAttack;
     private bool isDead;
@@ -21,13 +22,14 @@ public class BossController : MonoBehaviour
         Enemy = GetComponentInChildren<EnemyController>();
         Enemy.IsBoss = true;
         Enemy.OnDie += OnDie;
+        exit.SetActive(false);
     }
 
     void Start()
     {
         HUDManager.instance.BossFightHud.AssingBoss(this);
+        LevelManager.instance.OnPlayerRespawn += ResetStats;
         ActivateBossHUD(false);
-        //TODO: Activate boss fight mode, UI, no escape. reset when players die.
     }
 
     private void Update()
@@ -35,15 +37,9 @@ public class BossController : MonoBehaviour
         CheckArea();
 
         if (canAttack && !isDead)
-        {
-            print("visible");
             ActivateBossHUD(true);
-        }
         else
-        {
-            print("no visible");
             ActivateBossHUD(false);
-        }
     }
 
     private void CheckArea()
@@ -61,6 +57,14 @@ public class BossController : MonoBehaviour
     {
         isDead = true;
         Enemy.OnDie -= OnDie;
-        Instantiate(collectablePrefab, collectableSpawnPoint);
+        LevelManager.instance.OnPlayerRespawn -= ResetStats;
+        exit.SetActive(false);
+        var collectable = Instantiate(collectablePrefab, collectableSpawnPoint);
+        collectable.transform.position = collectableSpawnPoint.position;
+    }
+
+    private void ResetStats()
+    {
+        Enemy.LifeController.Heal(Enemy.LifeController.MaxLife);
     }
 }

@@ -122,10 +122,5 @@ public class LevelManager : MonoBehaviour
         Player.transform.position = playerCurrentCheckpoint;
         Player.LifeController.Respawn();
     }
-
-    public void AssingBossLevel(BossController boss)
-    {
-
-    }
     #endregion
 }

@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicalBullet : MonoBehaviour, IPooleable, IBullet
+public class MagicalBossBullet : MonoBehaviour, IPooleable, IBullet
 {
     [SerializeField] private PooleableType type;
+    [SerializeField] private GameObject trapPrefab;
+    private Vector2 offset = new Vector2(0, -0.3f);
     private AttackStats _attackStats;
     private bool canMove;
     private float timer;
@@ -26,33 +28,48 @@ public class MagicalBullet : MonoBehaviour, IPooleable, IBullet
         {
             direction = target.position - shootingPoint.position;
             var rotation = direction.normalized;
-            transform.right = rotation; 
+            transform.right = rotation;
         }
     }
 
     void Update()
     {
-        if (canMove)
-            transform.position += (Vector3) direction * _attackStats.SpellSpeed * Time.deltaTime;
-
-
-
         timer -= Time.deltaTime;
         if (timer <= 0)
             OnCollision();
+
+        if (canMove)
+            transform.position += (Vector3)direction * _attackStats.SpellSpeed * Time.deltaTime;
+
+
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        LifeController life = collision.GetComponent<LifeController>(); 
+        LifeController life = collision.GetComponent<LifeController>();
         if (life != null)
         {
             life.TakeDamage(_attackStats.MagicalDamage);
             OnCollision();
         }
-
-        if (collision.gameObject.layer == 10) //Si collisiona con ground layer...
-            OnCollision();
+        else if (collision.gameObject.layer == 10) //Si collisiona con ground layer...
+        {
+            print(collision.name);
+            Vector3 position = transform.position;
+            Trap(position);
+        }
+    }
+    private void Trap(Vector3 position)
+    {
+        var number = Random.Range(0, 2);
+        print(number);
+        if(number == 0) //para que no lo haga en todas las balas.
+        {
+            var trap = Instantiate(trapPrefab);
+            trap.transform.position = position + (Vector3)offset;
+        }
+        OnCollision();
     }
 
     private void OnCollision()

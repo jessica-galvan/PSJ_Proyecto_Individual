@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4430448068982346451}
   - component: {fileID: 4886872407125728330}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hongo1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 9110743761854348776}
   - component: {fileID: 913804686329367170}
   - component: {fileID: 631303239}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: LittleMushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,6 +177,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -199,7 +200,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1128818861
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e9db6f8f17e3df94085b6f4fcceaa936, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -338,7 +339,7 @@ GameObject:
   - component: {fileID: 9110743762900444283}
   - component: {fileID: 9110743762900444285}
   - component: {fileID: 9110743762900444284}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Bouncy
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -387,6 +388,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81386bbb9db0f2f4d9c50e532783c153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canBounce: 1
-  jumpForce: 4.5
   bounceSound: {fileID: 4886872407125728330}
