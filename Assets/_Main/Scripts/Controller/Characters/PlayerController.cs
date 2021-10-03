@@ -30,12 +30,6 @@ public class PlayerController : Actor
     }
     #endregion
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-            OnTakeDamage();
-    }
-
     #region Privados
     private void SubscribeEvents()
     {
@@ -93,8 +87,8 @@ public class PlayerController : Actor
 
     protected override void OnTakeDamage()
     {
-        base.OnTakeDamage();
         AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Damage);
+        base.OnTakeDamage();
     }
 
     protected override void OnDeath()

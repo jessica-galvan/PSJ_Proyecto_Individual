@@ -25,7 +25,7 @@ public class EnemyFyController : EnemyController
 
     void Update()
     {
-        if(!GameManager.instance.IsGameFreeze)
+        if(!GameManager.instance.IsGameFreeze && !LifeController.IsDead)
         {
             CheckArea();
 
