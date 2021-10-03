@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8091070070030651843}
   - component: {fileID: 1034032810060844275}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hongo3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 7740819959835309748}
   - component: {fileID: 7740819959835309746}
   - component: {fileID: 7740819959835309747}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bouncy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,8 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81386bbb9db0f2f4d9c50e532783c153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canBounce: 1
-  jumpForce: 5
   bounceSound: {fileID: 1034032810060844275}
 --- !u!1 &7740819961032666920
 GameObject:
@@ -201,7 +199,7 @@ GameObject:
   - component: {fileID: 7740819961032666918}
   - component: {fileID: 7740819961032666919}
   - component: {fileID: 1850217582360664141}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: MediumMushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,6 +237,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -261,7 +260,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1128818861
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 70f7988b0b143774d9fd163354220e12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

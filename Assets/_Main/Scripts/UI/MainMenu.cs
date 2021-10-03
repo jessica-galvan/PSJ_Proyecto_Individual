@@ -43,6 +43,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        GameManager.instance.SetCursorActive(true);
         InputController.instance.OnPause += OnEscape;
     }
 
@@ -54,7 +55,6 @@ public class MainMenu : MonoBehaviour
 
     private void OnClickPlayHandler()
     {
-        //SceneManager.LoadScene(gameSceneName);
         loadCommand = new LoadSceneCommand(gameSceneName);
         GameManager.instance.AddEvent(loadCommand);
     }
@@ -85,9 +85,13 @@ public class MainMenu : MonoBehaviour
 
     private void OnClickQuitHandler()
     {
-        //Application.Quit();
         quitCommand = new ApplicationQuitCommand();
         GameManager.instance.AddEvent(quitCommand);
         Debug.Log("Cerramos el juego");
+    }
+
+    private void OnDestroy()
+    {
+        InputController.instance.OnPause -= OnEscape;
     }
 }

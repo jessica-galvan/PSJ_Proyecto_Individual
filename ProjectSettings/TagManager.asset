@@ -17,14 +17,14 @@ TagManager:
   - Water
   - UI
   - Interactables
-  - 
+  - PlayerBullet
   - Player
   - Enemy
   - Ground
   - EnemyBarrier
   - Traps
   - DetectionZone
-  - 
+  - Mushroom
   - 
   - 
   - 
@@ -45,6 +45,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Sky
+    uniqueID: 1224115667
+    locked: 0
+  - name: ParallaxBG
+    uniqueID: 2616214279
+    locked: 0
+  - name: Pattern
+    uniqueID: 2571843655
     locked: 0
   - name: Background
     uniqueID: 542050691

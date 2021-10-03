@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1370262007225836369}
   - component: {fileID: 141956984236759928}
   - component: {fileID: 331570485}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Bouncy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81386bbb9db0f2f4d9c50e532783c153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canBounce: 1
-  jumpForce: 8
   bounceSound: {fileID: 5189341374396609337}
 --- !u!68 &141956984236759928
 EdgeCollider2D:
@@ -75,6 +73,10 @@ EdgeCollider2D:
   - {x: 1.4715592, y: 1.7151564}
   - {x: 1.5874878, y: 1.416107}
   - {x: 1.6056687, y: 1.1855391}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!251 &331570485
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -105,7 +107,7 @@ GameObject:
   - component: {fileID: 1370262008239143620}
   - component: {fileID: 1370262008239143621}
   - component: {fileID: 7045186322685644207}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BigDoubleMushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,6 +147,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -167,7 +170,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1128818861
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9e31df81976fe7a4e9f5e7e365735d36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -209,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2055372309627794707}
   - component: {fileID: 2012891362579876906}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hongo8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +341,7 @@ GameObject:
   - component: {fileID: 9102770694040033802}
   - component: {fileID: 3263923413281866394}
   - component: {fileID: 331570484}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: Bouncy (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,8 +374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81386bbb9db0f2f4d9c50e532783c153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canBounce: 1
-  jumpForce: 7
   bounceSound: {fileID: 2012891362579876906}
 --- !u!68 &3263923413281866394
 EdgeCollider2D:
@@ -401,6 +402,10 @@ EdgeCollider2D:
   - {x: -0.8766387, y: 0.96377444}
   - {x: -0.67022544, y: 1.0066774}
   - {x: -0.45346674, y: 0.9018495}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!251 &331570484
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -430,7 +435,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8730418711978290102}
   - component: {fileID: 5189341374396609337}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hongo7
   m_TagString: Untagged
   m_Icon: {fileID: 0}

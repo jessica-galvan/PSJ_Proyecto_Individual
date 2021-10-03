@@ -150,7 +150,7 @@ public class AudioManager : MonoBehaviour
                 playerAudioSource.PlayOneShot(reloadManaSound);
                 break;
             case PlayerSoundClips.Damage:
-                playerAudioSource.PlayOneShot(reloadManaSound);
+                playerAudioSource.PlayOneShot(damageSound);
                 break;
             case PlayerSoundClips.CheckPoint:
                 playerAudioSource.PlayOneShot(checkPointSound);

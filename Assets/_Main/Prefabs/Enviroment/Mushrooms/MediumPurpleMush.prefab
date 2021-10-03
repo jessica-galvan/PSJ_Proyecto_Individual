@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6233813976377319920}
   - component: {fileID: 6233813976377319927}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RightCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 2613026096749146993}
   - component: {fileID: 297986237480903377}
   - component: {fileID: 8445192151082966551}
-  m_Layer: 10
+  m_Layer: 14
   m_Name: MediumPurpleMush
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -109,6 +109,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -131,7 +132,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1128818861
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 799c40458cb001745b33f9ead7fbdb8b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -188,6 +189,10 @@ EdgeCollider2D:
   - {x: 0.4405772, y: 0.50710243}
   - {x: 0.5756318, y: 0.5207707}
   - {x: 0.7063319, y: 0.5408494}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!251 &8445192151082966551
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -217,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6233813977511244225}
   - component: {fileID: 6233813977511244224}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BottomCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6233813977986045396}
   - component: {fileID: 6233813977986045403}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: LeftCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

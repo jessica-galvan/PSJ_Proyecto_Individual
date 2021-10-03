@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     public void Pause(bool value)
     {
         IsGameFreeze = value;
+        SetCursorActive(value);
         if (value)
         {
             Time.timeScale = 0;
@@ -61,5 +62,13 @@ public class GameManager : MonoBehaviour
     public void AddEvent(ICommand command)
     {
         _events.Add(command);
+    }
+
+    public void SetCursorActive(bool value)
+    {
+        if (value)
+            Cursor.lockState = CursorLockMode.None;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
     }
 }

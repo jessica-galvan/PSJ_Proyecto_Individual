@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicalBullet : MonoBehaviour, IPooleable
+public class MagicalBullet : MonoBehaviour, IPooleable, IBullet
 {
     [SerializeField] private PooleableType type;
     private AttackStats _attackStats;

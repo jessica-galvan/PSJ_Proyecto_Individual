@@ -70,12 +70,6 @@ public class EnemyExplosiveController : EnemyController
             Destroy(gameObject);
     }
 
-    private void Explosion()
-    {
-        AudioManager.instance.PlayEnemySound(EnemySoundClips.ExplosiveExplosion);
-        ExplosiveAttackController.Attack();
-    }
-
     private void DoAttack()
     {
         if (!hasExplode && FollowPlayerController.IsPlayerInRange)
@@ -84,5 +78,11 @@ public class EnemyExplosiveController : EnemyController
             _animatorController.SetTrigger("IsAttacking");
             AudioManager.instance.PlayEnemySound(EnemySoundClips.ExplosiveAntipation);
         }
+    }
+
+    private void Explosion()
+    {
+        AudioManager.instance.PlayEnemySound(EnemySoundClips.ExplosiveExplosion);
+        ExplosiveAttackController.Attack();
     }
 }

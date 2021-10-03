@@ -40,19 +40,22 @@ public class PauseMenu : MonoBehaviour
 
     private void CheckIfPause()
     {
-        if (!isActive)
+        if (!LevelManager.instance.IsEnding)
         {
-            Pause();
-        }
-        else
-        {
-            if (!mainMenuActive)
+            if (!isActive)
             {
-                GoBack();
+                Pause();
             }
             else
             {
-                ExitMenu();
+                if (!mainMenuActive)
+                {
+                    GoBack();
+                }
+                else
+                {
+                    ExitMenu();
+                }
             }
         }
     }
@@ -106,7 +109,6 @@ public class PauseMenu : MonoBehaviour
 
     private void OnClickMenuHandler()
     {
-        //SceneManager.LoadScene("MainMenu");
         loadCommand = new LoadSceneCommand("MainMenu");
         GameManager.instance.AddEvent(loadCommand);
     }
@@ -118,9 +120,13 @@ public class PauseMenu : MonoBehaviour
 
     private void OnClickQuitHandler()
     {
-        //Application.Quit();
         quitCommand = new ApplicationQuitCommand();
         GameManager.instance.AddEvent(quitCommand);
         Debug.Log("Se cierra el juego");
+    }
+
+    private void OnDestroy()
+    {
+        InputController.instance.OnPause -= CheckIfPause;
     }
 }

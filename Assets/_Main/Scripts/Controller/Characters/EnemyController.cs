@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,8 +14,11 @@ public class EnemyController : Actor
     protected PlayerController player;
     protected float cooldownTimer;
 
+    public bool IsBoss { get; set; }
     public bool FacingRight { get; protected set; }
     public bool CanAttack { get; protected set; }
+
+    public Action OnDeathAnimation;
 
     protected override void Start()
     {
@@ -29,7 +33,7 @@ public class EnemyController : Actor
     protected void UpdateLifeBar(int currentLife, int maxLife)
     {
         lifeBar.UpdateLifeBar(currentLife, maxLife);
-        if (!lifeBar.IsVisible)
+        if (!lifeBar.IsVisible && !IsBoss)
             lifeBar.SetBarVisible(true);
     }
 
@@ -43,7 +47,7 @@ public class EnemyController : Actor
     protected override void OnDeath()
     {
         base.OnDeath();
-        GetComponent<Collider2D>().enabled = false;
+        OnDie?.Invoke();
         lifeBar.SetBarVisible(false);
         gameObject.GetComponent<Collider2D>().enabled = false;
     }
@@ -51,13 +55,15 @@ public class EnemyController : Actor
     protected override void DeathAnimationOver()
     {
         base.DeathAnimationOver();
-        RewardDrop();
+        OnDeathAnimation?.Invoke();
+        if(!IsBoss)
+            RewardDrop();
         Destroy(gameObject);
     }
 
     protected void RewardDrop()
     {
-        var random = Random.Range(0, 2);
+        var random = UnityEngine.Random.Range(0, 2);
 
         switch (random)
         {

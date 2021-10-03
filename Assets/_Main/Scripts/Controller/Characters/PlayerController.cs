@@ -38,6 +38,8 @@ public class PlayerController : Actor
         InputController.instance.OnJump += OnJump;
         InputController.instance.OnSprint += OnSprint;
         InputController.instance.OnPhysicalAttack += OnPhysicalAttack;
+
+        PhysicalAttackController.PhysicalAttack += OnDoingPhysicalDamage;
     }
 
     private void OnMove(float horizontal)
@@ -74,11 +76,19 @@ public class PlayerController : Actor
         MovementController.Sprint();
     }
 
+    private void OnDoingPhysicalDamage()
+    {
+        if (MagicController.CanRechargeMana())
+        {
+            MagicController.RechargeAmmo(1);
+            AudioManager.instance.PlayPlayerSound(PlayerSoundClips.ReloadMana);
+        }
+    }
 
     protected override void OnTakeDamage()
     {
-        base.OnTakeDamage();
         AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Damage);
+        base.OnTakeDamage();
     }
 
     protected override void OnDeath()
@@ -87,13 +97,24 @@ public class PlayerController : Actor
         AudioManager.instance.PlayPlayerSound(PlayerSoundClips.Dead);
         OnDie?.Invoke(); //TODO: Fix Bug DeathAnimationOver invoke on player.
     }
+
+    private void OnDestroy()
+    {
+        InputController.instance.OnMove -= OnMove;
+        InputController.instance.OnShoot -= OnShoot;
+        InputController.instance.OnJump -= OnJump;
+        InputController.instance.OnSprint -= OnSprint;
+        InputController.instance.OnPhysicalAttack -= OnPhysicalAttack;
+
+        PhysicalAttackController.PhysicalAttack -= OnDoingPhysicalDamage;
+    }
     #endregion
 
     #region Publicos
     public void PickUpCollectable(int value)
     {
         collectableCount += value;
-        HUDManager.instance.UpdateScore(value);
+        HUDManager.instance.UpdateScore(collectableCount);
     }
 
     public bool CanHeadKill()
