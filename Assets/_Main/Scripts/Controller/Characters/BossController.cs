@@ -32,7 +32,7 @@ public class BossController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var player = collision.GetComponent<PlayerController>();
-        if (player != null && !isDead && !isInBattle)
+        if (player != null && !isDead && !isInBattle && Enemy != null)
             ActivateBossHUD(true);
     }
 

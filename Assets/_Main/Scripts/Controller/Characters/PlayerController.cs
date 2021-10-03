@@ -113,7 +113,7 @@ public class PlayerController : Actor
     public void PickUpCollectable(int value)
     {
         collectableCount += value;
-        HUDManager.instance.UpdateScore(value);
+        HUDManager.instance.UpdateScore(collectableCount);
     }
 
     public bool CanHeadKill()
