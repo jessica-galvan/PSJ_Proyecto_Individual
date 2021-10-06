@@ -25,12 +25,12 @@ public class EnemyFyController : EnemyController
 
     void Update()
     {
-        if(!GameManager.instance.IsGameFreeze)
+        if(!GameManager.instance.IsGameFreeze && !LifeController.IsDead)
         {
             CheckArea();
 
             PatrolMovementController.Patrol();
-            if (!isAttacking)
+            if (!isAttacking && !LifeController.IsDead)
                 PatrolMovementController.Move(_actorStats.OriginalSpeed);
 
             if (CanAttack && canShoot && !isAttacking && !MagicController.IsAttacking)

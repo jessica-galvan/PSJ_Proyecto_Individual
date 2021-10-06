@@ -18,9 +18,11 @@ public class LevelManager : MonoBehaviour
     // Propierties
     public PlayerController Player { get; private set; }
 
+    public bool IsEnding { get; private set; }
+
     //EVENTS
-    public Action OnChangeCurrentEnemies;
-    public Action OnChangeCollectable;
+    //public Action OnChangeCurrentEnemies;
+    //public Action OnChangeCollectable;
     public Action OnPlayerRespawn;
     public Action OnPlayerAssing;
 
@@ -60,10 +62,10 @@ public class LevelManager : MonoBehaviour
     {
         if (!GameManager.instance.IsGameFreeze)
         {
+            IsEnding = true;
             GameManager.instance.Pause(true);
             HUDManager.instance.IsParticleSystemVisible(false);
             gameOverEffect.SetGameOver(true);
-            //restartCooldown = Time.deltaTime + restartTimer;
         }
     }
 
@@ -92,6 +94,7 @@ public class LevelManager : MonoBehaviour
     {
         if (!GameManager.instance.IsGameFreeze)
         {
+            IsEnding = true;
             GameManager.instance.Pause(true);
             victoryScreen.SetActive(true);
         }
@@ -111,6 +114,7 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLastCheckpoint()
     {
+        IsEnding = false;
         GameManager.instance.Pause(false);
         gameOverEffect.SetGameOver(false);
         HUDManager.instance.IsParticleSystemVisible(true);

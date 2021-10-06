@@ -22,7 +22,7 @@ public class EnemyStaticController : EnemyController
         {
             CheckArea();
 
-            if (CanAttack)
+            if (CanAttack && !LifeController.IsDead)
             {
                 CheckPlayerLocation();
                 Attack();

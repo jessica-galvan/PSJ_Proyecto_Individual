@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &898057852
 Transform:
   m_ObjectHideFlags: 0
@@ -70,7 +70,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adcdacf40b2ca2349b44077840f79289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canBeKilled: 1
 --- !u!1 &1433766463571121059
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +414,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5787261840049859411}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -1.2118888, y: -4.5540543, z: 248.15163}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 612927236881340076}
@@ -466,7 +465,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 718143559
-  m_SortingLayer: 3
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -3757509624264599027, guid: c2a7b0194d85aa94b87260244bdbfb3b,
     type: 3}
@@ -592,10 +591,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29f5462d58c916f41b617888f60306eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsGroundEnemy: 1
   patrolPoints:
   - {fileID: 612927236881340076}
   - {fileID: 3697655210000926120}
+  IsGroundEnemy: 1
   groundDetectionList:
     serializedVersion: 2
     m_Bits: 1024
@@ -613,7 +612,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkPlayerTimeDuration: 5
-  moveCooldown: 0.8
   attackPoint: {fileID: 5511854871294019161}
   playerDetectionPoint: {fileID: 6246200215725301355}
 --- !u!1 &6610763774825115603
